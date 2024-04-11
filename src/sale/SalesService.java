@@ -1,4 +1,4 @@
 package sale;
 
-public interface SalesService {
+public class SalesService {
 }

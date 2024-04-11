@@ -1,4 +1,5 @@
 package product;
 
-public interface ProductDAO {
+public interface ProductDAO   {
+
 }
