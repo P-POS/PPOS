@@ -1,4 +1,4 @@
 package SalesHistory;
 
-public interface SalesHistoryService {
+public class SalesHistoryService {
 }

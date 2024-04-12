@@ -1,4 +1,4 @@
 package product;
 
-public interface ProductService {
+public class ProductService {
 }

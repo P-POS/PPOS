@@ -1,4 +1,4 @@
 package ProductInventory;
 
-public interface InventoryService {
+public class InventoryService {
 }
