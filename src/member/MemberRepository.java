@@ -1,6 +1,35 @@
 package member;
 
-public class MemberRepository implements MemberDAO{
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class MemberRepository implements MemberDAO {
+
+    DBConnection dbConnector;
+    Statement stmt;
+
+    MemberRepository() {
+        dbConnector = new DBConnection();
+
+        try {
+            stmt = dbConnector.createStatement();
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM User;");
+            resultSet.next();
+            System.out.println(resultSet.getString(2));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
+        }
+    }
 
     @Override
     public void createMember(String memberName) {
