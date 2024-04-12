@@ -7,5 +7,4 @@ public class MemberPopupView {
     MemberPopupView(MemberPopupController memberPopupController) {
         this.memberPopupController = memberPopupController;
     }
-
 }
