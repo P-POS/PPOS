@@ -1,4 +1,4 @@
 package member;
 
-public interface MemberService {
+public class MemberService {
 }

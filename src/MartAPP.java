@@ -1,7 +1,8 @@
 import java.sql.*;
 
 
-public class Main {
+public class MartAPP {
+
     public static void main(String[] args) {
         Connection con = null;
 
@@ -19,9 +20,9 @@ public class Main {
 
         try {
             con = DriverManager.getConnection("jdbc:mysql://" +
-                    server + "/" +
-                    database +
-                    "?useSSL=false", user_name, password); // SSL 실행 확인
+                server + "/" +
+                database +
+                "?useSSL=false", user_name, password); // SSL 실행 확인
             System.out.println("연결 성공");
 
             Statement stmt = con.createStatement();
@@ -30,14 +31,16 @@ public class Main {
 
             System.out.println(resultSet.getString(2));
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.err.println("에러 내용 :" + e.getMessage());
             e.printStackTrace();
         }
 
         try {
-            if(con != null)
+            if (con != null) {
                 con.close();
-        } catch (SQLException e) {}
+            }
+        } catch (SQLException e) {
+        }
     }
 }
