@@ -6,13 +6,6 @@ public class ProductResDTO {
     private int productQuantity;
     private int productNum;
 
-    public ProductResDTO(String productName, int productPrice, int productQuantity, int productNum) {
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.productNum = productNum;
-    }
-
     public ProductResDTO(Product product) {
         productName = product.getProductName();
         productPrice = product.getProductPrice();

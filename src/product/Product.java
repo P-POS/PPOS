@@ -20,6 +20,13 @@ public class Product {
         this.productQuantity = productResDTO.getProductQuantity();
     }
 
+    public Product(ProductReqDTO productReqDTO) {
+        this.productNum = productReqDTO.getProductNum();
+        this.productName = productReqDTO.getProductName();
+        this.productPrice = productReqDTO.getProductPrice();
+        this.productQuantity = productReqDTO.getProductQuantity();
+    }
+
     public int getProductNum() {
         return productNum;
     }
@@ -34,22 +41,6 @@ public class Product {
 
     public int getProductQuantity() {
         return productQuantity;
-    }
-
-    public void setProductNum(int productNum) {
-        this.productNum = productNum;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = productQuantity;
     }
 }
 
