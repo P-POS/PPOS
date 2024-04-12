@@ -13,6 +13,13 @@ public class ProductResDTO {
         this.productNum = productNum;
     }
 
+    public ProductResDTO(Product product) {
+        productName = product.getProductName();
+        productPrice = product.getProductPrice();
+        productQuantity = product.getProductQuantity();
+        productNum = product.getProductNum();
+    }
+
     public String getProductName() {
         return productName;
     }
