@@ -1,8 +1,10 @@
-import SalesHistory.SalesHistoryView;
+
+import main.MainController;
+import main.MainView;
 import java.sql.*;
 
-public class MartAPP {
 
+public class MartAPP {
     public static void main(String[] args) {
 
 
@@ -25,5 +27,7 @@ public class MartAPP {
             }
             dbConnector.closeConnection();
         }
+        new main.MainView(new MainController());
+
     }
 }
