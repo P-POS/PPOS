@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="021085ad-f642-4e1f-b47e-9d73a3468ef2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductInventory/InventoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/productInventory/InventoryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductInventory/InventoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/productInventory/InventoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProductInventory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/productInventory/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;NOEL-code&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/P-POS/PPOS.git&quot;,
+    &quot;accountId&quot;: &quot;2b3ee356-ba47-4065-aa05-736d85645e19&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2ewaHrwxM9pYYcGyBk6vHqRbTpp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/프로디지털S007/back-mini-project/PPOS&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="021085ad-f642-4e1f-b47e-9d73a3468ef2" name="Changes" comment="" />
+      <created>1712818009473</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712818009473</updated>
+      <workItem from="1712818010578" duration="91000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
