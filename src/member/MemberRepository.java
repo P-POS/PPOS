@@ -32,9 +32,10 @@ public class MemberRepository implements MemberDAO {
     }
 
     @Override
-    public void createMember(String memberName) {
+    public void createMember(MemberDTO member) {
+        String query = "INSERT INTO members (member_name, member_score) VALUES ('" + member.getMemberName() + "', "
+                + member.getMemberScore() + ")";
         try {
-            String query = "INSERT INTO members (member_name, member_score) VALUES ('" + memberName + "', 0)";
             stmt.executeUpdate(query);
             System.out.println("Member created successfully.");
         } catch (SQLException e) {
@@ -44,8 +45,8 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void deleteMember(int memberId) {
+        String query = "DELETE FROM members WHERE member_id=" + memberId;
         try {
-            String query = "DELETE FROM members WHERE member_id=" + memberId;
             stmt.executeUpdate(query);
             System.out.println("Member deleted successfully.");
         } catch (SQLException e) {
@@ -54,10 +55,10 @@ public class MemberRepository implements MemberDAO {
     }
 
     @Override
-    public void updateMember(int memberId, String memberName, int memberScore) {
+    public void updateMember(MemberDTO member) {
+        String query = "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
+                + member.getMemberScore() + " WHERE member_id=" + member.getMemberId();
         try {
-            String query = "UPDATE members SET member_name='" + memberName + "', member_score=" + memberScore
-                    + " WHERE member_id=" + memberId;
             stmt.executeUpdate(query);
             System.out.println("Member updated successfully.");
         } catch (SQLException e) {
@@ -66,52 +67,19 @@ public class MemberRepository implements MemberDAO {
     }
 
     @Override
-    public String getMemberName(int memberId) {
+    public MemberDTO getMember(int memberId) {
+        String query = "SELECT * FROM members WHERE member_id=" + memberId;
         try {
-            String query = "SELECT member_name FROM members WHERE member_id=" + memberId;
             ResultSet resultSet = stmt.executeQuery(query);
             if (resultSet.next()) {
-                return resultSet.getString("member_name");
+                return new MemberDTO(
+                        resultSet.getInt("member_id"),
+                        resultSet.getString("member_name"),
+                        resultSet.getInt("member_score"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    public void setMemberName(int memberId, String memberName) {
-        try {
-            String query = "UPDATE members SET member_name='" + memberName + "' WHERE member_id=" + memberId;
-            stmt.executeUpdate(query);
-            System.out.println("Member name updated successfully.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public int getMemberScore(int memberId) {
-        try {
-            String query = "SELECT member_score FROM members WHERE member_id=" + memberId;
-            ResultSet resultSet = stmt.executeQuery(query);
-            if (resultSet.next()) {
-                return resultSet.getInt("member_score");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    @Override
-    public void setMemberScore(int memberId, int memberScore) {
-        try {
-            String query = "UPDATE members SET member_score=" + memberScore + " WHERE member_id=" + memberId;
-            stmt.executeUpdate(query);
-            System.out.println("Member score updated successfully.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -2,17 +2,11 @@ package member;
 
 public interface MemberDAO {
 
-    void createMember(String memberName);
+    void createMember(MemberDTO member);
 
     void deleteMember(int memberId);
 
-    void updateMember(int memberId, String memberName, int memberScore);
+    void updateMember(MemberDTO member);
 
-    String getMemberName(int memberId);
-
-    void setMemberName(int memberId, String memberName);
-
-    int getMemberScore(int memberId);
-
-    void setMemberScore(int memberId, int memberScore);
+    MemberDTO getMember(int memberId);
 }
