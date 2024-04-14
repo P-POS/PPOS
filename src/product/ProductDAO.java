@@ -3,7 +3,6 @@ package product;
 import java.util.ArrayList;
 
 public interface ProductDAO   {
-    void DBConnectTest();
     void insertProduct(ProductReqDTO productReqDTO);
     void updateProduct(ProductReqDTO productReqDTO);
     void deleteProduct(int productNum);
