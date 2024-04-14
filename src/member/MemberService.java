@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberService {
+
     private MemberDAO memberDAO;
 
     public MemberService(MemberDAO memberDAO) {
@@ -12,9 +13,9 @@ public class MemberService {
 
     public void createMember(MemberModel member) {
         memberDAO.createMember(new MemberDTO(
-                member.getMemberId(),
-                member.getMemberName(),
-                member.getMemberScore()));
+            member.getMemberId(),
+            member.getMemberName(),
+            member.getMemberScore()));
     }
 
     public void deleteMember(int memberId) {
@@ -23,17 +24,17 @@ public class MemberService {
 
     public void updateMember(MemberModel member) {
         memberDAO.updateMember(new MemberDTO(
-                member.getMemberId(),
-                member.getMemberName(),
-                member.getMemberScore()));
+            member.getMemberId(),
+            member.getMemberName(),
+            member.getMemberScore()));
     }
 
     public MemberModel getMember(int memberId) {
         MemberDTO memberDTO = memberDAO.getMember(memberId);
         return new MemberModel(
-                memberDTO.getMemberId(),
-                memberDTO.getMemberName(),
-                memberDTO.getMemberScore());
+            memberDTO.getMemberId(),
+            memberDTO.getMemberName(),
+            memberDTO.getMemberScore());
     }
 
     public List<MemberModel> getAllMembers() {
@@ -41,9 +42,9 @@ public class MemberService {
         List<MemberModel> members = new ArrayList<>();
         for (MemberDTO memberDTO : memberDTOs) {
             members.add(new MemberModel(
-                    memberDTO.getMemberId(),
-                    memberDTO.getMemberName(),
-                    memberDTO.getMemberScore()));
+                memberDTO.getMemberId(),
+                memberDTO.getMemberName(),
+                memberDTO.getMemberScore()));
         }
         return members;
     }

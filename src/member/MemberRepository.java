@@ -35,7 +35,9 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void createMember(MemberDTO member) {
-        String query = "INSERT INTO members (member_name, member_score) VALUES ('" + member.getMemberName() + "', "
+        String query =
+            "INSERT INTO members (member_name, member_score) VALUES ('" + member.getMemberName()
+                + "', "
                 + member.getMemberScore() + ")";
         try {
             stmt.executeUpdate(query);
@@ -58,7 +60,8 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void updateMember(MemberDTO member) {
-        String query = "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
+        String query =
+            "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
                 + member.getMemberScore() + " WHERE member_id=" + member.getMemberId();
         try {
             stmt.executeUpdate(query);
@@ -75,9 +78,9 @@ public class MemberRepository implements MemberDAO {
             ResultSet resultSet = stmt.executeQuery(query);
             if (resultSet.next()) {
                 return new MemberDTO(
-                        resultSet.getInt("member_id"),
-                        resultSet.getString("member_name"),
-                        resultSet.getInt("member_score"));
+                    resultSet.getInt("member_id"),
+                    resultSet.getString("member_name"),
+                    resultSet.getInt("member_score"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

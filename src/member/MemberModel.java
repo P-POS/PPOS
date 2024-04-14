@@ -1,6 +1,7 @@
 package member;
 
 public class MemberModel {
+
     private int memberId;
     private String memberName;
     private int memberScore;

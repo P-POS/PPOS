@@ -1,6 +1,7 @@
 package member;
 
 public class MemberDTO {
+
     private int memberId;
     private String memberName;
     private int memberScore;
@@ -41,9 +42,9 @@ public class MemberDTO {
     @Override
     public String toString() {
         return "MemberDTO{" +
-                "memberId=" + memberId +
-                ", memberName='" + memberName + '\'' +
-                ", memberScore=" + memberScore +
-                '}';
+            "memberId=" + memberId +
+            ", memberName='" + memberName + '\'' +
+            ", memberScore=" + memberScore +
+            '}';
     }
 }
