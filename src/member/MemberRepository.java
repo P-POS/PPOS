@@ -3,6 +3,8 @@ package member;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberRepository implements MemberDAO {
 
@@ -81,5 +83,32 @@ public class MemberRepository implements MemberDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<MemberDTO> getAllMembers() {
+        List<MemberDTO> members = new ArrayList<>();
+        try {
+            stmt = dbConnector.createStatement();
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM members;");
+            while (resultSet.next()) {
+                int memberId = resultSet.getInt("member_id");
+                String memberName = resultSet.getString("member_name");
+                int memberScore = resultSet.getInt("member_score");
+                members.add(new MemberDTO(memberId, memberName, memberScore));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
+        }
+        return members;
     }
 }

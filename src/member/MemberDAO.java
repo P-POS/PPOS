@@ -1,5 +1,7 @@
 package member;
 
+import java.util.List;
+
 public interface MemberDAO {
 
     void createMember(MemberDTO member);
@@ -9,4 +11,6 @@ public interface MemberDAO {
     void updateMember(MemberDTO member);
 
     MemberDTO getMember(int memberId);
+
+    List<MemberDTO> getAllMembers();
 }
