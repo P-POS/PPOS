@@ -1,7 +1,9 @@
+
+import main.MainController;
+import main.MainView;
 import java.sql.*;
 
 public class MartAPP {
-
     public static void main(String[] args) {
 
         DBConnection dbConnector = new DBConnection();
@@ -23,5 +25,7 @@ public class MartAPP {
             }
             dbConnector.closeConnection();
         }
+        new main.MainView(new MainController());
+
     }
 }
