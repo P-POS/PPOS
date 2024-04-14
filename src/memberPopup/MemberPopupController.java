@@ -1,14 +1,14 @@
 package memberPopup;
 
-import member.MemberView;
+import member.MemberService;
 
 public class MemberPopupController {
 
-    MemberPopupModel memberPopupModel;
+    MemberService memberService;
     MemberPopupView memberPopupView;
 
-    MemberPopupController(MemberPopupModel memberPopupModel) {
-        this.memberPopupModel = memberPopupModel;
+    MemberPopupController(MemberService memberService) {
+        this.memberService = memberService;
         this.memberPopupView = new MemberPopupView(this);
     }
 }
