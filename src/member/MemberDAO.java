@@ -6,13 +6,13 @@ public interface MemberDAO {
 
     void deleteMember(int memberId);
 
-    void updateMember(int memberId, String memberName, int memberPoint);
+    void updateMember(int memberId, String memberName, int memberScore);
 
     String getMemberName(int memberId);
 
     void setMemberName(int memberId, String memberName);
 
-    int getMemberPoint(int memberId);
+    int getMemberScore(int memberId);
 
-    void setMemberPoint(int memberId, int memberPoint);
+    void setMemberScore(int memberId, int memberScore);
 }
