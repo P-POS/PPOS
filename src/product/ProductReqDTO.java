@@ -1,16 +1,16 @@
 package product;
 
-public class ProductReqDTO {
+public class ProductDTO {
     private String productName;
     private int productPrice;
     private int productQuantity;
     private int productNum;
 
-    public ProductReqDTO(Product product) {
-        this.productName = product.getProductName();
-        this.productPrice = product.getProductPrice();
-        this.productQuantity = product.getProductQuantity();
-        this.productNum = product.getProductNum();
+    public ProductDTO(String productName, int productPrice, int productQuantity, int productNum) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productQuantity = productQuantity;
+        this.productNum = productNum;
     }
 
     public String getProductName() {
