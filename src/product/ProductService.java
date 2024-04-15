@@ -3,27 +3,27 @@ package product;
 import java.util.ArrayList;
 
 public class ProductService {
-    public ArrayList<ProductResDTO> getProductList(ArrayList<Product> products){
 
-        ArrayList<ProductResDTO> resProducts = new ArrayList<>();
+    ProductDBRepository productDBRepository = new ProductDBRepository();
 
-        for (Product product : products) {
-            resProducts.add(new ProductResDTO(product));
-        }
-
-        return resProducts;
+    public ProductResDTO getProduct(int productNum){
+        return new ProductResDTO(productDBRepository.selectProductByID(productNum));
     }
 
-    public Product addProduct(ProductResDTO productResDTO){
-        return new Product(productResDTO);
+    public ArrayList<ProductResDTO> getProductList(){
+        return productDBRepository.selectProductList();
     }
 
-    public Product updateProduct(ProductResDTO productResDTO){
-        return new Product(productResDTO);
+    public void addProduct(ProductReqDTO productReqDTO){
+        productDBRepository.insertProduct(productReqDTO);
     }
 
-    public Product deleteProduct(ProductResDTO productResDTO){
-        return new Product(productResDTO);
+    public void updateProduct(ProductReqDTO productReqDTO){
+        productDBRepository.updateProduct(productReqDTO);
+    }
+
+    public void deleteProduct(int productNum){
+        productDBRepository.deleteProduct(productNum);
     }
 
 

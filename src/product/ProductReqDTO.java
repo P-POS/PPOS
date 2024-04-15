@@ -6,16 +6,14 @@ public class ProductReqDTO {
     private int productQuantity;
     private int productNum;
 
-    public ProductReqDTO(String productName, int productPrice, int productQuantity, int productNum) {
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.productNum = productNum;
+    public ProductReqDTO(Product product) {
+        this.productName = product.getProductName();
+        this.productPrice = product.getProductPrice();
+        this.productQuantity = product.getProductQuantity();
+        this.productNum = product.getProductNum();
     }
 
-    public String getProductName() {
-        return productName;
-    }
+    public String getProductName() { return productName; }
 
     public int getProductPrice() {
         return productPrice;

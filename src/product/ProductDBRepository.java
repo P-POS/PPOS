@@ -1,34 +1,45 @@
 package product;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ProductDBRepository implements ProductDAO {
 
-
-    @Override
     public void DBConnectTest(){
 
     }
 
     @Override
-    public void InsertProduct() {
+    public void insertProduct(ProductReqDTO productReqDTO) {
 
     }
 
     @Override
-    public void UpdateProduct() {
+    public void updateProduct(ProductReqDTO productReqDTO) {
 
     }
 
     @Override
-    public void DeleteProduct() {
+    public void deleteProduct(int productNum) {
 
     }
 
     @Override
-    public void SelectProduct() {
+    public ArrayList<ProductResDTO> selectProductList() {
 
+        ArrayList<Product> products = new ArrayList<>();
+
+        ArrayList<ProductResDTO> productResDTOs = new ArrayList<>();
+
+        for (Product product : products) {
+            productResDTOs.add(new ProductResDTO(product));
+        }
+
+        return productResDTOs;
+    }
+
+    @Override
+    public Product selectProductByID(int productNum) {
+        Product product = null;
+        return null;
     }
 }
