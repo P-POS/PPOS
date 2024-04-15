@@ -37,10 +37,19 @@ public class MemberController {
         memberService.updateMember(memberModel);
     }
 
-    public MemberModel getMember(int memberId) {
-        MemberModel memberModel = memberService.getMember(memberId);
-        if (memberModel != null) {
-            return memberModel;
+    public ArrayList getMember(int memberId) {
+        ArrayList<MemberModel> members = memberService.getMember(memberId);
+        if (members != null) {
+            return members;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList getMemberUseName(String memberName) {
+        ArrayList<MemberModel> members = memberService.getMemberUseName(memberName);
+        if (members != null) {
+            return members;
         } else {
             return null;
         }

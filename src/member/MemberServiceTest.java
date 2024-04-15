@@ -99,7 +99,7 @@ public class MemberServiceTest {
         memberDAO.createMember(new MemberDTO(11, "John", 100));
 
         // When
-        MemberModel actualMemberModel = memberService.getMember(11);
+        MemberModel actualMemberModel = memberService.getMember(11).get(0);
 
         // Then
         assertEquals(expectedMemberModel.getMemberId(), actualMemberModel.getMemberId());

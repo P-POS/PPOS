@@ -43,14 +43,24 @@ public class MemberService {
         }
     }
 
-    public MemberModel getMember(int memberId) {
-        MemberDTO memberDTO = memberDAO.getMember(memberId).get(0);
-        if (memberDTO != null) {
-            return new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
-                memberDTO.getMemberScore());
-        } else {
-            return null;
+    public ArrayList<MemberModel> getMember(int memberId) {
+        ArrayList<MemberDTO> memberDTOs = memberDAO.getMember(memberId);
+        ArrayList<MemberModel> members = new ArrayList<>();
+        for (MemberDTO memberDTO : memberDTOs) {
+            members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
+                memberDTO.getMemberScore()));
         }
+        return members;
+    }
+
+    public ArrayList<MemberModel> getMemberUseName(String memberName) {
+        ArrayList<MemberDTO> memberDTOs = memberDAO.getMemberUseName(memberName);
+        ArrayList<MemberModel> members = new ArrayList<>();
+        for (MemberDTO memberDTO : memberDTOs) {
+            members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
+                memberDTO.getMemberScore()));
+        }
+        return members;
     }
 
     public ArrayList<MemberModel> getAllMembers() {
