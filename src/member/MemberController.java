@@ -48,5 +48,6 @@ public class MemberController {
         } else {
             // memberView.displayMessage("No members found.");
         }
+        return null;
     }
 }
