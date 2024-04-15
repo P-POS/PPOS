@@ -99,7 +99,7 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
             if (resultSet.next()) {
                 int totalAmount = resultSet.getInt("sale_total");
                 int memberNum = resultSet.getInt("member_id");
-                totalAmount = -totalAmount; // Assuming you're processing refunds by inserting negative transactions
+                totalAmount = -totalAmount;
                 String date = resultSet.getString("sale_date");
 
                 String query2 = String.format("INSERT INTO sales (sale_date, sale_total, member_id) VALUES ('%s', %d, %d)",
