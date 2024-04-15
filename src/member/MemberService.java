@@ -46,7 +46,8 @@ public class MemberService {
     public MemberModel getMember(int memberId) {
         MemberDTO memberDTO = memberDAO.getMember(memberId);
         if (memberDTO != null) {
-            return new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(), memberDTO.getMemberScore());
+            return new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
+                memberDTO.getMemberScore());
         } else {
             return null;
         }
