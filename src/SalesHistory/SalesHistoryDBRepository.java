@@ -91,6 +91,25 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
 
     @Override
     public void refundSalesHistory(int transactionID) {
+        try {
+            String query1 = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id"
+                + "FROM sales LEFT JOIN members ON sales.member_id = members.member_id"
+                + "WHERE sale_id = " + transactionID;
+            ResultSet resultSet = statement.executeQuery(query1);
+            if (resultSet.next()) {
+                int totalAmount = resultSet.getInt("sale_total");
+                int memberNum = resultSet.getInt("member_id");
+                totalAmount = -totalAmount;
+                String date = resultSet.getString("sale_date");
+                String memberName = resultSet.getString("member_name");
 
+                String query2 = String.format("INSERT INTO sales (sale_date,sale_total,member_id) VALUES (%s, %d, %d)",
+                    date, totalAmount, memberNum);
+
+                statement.executeQuery(query2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

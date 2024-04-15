@@ -25,6 +25,9 @@ public class SalesHistory {
         this.date = date;
     }
 
+    public SalesHistory(int memberNum, String memberName, int totalAmount, String date) {
+    }
+
     public String getDate() {
         return date;
     }
