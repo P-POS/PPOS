@@ -90,7 +90,8 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
     }
 
     @Override
-    public void refundSalesHistory(int transactionID) {
+    public boolean refundSalesHistory(int transactionID) {
+        boolean success = false;
         try {
             String query1 = "SELECT * " +
                 "FROM sales " +
@@ -105,11 +106,13 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
                 String query2 = String.format("INSERT INTO sales (sale_date, sale_total, member_id) VALUES ('%s', %d, %d)",
                     date, totalAmount, memberNum);
 
-                statement.executeUpdate(query2);
+                int rowsAffected = statement.executeUpdate(query2);
+                success = rowsAffected > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return success;
     }
 
 }
