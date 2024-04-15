@@ -9,7 +9,7 @@ public interface SalesHistoryDAO {
 
     SalesHistoryResDTO getSalesHistoryByMemberName(String memberName);
 
-    void refundSalesHistory(int transactionID);
+    boolean refundSalesHistory(int transactionID);
 
 
 }
