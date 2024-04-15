@@ -10,7 +10,7 @@ public class MartAPP {
         Statement stmt = null;
         try {
             stmt = dbConnector.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT * FROM User;");
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM members;");
             resultSet.next();
             System.out.println(resultSet.getString(2));
         } catch (SQLException e) {
