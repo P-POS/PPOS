@@ -99,6 +99,8 @@ public class MemberView extends JFrame implements ActionListener {
         }
         tb_member.getColumnModel().getColumn(4).setPreferredWidth(67);
         tb_member.getColumn("삭제").setCellRenderer(new ButtonRendererDelete());
+        tb_member.getColumn("삭제").setCellEditor(new ButtonEditorDelete(new JCheckBox()));
+
         // tb_member.getColumn("삭제").setCellEditor(new ButtonEditor1(new JCheckBox()));
         header = tb_member.getTableHeader();
         headerSize = header.getPreferredSize();
@@ -141,6 +143,41 @@ public class MemberView extends JFrame implements ActionListener {
             return button;
         }
     }
+    class ButtonEditorDelete extends DefaultCellEditor {
+        protected JButton button;
+        private boolean isPushed;
+        public String buttonSID;
+        public int row, column;
+        public ButtonEditorDelete(JCheckBox checkBox) {
+            super(checkBox);
+            button = new JButton();
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if(e.getSource()==button) {
+                        buttonSID = (String) tb_member.getValueAt(row, 0);
+                        memberController.deleteMember(Integer.parseInt(buttonSID));
+                        prepareList();
+                    }
+                    fireEditingStopped();
+                }
+            });
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                                                     boolean isSelected, int row, int column) {
+            this.row = row;
+            this.column = column;
+            isPushed = true;
+            return button;
+        }
+        public Object getCellEditorValue() {
+            return isPushed;
+        }
+        public boolean stopCellEditing() {
+            isPushed = false;
+            return super.stopCellEditing();
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -148,7 +185,6 @@ public class MemberView extends JFrame implements ActionListener {
             this.dispose(); // 현재 창 닫기
             new MainView(new MainController());
         } else if (e.getSource() == btn_search) { // 이벤트 발생한게 검색버튼
-            System.out.println(tf_member.getText());
             if(tf_member.getText().length()==0){
                 prepareList();
             }
@@ -179,12 +215,17 @@ public class MemberView extends JFrame implements ActionListener {
         String[] list = new String[4];
         ArrayList<MemberModel> memberModels = memberController.getMemberUseName(value);
 
-        for(int i=0;i<memberModels.size();i++){
-            list[0] = String.valueOf(memberModels.get(i).getMemberId());
-            list[1] = memberModels.get(i).getMemberName();
-            list[2] = String.valueOf(memberModels.get(i).getMemberScore());
-            list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
-            model_member.addRow(list);
+        if(memberModels.size()==0){
+            model_member.getDataVector().removeAllElements();
+        }
+        else{
+            for(int i=0;i<memberModels.size();i++){
+                list[0] = String.valueOf(memberModels.get(i).getMemberId());
+                list[1] = memberModels.get(i).getMemberName();
+                list[2] = String.valueOf(memberModels.get(i).getMemberScore());
+                list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
+                model_member.addRow(list);
+            }
         }
     }
 }
