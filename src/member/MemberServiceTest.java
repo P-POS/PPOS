@@ -37,6 +37,21 @@ public class MemberServiceTest {
         assertNull(memberDAO.getMember(1));
     }
 
+    @Test
+    public void testGetMember() {
+        // Given
+        MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
+        MemberService memberService = new MemberService(memberDAO);
+        MemberModel expectedMemberModel = new MemberModel(1, "John", 100);
+        memberDAO.createMember(new MemberDTO(1, "John", 100));
+
+        // When
+        MemberModel actualMemberModel = memberService.getMember(1);
+
+        // Then
+        assertEquals(expectedMemberModel, actualMemberModel);
+    }
+
     // 테스트용 MemberDAO 구현체
     private class TestMemberDAO implements MemberDAO {
         private MemberDTO member;
