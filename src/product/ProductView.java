@@ -188,7 +188,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
                 registerDialog.setVisible(true);
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
-                JOptionPane.showMessageDialog(this, "수정할 행을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "수정할 상품을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
             }
         }
     }

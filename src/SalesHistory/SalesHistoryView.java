@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import main.MainController;
 import main.MainView;
-import product.Product;
 
 public class SalesHistoryView extends JFrame implements ActionListener, MouseListener {
     SalesHistoryController salesHistoryController = new SalesHistoryController();
@@ -157,7 +156,14 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
             searchInput.setText("고객번호, 고객이름");
         } else if (e.getSource() == btn_receipt) {
             // 영수증 출력 버튼을 클릭했을 때
-            System.out.println("영수증 버튼 클릭");
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) { // 행이 하나라도 선택되었는지 확인
+                System.out.println("영수증 버튼 클릭");
+
+            } else {
+                // 행이 선택되지 않았을 경우 경고 메시지 표시
+                JOptionPane.showMessageDialog(this, "영수증을 출력할 거래 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+            }
         } else if (e.getSource() == btn_return) {
             // 반품 버튼을 클릭했을 때
             int selectedRow = table.getSelectedRow();
