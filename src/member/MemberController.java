@@ -22,10 +22,10 @@ public class MemberController {
         try {
             MemberModel memberModel = new MemberModel(memberId, memberName, memberScore);
             memberService.createMember(memberModel);
-            return true;
         } catch (IllegalArgumentException e) {
             return false;
         }
+        return true;
     }
 
     public void deleteMember(int memberId) {
