@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="021085ad-f642-4e1f-b47e-9d73a3468ef2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MartAPP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MartAPP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sale/SaleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sale/SaleView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +74,8 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+    <configuration name="MartAPP" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MartAPP" />
       <module name="PPOS" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -81,7 +83,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MartAPP" />
       </list>
     </recent_temporary>
   </component>
