@@ -32,12 +32,12 @@ public class MemberController {
         // memberView.displayMessage("Member updated successfully.");
     }
 
-    public void getMember(int memberId) {
+    public MemberModel getMember(int memberId) {
         MemberModel memberModel = memberService.getMember(memberId);
         if (memberModel != null) {
-            // memberView.displayMemberInfo(memberModel);
+            return memberModel;
         } else {
-            // memberView.displayMessage("Member not found.");
+            return null;
         }
     }
 
@@ -46,8 +46,7 @@ public class MemberController {
         if (!members.isEmpty()) {
             return members;
         } else {
-            // memberView.displayMessage("No members found.");
+            return null;
         }
-        return null;
     }
 }
