@@ -41,10 +41,10 @@ public class MemberController {
         }
     }
 
-    public void getAllMembers() {
+    public List<MemberModel> getAllMembers() {
         List<MemberModel> members = memberService.getAllMembers();
         if (!members.isEmpty()) {
-            // memberView.displayAllMembers(members);
+            return members;
         } else {
             // memberView.displayMessage("No members found.");
         }
