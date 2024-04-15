@@ -1,5 +1,6 @@
 package member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MemberDAO {
@@ -12,5 +13,5 @@ public interface MemberDAO {
 
     MemberDTO getMember(int memberId);
 
-    List<MemberDTO> getAllMembers();
+    ArrayList<MemberDTO> getAllMembers();
 }

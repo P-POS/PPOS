@@ -43,7 +43,7 @@ public class MemberController {
     }
 
     public ArrayList getAllMembers() {
-        ArrayList<MemberModel> members = (ArrayList<MemberModel>) memberService.getAllMembers();
+        ArrayList<MemberModel> members = memberService.getAllMembers();
         if (!members.isEmpty()) {
             return members;
         } else {

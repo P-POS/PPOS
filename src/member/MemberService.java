@@ -53,9 +53,9 @@ public class MemberService {
         }
     }
 
-    public List<MemberModel> getAllMembers() {
-        List<MemberDTO> memberDTOs = memberDAO.getAllMembers();
-        List<MemberModel> members = new ArrayList<>();
+    public ArrayList<MemberModel> getAllMembers() {
+        ArrayList<MemberDTO> memberDTOs = memberDAO.getAllMembers();
+        ArrayList<MemberModel> members = new ArrayList<>();
         for (MemberDTO memberDTO : memberDTOs) {
             members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
                 memberDTO.getMemberScore()));

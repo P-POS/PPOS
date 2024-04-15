@@ -90,8 +90,8 @@ public class MemberRepository implements MemberDAO {
     }
 
     @Override
-    public List<MemberDTO> getAllMembers() {
-        List<MemberDTO> members = new ArrayList<>();
+    public ArrayList<MemberDTO> getAllMembers() {
+        ArrayList<MemberDTO> members = new ArrayList<>();
         try {
             stmt = dbConnector.createStatement();
             ResultSet resultSet = stmt.executeQuery("SELECT * FROM members;");

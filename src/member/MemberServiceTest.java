@@ -139,7 +139,7 @@ public class MemberServiceTest {
     private class TestMemberDAO implements MemberDAO {
 
         private MemberDTO member;
-        private List<MemberDTO> members = new ArrayList<>();
+        private ArrayList<MemberDTO> members = new ArrayList<>();
 
         @Override
         public void createMember(MemberDTO member) {
@@ -178,7 +178,7 @@ public class MemberServiceTest {
         }
 
         @Override
-        public List<MemberDTO> getAllMembers() {
+        public ArrayList<MemberDTO> getAllMembers() {
             return members;
         }
     }
