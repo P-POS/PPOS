@@ -60,6 +60,8 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         btn_update.addActionListener(this);
         table.addMouseListener(this);
 
+        table.getColumnModel().getColumn(2).setPreferredWidth(400);
+
         label.setBounds(20, 20, 1280, 50);
         scrollPane.setBounds(20, 150, 1220, 740);
         searchInput.setBounds(20, 80, 690, 50);
@@ -91,7 +93,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         setVisible(true);
     }
 
-    private void loadProductData() {
+    public void loadProductData() {
         // 상품 목록 가져오기
         ArrayList<Product> products = productController.getProducts();
 
@@ -125,7 +127,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
             searchInput.setText("");
         } else if (e.getSource() == btn_register) {
             // 등록 버튼 클릭 시 모달 다이얼로그 띄우기
-            RegisterDialog registerDialog = new RegisterDialog(this, "상품 등록", true);
+            RegisterDialog registerDialog = new RegisterDialog(this, "상품 등록", true, this);
             registerDialog.setVisible(true);
         } else if (e.getSource() == btn_update) {
             // 수정 버튼을 클릭했을 때
@@ -138,7 +140,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
                 int productQuantity = (int) table.getValueAt(selectedRow, 4);
 
                 // 선택된 행의 데이터를 RegisterDialog에 전달
-                RegisterDialog registerDialog = new RegisterDialog(this, "상품 수정", true, productNum, productName, productPrice, productQuantity);
+                RegisterDialog registerDialog = new RegisterDialog(this, "상품 수정", true, productNum, productName, productPrice, productQuantity, this);
                 registerDialog.setVisible(true);
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시

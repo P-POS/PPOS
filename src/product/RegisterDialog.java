@@ -7,6 +7,7 @@ import javax.swing.*;
 
 class RegisterDialog extends JDialog implements ActionListener {
     ProductController productController = new ProductController();
+    ProductView productView;
     JLabel nameLabel = new JLabel("상품명:");
     JTextField tfName = new JTextField(20);
     JLabel numberLabel = new JLabel("상품번호:");
@@ -19,15 +20,17 @@ class RegisterDialog extends JDialog implements ActionListener {
 
     Font labelFont = new Font("맑은 고딕", Font.PLAIN, 14);
 
-    public RegisterDialog(JFrame owner, String title, boolean modal) {
+    public RegisterDialog(JFrame owner, String title, boolean modal, ProductView productView) {
         super(owner, title, modal);
+        this.productView = productView;
         initializeUI();
         setLocationRelativeTo(owner);
         btn_save.setText("등록");
     }
 
-    public RegisterDialog(JFrame owner, String title, boolean modal, int productNum, String productName, int productPrice, int productQuantity) {
+    public RegisterDialog(JFrame owner, String title, boolean modal, int productNum, String productName, int productPrice, int productQuantity, ProductView productView) {
         super(owner, title, modal);
+        this.productView = productView;
         initializeUI();
         setLocationRelativeTo(owner);
         btn_save.setText("수정");
@@ -95,6 +98,8 @@ class RegisterDialog extends JDialog implements ActionListener {
         } else {
             productController.updateProduct(product);
         }
+
+         productView.loadProductData();
 
         dispose(); // 다이얼로그 닫기
     }

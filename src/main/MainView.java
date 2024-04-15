@@ -64,6 +64,7 @@ public class MainView extends JFrame implements ActionListener {
         } else if (e.getSource() == btn_sale) { // 이벤트 발생한게 판매버튼
 
         } else if (e.getSource() == btn_product) { // 이벤트 발생한게 상품버튼
+            this.setVisible(false);
             new ProductView();
         } else if (e.getSource() == btn_salesHistory) { // 이벤트 발생한게 판매내역버튼
 
