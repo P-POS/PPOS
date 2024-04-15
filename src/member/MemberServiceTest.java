@@ -53,7 +53,7 @@ public class MemberServiceTest {
         memberService.deleteMember(11);
 
         // Then
-        assertNull(memberDAO.getMember(11));
+        assertNull(memberDAO.getMember(11).get(0));
     }
 
     @Test
@@ -100,6 +100,23 @@ public class MemberServiceTest {
 
         // When
         MemberModel actualMemberModel = memberService.getMember(11).get(0);
+
+        // Then
+        assertEquals(expectedMemberModel.getMemberId(), actualMemberModel.getMemberId());
+        assertEquals(expectedMemberModel.getMemberName(), actualMemberModel.getMemberName());
+        assertEquals(expectedMemberModel.getMemberScore(), actualMemberModel.getMemberScore());
+    }
+
+    @Test
+    public void testGetMemberUseName() {
+        // Given
+        MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
+        MemberService memberService = new MemberService(memberDAO);
+        MemberModel expectedMemberModel = new MemberModel(11, "John", 100);
+        memberDAO.createMember(new MemberDTO(11, "John", 100));
+
+        // When
+        MemberModel actualMemberModel = memberService.getMemberUseName("John").get(0);
 
         // Then
         assertEquals(expectedMemberModel.getMemberId(), actualMemberModel.getMemberId());
@@ -169,17 +186,24 @@ public class MemberServiceTest {
 
         @Override
         public ArrayList<MemberDTO> getMember(int memberId) {
+            ArrayList<MemberDTO> memberDTOs = new ArrayList<>();
             for (MemberDTO member : members) {
                 if (member.getMemberId() == memberId) {
-                    return new ArrayList<>(List.of(new MemberDTO[]{member}));
+                    memberDTOs.add(member);
                 }
             }
-            return null;
+            return memberDTOs;
         }
 
         @Override
         public ArrayList<MemberDTO> getMemberUseName(String memberName) {
-            return null;
+            ArrayList<MemberDTO> memberDTOs = new ArrayList<>();
+            for (MemberDTO member : members) {
+                if (member.getMemberName().equals(memberName)) {
+                    memberDTOs.add(member);
+                }
+            }
+            return memberDTOs;
         }
 
         @Override
