@@ -24,6 +24,15 @@ public class MemberRepository implements MemberDAO {
             System.out.println("Member created successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
         }
     }
 
@@ -37,6 +46,15 @@ public class MemberRepository implements MemberDAO {
             System.out.println("Member deleted successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
         }
     }
 
@@ -52,6 +70,15 @@ public class MemberRepository implements MemberDAO {
             System.out.println("Member updated successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
         }
     }
 
@@ -154,6 +181,15 @@ public class MemberRepository implements MemberDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
         }
         return null;
     }
