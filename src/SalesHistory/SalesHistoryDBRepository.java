@@ -22,7 +22,7 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
 
     @Override
     public SalesHistoryResDTO getSalesHistoryByID() {
-        SalesHistory salesHistory = new SalesHistory();
+        SalesHistory salesHistory =
         SalesHistoryResDTO resDTO = new SalesHistoryResDTO(salesHistory);
         return resDTO;
     }

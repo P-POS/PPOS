@@ -1,11 +1,11 @@
 package SalesHistory;
 
 public class SalesHistoryResDTO {
-    int transactionID;
-    int memberNum;
-    String memberName;
-    int totalAmount;
-    String date;
+    private int transactionID;
+    private int memberNum;
+    private String memberName;
+    private int totalAmount;
+    private String date;
 
     public SalesHistoryResDTO(int transactionNum, int memberNum, String memberName, int totalAmount,
         String date) {
