@@ -1,6 +1,7 @@
 package product;
 
-public class ProductDTO {
+class ProductDTO {
+
     private String productName;
     private int productPrice;
     private int productQuantity;

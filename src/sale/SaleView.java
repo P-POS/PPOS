@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -73,7 +74,7 @@ public class SaleView extends JFrame implements ActionListener {
     SaleController saleController;
 
     public SaleView() {
-        this.saleController = new SaleController();
+        this.saleController = new SaleController(new SalesService());
 
         setSize(1280, 960);
         setLayout(null);
@@ -166,8 +167,11 @@ public class SaleView extends JFrame implements ActionListener {
         int key = Integer.parseInt(inputBox.getText());
 
         if (e.getSource() == btn_addProduct) {
-            //int result = saleController.getProducInfo(key);
-            //System.out.println(result);
+            ArrayList<ProductOrderNumDTO> result = saleController.getProductInfo(key);
+            System.out.println(result);
+        } else if (e.getSource() == btn_getUser) {
+            MemberDTO result = saleController.getMemberInfo(key);
+        } else if (e.getSource() == btn_payment) {
         }
 
     }

@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="021085ad-f642-4e1f-b47e-9d73a3468ef2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DBConnection/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBConnection/DBConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MartAPP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MartAPP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/product/ProductReqDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/product/ProductReqDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sale/SaleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sale/SaleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sale/SaleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sale/SaleView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sale/SalesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sale/SalesService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
