@@ -3,28 +3,24 @@ package SalesHistory;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class SalesHistoryView extends JFrame implements ActionListener, MouseListener {
-    // 테이블 임시데이터 설정
-    String[][] data = {
-        {"1", "홍길동", "20,000", "2024-04-12"},
-        {"2", "이순신", "45,000", "2024-04-12"},
-        {"3", "강감찬", "35,000", "2024-04-12"}
-    };
+    SalesHistoryController salesHistoryController = new SalesHistoryController();
 
-    // 컬럼명 설정
-    String[] columnNames = {"거래번호", "고객번호", "금액", "날짜"};
+    DefaultTableModel model;
+    JTable table;
+    JScrollPane scrollPane;
 
-    // JTable 생성
-    JTable table = new JTable(data, columnNames);
-    JTableHeader header = table.getTableHeader();
-
-    // 스크롤 패인에 테이블 추가
-    JScrollPane scrollPane = new JScrollPane(table);
+    // 검색어 입력창
+    JTextField searchInput = new JTextField("고객번호, 고객이름");
 
     // 버튼
+    JButton btn_search = new JButton("검색");
+    JButton btn_all = new JButton("전체 조회");
     JButton btn_receipt = new JButton("영수증 출력");
     JButton btn_return = new JButton("반품");
     
@@ -38,72 +34,140 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         setSize(1280, 960);
         setLayout(null);
 
+        // 컬럼명 설정
+        String[] columnNames = {"거래번호", "고객이름", "고객번호", "금액", "날짜"};
+        model = new DefaultTableModel(columnNames, 0);
+        table = new JTable(model);
+        scrollPane = new JScrollPane(table);
+        JTableHeader header = table.getTableHeader();
+
+        loadSalesHistories();
+
+        searchInput.setForeground(Color.GRAY); // placeholder 색상 설정
+
+        btn_search.addActionListener(this);
         btn_receipt.addActionListener(this);
         btn_return.addActionListener(this);
         table.addMouseListener(this);
 
         label.setBounds(20, 20, 1280, 50);
         scrollPane.setBounds(20, 150, 1220, 740);
-        btn_receipt.setBounds(1010, 80, 120, 50);
-        btn_return.setBounds(1140, 80, 100, 50);
+        searchInput.setBounds(20, 80, 690, 50);
+        btn_search.setBounds(725, 80, 120, 50);
+        btn_all.setBounds(855, 80, 120, 50);
+        btn_receipt.setBounds(985, 80, 120, 50);
+        btn_return.setBounds(1115, 80, 120, 50);
 
         label.setFont(mainFont);
         table.setFont(subFont);
         header.setFont(subFont);
         header.setBackground(Color.lightGray);
         table.setRowHeight(24);
+        searchInput.setFont(btnFont);
+        btn_search.setFont(btnFont);
+        btn_all.setFont(btnFont);
         btn_receipt.setFont(btnFont);
         btn_return.setFont(btnFont);
 
         add(label);
         add(scrollPane);
+        add(searchInput);
+        add(btn_search);
+        add(btn_all);
         add(btn_receipt);
         add(btn_return);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        btn_search.requestFocusInWindow();
+        
+        // placeholder 효과를 주기 위한 코드
+        searchInput.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // 포커스를 얻었을 때, placeholder 효과 주지 않기
+                if (searchInput.getText().equals("고객번호, 고객이름")) {
+                    searchInput.setText("");
+                    searchInput.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                // 포커스를 잃었을 때, 텍스트 필드가 비어있다면 placeholder 효과 주기
+                if (searchInput.getText().isEmpty()) {
+                    searchInput.setForeground(Color.GRAY);
+                    searchInput.setText("고객번호, 고객이름");
+                }
+            }
+        });
+    }
+
+    private void loadSalesHistories() {
+        // 상품 목록 가져오기
+        ArrayList<SalesHistory> salesHistories = salesHistoryController.getSalesHistories();
+
+        System.out.println("salesHistories: " + salesHistories);
+
+        // 모델 데이터 초기화
+        model.setRowCount(0);
+
+        // 거래 목록을 JTable 모델에 추가
+        for (SalesHistory salesHistory : salesHistories) {
+            model.addRow(new Object[]{salesHistory.transactionID, salesHistory.memberName, salesHistory.memberNum, salesHistory.totalAmount, salesHistory.date});
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn_receipt) {
-            // 영수증 출력 버튼을 클릭했을 때 발생하는 이벤트
+        if (e.getSource() == btn_search) {
+            // 검색 버튼을 클릭했을 때
+            String searchText = searchInput.getText();
+            model.setRowCount(0); // 테이블 데이터 초기화
+
+            // 거래 목록에서 검색어에 해당하는 거래 목록만 필터링하여 테이블에 추가
+            for (SalesHistory salesHistory : salesHistoryController.getSalesHistories()) {
+                if (salesHistory.getMemberName().contains(searchText)) {
+                    model.addRow(new Object[]{salesHistory.transactionID, salesHistory.memberName, salesHistory.memberNum, salesHistory.totalAmount, salesHistory.date});
+                }
+            }
+        } else if (e.getSource() == btn_all) {
+            // 전체 거래 내역 조회 버튼을 클릭했을 때
+            loadSalesHistories();
+        } else if (e.getSource() == btn_receipt) {
+            // 영수증 출력 버튼을 클릭했을 때
             System.out.println("영수증 버튼 클릭");
         } else if (e.getSource() == btn_return) {
-            // 반품 버튼을 클릭했을 때 발생하는 이벤트
-            System.out.println("반품 버튼 클릭");
+            // 반품 버튼을 클릭했을 때
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) { // 행이 하나라도 선택되었는지 확인
+                // 선택된 행의 데이터 가져오기
+                int transactionID = (int) table.getValueAt(selectedRow, 1);
+
+                salesHistoryController.refundSalesHistory(transactionID);
+            } else {
+                // 행이 선택되지 않았을 경우 경고 메시지 표시
+                JOptionPane.showMessageDialog(this, "반품할 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // table의 특정 행을 클릭했을 때 발생하는 이벤트가 들어가는 자리
-        if (e.getSource() == table) {
-            int row = table.rowAtPoint(e.getPoint());
-            int col = table.columnAtPoint(e.getPoint());
-
-            // 특정 행을 클릭했을 때, 거래번호 출력
-            System.out.println("데이터: " + table.getValueAt(row, 0));
-        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 }
