@@ -38,21 +38,11 @@ public class MemberController {
     }
 
     public ArrayList getMember(int memberId) {
-        ArrayList<MemberModel> members = memberService.getMember(memberId);
-        if (members != null) {
-            return members;
-        } else {
-            return null;
-        }
+        return memberService.getMember(memberId);
     }
 
     public ArrayList getMemberUseName(String memberName) {
-        ArrayList<MemberModel> members = memberService.getMemberUseName(memberName);
-        if (members != null) {
-            return members;
-        } else {
-            return null;
-        }
+        return memberService.getMemberUseName(memberName);
     }
 
     public ArrayList getAllMembers() {
