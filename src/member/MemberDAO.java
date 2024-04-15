@@ -10,7 +10,9 @@ public interface MemberDAO {
 
     void updateMember(MemberDTO member);
 
-    MemberDTO getMember(int memberId);
+    ArrayList<MemberDTO> getMember(int memberId);
+
+    ArrayList<MemberDTO> getMemberUseName(String memberName);
 
     ArrayList<MemberDTO> getAllMembers();
 

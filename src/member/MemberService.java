@@ -13,7 +13,7 @@ public class MemberService {
 
     public void createMember(MemberModel member) {
         int memberId = member.getMemberId();
-        MemberDTO existingMember = memberDAO.getMember(memberId);
+        MemberDTO existingMember = memberDAO.getMember(memberId).get(0);
 
         if (existingMember != null) {
             throw new IllegalArgumentException("Member with ID " + memberId + " already exists.");
@@ -24,7 +24,7 @@ public class MemberService {
     }
 
     public void deleteMember(int memberId) {
-        MemberDTO existingMember = memberDAO.getMember(memberId);
+        MemberDTO existingMember = memberDAO.getMember(memberId).get(0);
         if (existingMember != null) {
             memberDAO.deleteMember(memberId);
         } else {
@@ -34,7 +34,7 @@ public class MemberService {
 
     public void updateMember(MemberModel member) {
         int memberId = member.getMemberId();
-        MemberDTO existingMember = memberDAO.getMember(memberId);
+        MemberDTO existingMember = memberDAO.getMember(memberId).get(0);
         if (existingMember != null) {
             memberDAO.updateMember(new MemberDTO(member.getMemberId(), member.getMemberName(),
                 member.getMemberScore()));
@@ -44,7 +44,7 @@ public class MemberService {
     }
 
     public MemberModel getMember(int memberId) {
-        MemberDTO memberDTO = memberDAO.getMember(memberId);
+        MemberDTO memberDTO = memberDAO.getMember(memberId).get(0);
         if (memberDTO != null) {
             return new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
                 memberDTO.getMemberScore());

@@ -21,7 +21,7 @@ public class MemberServiceTest {
         memberService.createMember(memberModel);
 
         // Then
-        assertEquals("John", memberDAO.getMember(11).getMemberName());
+        assertEquals("John", memberDAO.getMember(11).get(0).getMemberName());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class MemberServiceTest {
         memberService.updateMember(new MemberModel(11, "Jane", 200)); // 회원 정보 업데이트
 
         // Then
-        MemberDTO updatedMember = memberDAO.getMember(11);
+        MemberDTO updatedMember = memberDAO.getMember(11).get(0);
         assertEquals("Jane", updatedMember.getMemberName()); // 회원 이름이 업데이트되었는지 확인
         assertEquals(200, updatedMember.getMemberScore()); // 회원 점수가 업데이트되었는지 확인
     }
@@ -168,12 +168,17 @@ public class MemberServiceTest {
         }
 
         @Override
-        public MemberDTO getMember(int memberId) {
+        public ArrayList<MemberDTO> getMember(int memberId) {
             for (MemberDTO member : members) {
                 if (member.getMemberId() == memberId) {
-                    return member;
+                    return new ArrayList<>(List.of(new MemberDTO[]{member}));
                 }
             }
+            return null;
+        }
+
+        @Override
+        public ArrayList<MemberDTO> getMemberUseName(String memberName) {
             return null;
         }
 

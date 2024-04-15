@@ -53,21 +53,61 @@ public class MemberRepository implements MemberDAO {
     }
 
     @Override
-    public MemberDTO getMember(int memberId) {
+    public ArrayList<MemberDTO> getMember(int memberId) {
         dbConnector = new DBConnection();
+        ArrayList<MemberDTO> members = new ArrayList<>();
         String query = "SELECT * FROM members WHERE member_id=" + memberId;
         try {
+            stmt = dbConnector.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
-            if (resultSet.next()) {
-                return new MemberDTO(
-                    resultSet.getInt("member_id"),
-                    resultSet.getString("member_name"),
-                    resultSet.getInt("member_score"));
+            while (resultSet.next()) {
+                int rmemberId = resultSet.getInt("member_id");
+                String rmemberName = resultSet.getString("member_name");
+                int rmemberScore = resultSet.getInt("member_score");
+                members.add(new MemberDTO(rmemberId, rmemberName, rmemberScore));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
         }
-        return null;
+        return members;
+    }
+
+    @Override
+    public ArrayList<MemberDTO> getMemberUseName(String memberName) {
+        dbConnector = new DBConnection();
+        ArrayList<MemberDTO> members = new ArrayList<>();
+        String query = "SELECT * FROM members WHERE member_name=" + memberName;
+        try {
+            stmt = dbConnector.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            while (resultSet.next()) {
+                int rmemberId = resultSet.getInt("member_id");
+                String rmemberName = resultSet.getString("member_name");
+                int rmemberScore = resultSet.getInt("member_score");
+                members.add(new MemberDTO(rmemberId, rmemberName, rmemberScore));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
+        }
+        return members;
     }
 
     @Override
