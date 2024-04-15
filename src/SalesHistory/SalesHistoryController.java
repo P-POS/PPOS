@@ -26,7 +26,7 @@ public class SalesHistoryController {
         return salesHistories;
     };
 
-    void refundSalesHistory(int transactionID){
-        salesHistoryService.refundSalesHistory(transactionID);
+    boolean refundSalesHistory(int transactionID){
+        return salesHistoryService.refundSalesHistory(transactionID);
     };
 }

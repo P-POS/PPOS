@@ -21,7 +21,8 @@ public class ProductDBRepository implements ProductDAO {
     }
 
     @Override
-    public void insertProduct(ProductReqDTO productReqDTO) {
+    public boolean insertProduct(ProductReqDTO productReqDTO) {
+        boolean success = false;
         try {
             String productName = productReqDTO.getProductName();
             int productPrice = productReqDTO.getProductPrice();
@@ -30,14 +31,17 @@ public class ProductDBRepository implements ProductDAO {
             String query = String.format("INSERT INTO products (product_name, product_price, product_stock) VALUES ('%s', %d, %d)",
                 productName, productPrice, productQuantity);
 
-            statement.executeUpdate(query);
+            int rowsAffected = statement.executeUpdate(query);
+            success = rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return success;
     }
 
     @Override
-    public void updateProduct(ProductReqDTO productReqDTO) {
+    public boolean updateProduct(ProductReqDTO productReqDTO) {
+        boolean success = false;
         try {
             int productNum = productReqDTO.getProductNum();
             String productName = productReqDTO.getProductName();
@@ -47,21 +51,27 @@ public class ProductDBRepository implements ProductDAO {
             String query = String.format("UPDATE products SET product_name = '%s', product_price = %d, product_stock = %d WHERE product_id = %d",
                 productName, productPrice, productQuantity, productNum);
 
-            statement.executeUpdate(query);
+            int rowsAffected = statement.executeUpdate(query);
+            success = rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return success;
     }
 
     @Override
-    public void deleteProduct(int productNum) {
+    public boolean deleteProduct(int productNum) {
+        boolean success = false;
         try {
             String query = String.format("DELETE FROM products WHERE product_num = %d", productNum);
-            statement.executeUpdate(query);
+            int rowsAffected = statement.executeUpdate(query);
+            success = rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return success;
     }
+
 
     @Override
     public ArrayList<ProductResDTO> selectProductList() {
