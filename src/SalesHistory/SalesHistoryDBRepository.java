@@ -101,7 +101,6 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
                 int memberNum = resultSet.getInt("member_id");
                 totalAmount = -totalAmount;
                 String date = resultSet.getString("sale_date");
-                String memberName = resultSet.getString("member_name");
 
                 String query2 = String.format("INSERT INTO sales (sale_date,sale_total,member_id) VALUES (%s, %d, %d)",
                     date, totalAmount, memberNum);
