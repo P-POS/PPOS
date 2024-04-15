@@ -75,6 +75,7 @@ public class MemberView extends JFrame implements ActionListener {
 
         // 버튼 액션 리스너
         btn_back.addActionListener(this); // 액션 리스너 추가
+        btn_search.addActionListener(this);
         btn_register.addActionListener(this);
 
         // panel에 텍스트 필드, 조회 버튼, 검색 버튼 추가
@@ -147,7 +148,7 @@ public class MemberView extends JFrame implements ActionListener {
             this.dispose(); // 현재 창 닫기
             new MainView(new MainController());
         } else if (e.getSource() == btn_search) { // 이벤트 발생한게 검색버튼
-
+            prepareList(tf_member.getText());
         } else if (e.getSource() == btn_register) { // 이벤트 발생한게 등록버튼
             // 새 회원 등록 다이얼로그 띄우기
             new NewMemberDialog(this);
@@ -158,6 +159,19 @@ public class MemberView extends JFrame implements ActionListener {
         model_member.getDataVector().removeAllElements();
         String[] list = new String[4];
         ArrayList<MemberModel> memberModels = memberController.getAllMembers();
+
+        for(int i=0;i<memberModels.size();i++){
+            list[0] = String.valueOf(memberModels.get(i).getMemberId());
+            list[1] = memberModels.get(i).getMemberName();
+            list[2] = String.valueOf(memberModels.get(i).getMemberScore());
+            list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
+            model_member.addRow(list);
+        }
+    }
+    public void prepareList(String value){
+        model_member.getDataVector().removeAllElements();
+        String[] list = new String[4];
+        ArrayList<MemberModel> memberModels = memberController.getMemberUseName(value);
 
         for(int i=0;i<memberModels.size();i++){
             list[0] = String.valueOf(memberModels.get(i).getMemberId());
@@ -235,7 +249,7 @@ class NewMemberDialog extends JDialog implements ActionListener {
                 // 다이얼로그 닫기
                 lblError.setVisible(true);
                 dispose();
-                parentView.repaint();
+                parentView.prepareList();
             }
             else{
                 lblError.setVisible(true);
@@ -243,6 +257,3 @@ class NewMemberDialog extends JDialog implements ActionListener {
         }
     }
 }
-
-
-
