@@ -163,7 +163,7 @@ public class MemberView extends JFrame implements ActionListener {
             list[0] = String.valueOf(memberModels.get(i).getMemberId());
             list[1] = memberModels.get(i).getMemberName();
             list[2] = String.valueOf(memberModels.get(i).getMemberScore());
-            //list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
+            list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
             model_member.addRow(list);
         }
     }
@@ -179,6 +179,8 @@ class NewMemberDialog extends JDialog implements ActionListener {
     JPanel panel = new JPanel();
     JLabel lblName = new JLabel("이름:");
     JLabel lblNumber = new JLabel("번호:");
+    JLabel lblError = new JLabel("이미 등록된 번호입니다");
+
 
     public NewMemberDialog(MemberView parent) {
         this.parentView = parent;
@@ -206,9 +208,15 @@ class NewMemberDialog extends JDialog implements ActionListener {
         tfNumber.setBounds(120, 100, 150, 50); // 위치와 크기 지정
         panel.add(tfNumber);
 
-        btnRegister.setBounds(150, 180, 100, 30); // 위치와 크기 지정
+        btnRegister.setBounds(250, 180, 100, 30); // 위치와 크기 지정
         panel.add(btnRegister);
         btnRegister.addActionListener(this);
+
+        lblError.setBounds(20,180,130,30);
+        lblError.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblError.setForeground(Color.RED);
+        lblError.setVisible(false); // 처음엔 안보이게
+        panel.add(lblError);
 
         add(panel);
         setVisible(true);
@@ -219,13 +227,19 @@ class NewMemberDialog extends JDialog implements ActionListener {
         if (e.getSource() == btnRegister) {
             // 이름과 번호를 가져와서 회원 등록 메서드 호출
             String name = tfName.getText();
-            String number = tfNumber.getText();
+            Integer number = Integer.parseInt(tfNumber.getText());
 
             // 회원 등록 메서드 호출 (이 부분은 MemberController에 구현된 메서드를 호출하도록 변경해야 합니다)
-            //parentView.registerNewMember(name, number);
-
-            // 다이얼로그 닫기
-            dispose();
+            boolean check_create = parentView.memberController.createMember(number,name,null);
+            if (check_create){
+                // 다이얼로그 닫기
+                lblError.setVisible(true);
+                dispose();
+                parentView.repaint();
+            }
+            else{
+                lblError.setVisible(true);
+            }
         }
     }
 }
