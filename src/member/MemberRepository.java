@@ -19,6 +19,7 @@ public class MemberRepository implements MemberDAO {
                 + "', "
                 + member.getMemberId() + ")";
         try {
+            stmt = dbConnector.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Member created successfully.");
         } catch (SQLException e) {
@@ -31,6 +32,7 @@ public class MemberRepository implements MemberDAO {
         dbConnector = new DBConnection();
         String query = "DELETE FROM members WHERE member_id=" + memberId;
         try {
+            stmt = dbConnector.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Member deleted successfully.");
         } catch (SQLException e) {
@@ -45,6 +47,7 @@ public class MemberRepository implements MemberDAO {
             "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
                 + member.getMemberScore() + " WHERE member_id=" + member.getMemberId();
         try {
+            stmt = dbConnector.createStatement();
             stmt.executeUpdate(query);
             System.out.println("Member updated successfully.");
         } catch (SQLException e) {
