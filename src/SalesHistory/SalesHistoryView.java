@@ -153,7 +153,8 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         } else if (e.getSource() == btn_all) {
             // 전체 거래 내역 조회 버튼을 클릭했을 때
             loadSalesHistories();
-            searchInput.setText("");
+            searchInput.setForeground(Color.GRAY);
+            searchInput.setText("고객번호, 고객이름");
         } else if (e.getSource() == btn_receipt) {
             // 영수증 출력 버튼을 클릭했을 때
             System.out.println("영수증 버튼 클릭");
