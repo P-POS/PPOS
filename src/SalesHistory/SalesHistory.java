@@ -1,20 +1,20 @@
 package SalesHistory;
 
 public class SalesHistory {
-    int transactionID;
-    int memberNum;
-    String memberName;
-    int totalAmount;
-    String date;
+    private int transactionID;
+    private int memberNum;
+    private String memberName;
+    private int totalAmount;
+    private String date;
 
     public SalesHistory() {}
 
     public SalesHistory(SalesHistoryResDTO salesHistoryResDTOS) {
-        this.transactionID = salesHistoryResDTOS.transactionID;
-        this.memberNum = salesHistoryResDTOS.memberNum;
-        this.memberName = salesHistoryResDTOS.memberName;
-        this.totalAmount = salesHistoryResDTOS.totalAmount;
-        this.date = salesHistoryResDTOS.date;
+        this.transactionID = salesHistoryResDTOS.getTransactionID();
+        this.memberNum = salesHistoryResDTOS.getMemberNum();
+        this.memberName = salesHistoryResDTOS.getMemberName();
+        this.totalAmount = salesHistoryResDTOS.getTotalAmount();
+        this.date = salesHistoryResDTOS.getDate();
     }
 
     public String getDate() {

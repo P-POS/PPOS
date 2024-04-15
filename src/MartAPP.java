@@ -1,6 +1,6 @@
 
+import DBConnection.DBConnection;
 import main.MainController;
-import main.MainView;
 import java.sql.*;
 
 public class MartAPP {
