@@ -25,7 +25,6 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
     JButton btn_home = new JButton("홈");
     JButton btn_search = new JButton("검색");
     JButton btn_all = new JButton("전체 조회");
-    JButton btn_receipt = new JButton("영수증 출력");
     JButton btn_return = new JButton("반품");
     
     JLabel label = new JLabel("거래내역");
@@ -52,17 +51,15 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         btn_home.addActionListener(this);
         btn_search.addActionListener(this);
         btn_all.addActionListener(this);
-        btn_receipt.addActionListener(this);
         btn_return.addActionListener(this);
         table.addMouseListener(this);
 
         label.setBounds(20, 20, 1280, 50);
         scrollPane.setBounds(20, 150, 1220, 740);
-        searchInput.setBounds(20, 80, 690, 50);
+        searchInput.setBounds(20, 80, 820, 50);
         btn_home.setBounds(1175, 20, 60, 50);
-        btn_search.setBounds(725, 80, 120, 50);
-        btn_all.setBounds(855, 80, 120, 50);
-        btn_receipt.setBounds(985, 80, 120, 50);
+        btn_search.setBounds(855, 80, 120, 50);
+        btn_all.setBounds(985, 80, 120, 50);
         btn_return.setBounds(1115, 80, 120, 50);
 
         label.setFont(mainFont);
@@ -74,7 +71,6 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         btn_home.setFont(btnFont);
         btn_search.setFont(btnFont);
         btn_all.setFont(btnFont);
-        btn_receipt.setFont(btnFont);
         btn_return.setFont(btnFont);
 
         add(label);
@@ -83,7 +79,6 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         add(btn_home);
         add(btn_search);
         add(btn_all);
-        add(btn_receipt);
         add(btn_return);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -154,16 +149,6 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
             loadSalesHistories();
             searchInput.setForeground(Color.GRAY);
             searchInput.setText("고객번호, 고객이름");
-        } else if (e.getSource() == btn_receipt) {
-            // 영수증 출력 버튼을 클릭했을 때
-            int selectedRow = table.getSelectedRow();
-            if (selectedRow != -1) { // 행이 하나라도 선택되었는지 확인
-                System.out.println("영수증 버튼 클릭");
-
-            } else {
-                // 행이 선택되지 않았을 경우 경고 메시지 표시
-                JOptionPane.showMessageDialog(this, "영수증을 출력할 거래 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
-            }
         } else if (e.getSource() == btn_return) {
             // 반품 버튼을 클릭했을 때
             int selectedRow = table.getSelectedRow();
