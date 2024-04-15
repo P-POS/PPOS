@@ -92,8 +92,8 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
     @Override
     public void refundSalesHistory(int transactionID) {
         try {
-            String query1 = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id"
-                + "FROM sales LEFT JOIN members ON sales.member_id = members.member_id"
+            String query1 = "SELECT *"
+                + "FROM sales"
                 + "WHERE sale_id = " + transactionID;
             ResultSet resultSet = statement.executeQuery(query1);
             if (resultSet.next()) {
