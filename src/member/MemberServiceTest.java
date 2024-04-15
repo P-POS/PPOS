@@ -57,6 +57,24 @@ public class MemberServiceTest {
     }
 
     @Test
+    public void testDeleteNonExistingMember() {
+        // Given
+        MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
+        MemberService memberService = new MemberService(memberDAO);
+        memberDAO.createMember(new MemberDTO(11, "John", 100));
+
+        // When
+        memberService.deleteMember(11); // 첫 번째 회원 삭제
+        try {
+            memberService.deleteMember(11); // 두 번째 회원 삭제 시도
+            fail("Expected IllegalArgumentException was not thrown"); // 예외가 발생하지 않으면 테스트 실패
+        } catch (IllegalArgumentException e) {
+            // Then: 예외가 발생했음을 확인
+            assertEquals("Member with ID 11 does not exist.", e.getMessage());
+        }
+    }
+
+    @Test
     public void testGetMember() {
         // Given
         MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
