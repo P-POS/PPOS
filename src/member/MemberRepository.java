@@ -11,7 +11,7 @@ public class MemberRepository implements MemberDAO {
     DBConnection dbConnector;
     Statement stmt;
 
-    MemberRepository() {
+    public MemberRepository() {
         dbConnector = new DBConnection();
 
         try {
