@@ -1,7 +1,6 @@
 package member;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MemberController {
 
@@ -46,6 +45,15 @@ public class MemberController {
         ArrayList<MemberModel> members = memberService.getAllMembers();
         if (!members.isEmpty()) {
             return members;
+        } else {
+            return null;
+        }
+    }
+
+    String getLatestSaleDate(int memberId) {
+        String latestSaleDate = memberService.getLatestSaleDate(memberId);
+        if (latestSaleDate != null) {
+            return latestSaleDate;
         } else {
             return null;
         }

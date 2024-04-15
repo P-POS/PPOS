@@ -1,7 +1,6 @@
 package member;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface MemberDAO {
 
@@ -15,5 +14,5 @@ public interface MemberDAO {
 
     ArrayList<MemberDTO> getAllMembers();
 
-    String getLatestSale(int memberId);
+    String getLatestSaleDate(int memberId);
 }
