@@ -75,6 +75,22 @@ public class MemberServiceTest {
     }
 
     @Test
+    public void testUpdateMember() {
+        // Given
+        TestMemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
+        MemberService memberService = new MemberService(memberDAO);
+        memberDAO.createMember(new MemberDTO(11, "John", 100)); // 기존 회원 생성
+
+        // When
+        memberService.updateMember(new MemberModel(11, "Jane", 200)); // 회원 정보 업데이트
+
+        // Then
+        MemberDTO updatedMember = memberDAO.getMember(11);
+        assertEquals("Jane", updatedMember.getMemberName()); // 회원 이름이 업데이트되었는지 확인
+        assertEquals(200, updatedMember.getMemberScore()); // 회원 점수가 업데이트되었는지 확인
+    }
+
+    @Test
     public void testGetMember() {
         // Given
         MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
