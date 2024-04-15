@@ -63,7 +63,6 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
             e.printStackTrace();
         }
         return salesHistoryResDTO;
-
     }
 
     @Override
