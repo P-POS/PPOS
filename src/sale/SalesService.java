@@ -34,7 +34,7 @@ public class SalesService {
         saleRepository.sellSale(new SaleDTO(new Date(),totalSale, memberDTO.getClientId()));
 
         productRepository.sellProduct(productOrderNumDTOS);
-        productOrderNumDTOS.clear();
+        productOrderN mDTOS.clear();
         this.memberDTO = getMemberInfo(memberDTO.getClientId());
         return "success";
     }
@@ -62,11 +62,13 @@ public class SalesService {
         }
     }
 
-    public void cancleProduct(int sequence){
+    public ArrayList<ProductOrderNumDTO> cancleProduct(int sequence){
         productOrderNumDTOS.remove(sequence);
+        return productOrderNumDTOS;
     }
 
-    public void cancleProducts(){
+    public ArrayList<ProductOrderNumDTO> cancleProducts(){
         productOrderNumDTOS.clear();
+        return productOrderNumDTOS;
     }
 }

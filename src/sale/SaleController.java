@@ -28,6 +28,14 @@ public class SaleController {
     public String sellSaleUsePoint(int point){
         sellSale();
     }
+    public ArrayList<ProductOrderNumDTO> getProductInfo(int productId){
+        return salesService.getProductInfo(productId);
+    }
 
-    public 
+    public ArrayList<ProductOrderNumDTO> cancleProduct(int sequence){
+        return salesService.cancleProduct(sequence);
+    }
+    public  ArrayList<ProductOrderNumDTO> cancleProducts(){
+        return salesService.cancleProducts();
+    }
 }
