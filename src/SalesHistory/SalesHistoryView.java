@@ -157,6 +157,7 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
                 int transactionID = (int) table.getValueAt(selectedRow, 0);
 
                 salesHistoryController.refundSalesHistory(transactionID);
+                loadSalesHistories();
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
                 JOptionPane.showMessageDialog(this, "반품할 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
