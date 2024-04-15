@@ -1,4 +1,5 @@
-package SalesHistory;
+package salesHistory;
 
 public class SalesHistoryDTO {
+
 }
