@@ -7,7 +7,7 @@ public class SaleController {
     MemberDTO memberDTO;
     SaleController(SalesService salesService){
         this.salesService = salesService;
-//        new SaleView(this);
+        new SaleView(this);
     }
 
     public String sellSale(){
