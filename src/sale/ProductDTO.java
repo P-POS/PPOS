@@ -2,8 +2,8 @@ package sale;
 
 public class ProductDTO {
     private final String productName;
-    private final int productPrice;
-    private final int productStock;
+    private int productPrice;
+    private int productStock;
     private final int productId;
 
     public ProductDTO(int productId , int productPrice, int productStock,String productName) {
@@ -27,5 +27,11 @@ public class ProductDTO {
 
     public int getProductId() {
         return productId;
+    }
+    public void setRefundProduct(){
+        productPrice = -productPrice;
+    }
+    public void setProductStock(int orderNum){
+        productStock = orderNum;
     }
 }

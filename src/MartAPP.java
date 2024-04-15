@@ -1,35 +1,30 @@
 
 import DBConnection.DBConnection;
+import java.util.ArrayList;
 import main.MainController;
 import java.sql.*;
-
+import sale.ProductOrderNumDTO;
+import sale.SaleController;
+import sale.SalesService;
 
 public class MartAPP {
     public static void main(String[] args) {
+//      new main.MainView(new MainController());
+        SaleController saleController = new SaleController(new SalesService());
+        System.out.println(saleController.getMemberInfo(1).getClientName());
+        saleController.getProductInfo(1);
+        saleController.getProductInfo(2);
+        ArrayList<ProductOrderNumDTO> productOrderNumDTOS = saleController.getProductInfo(3);
+       saleController.cancleProducts();
 
-//
-        DBConnection dbConnector = new DBConnection();
-        Statement stmt = null;
-        try {
-            stmt = dbConnector.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT * FROM members;");
-            resultSet.next();
-            System.out.println(resultSet.getString(3));
-            resultSet.next();
-            System.out.println(resultSet.getString(2));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            dbConnector.closeConnection();
+        System.out.println("-------");
+        System.out.println(saleController.getProductInfo(2));
+        saleController.getProductInfo(3);
+        saleController.getProductInfo(4);
+        System.out.println(saleController.returnProducts(2));
+        for(ProductOrderNumDTO productOrderNumDTO : productOrderNumDTOS){
+            System.out.println(productOrderNumDTO.getProductDTO().getProductPrice());
         }
-        new main.MainView(new MainController());
 
     }
 }

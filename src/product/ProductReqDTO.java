@@ -8,9 +8,7 @@ public class ProductReqDTO {
 
 
 
-    public String getProductName() {
-        return productName;
-    }
+    public String getProductName() { return productName; }
 
     public int getProductPrice() {
         return productPrice;

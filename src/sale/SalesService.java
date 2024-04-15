@@ -9,10 +9,11 @@ public class SalesService {
     SaleRepository saleRepository;
     ArrayList<ProductOrderNumDTO> productOrderNumDTOS;
     MemberDTO memberDTO;
-    SalesService(){
+    public SalesService(){
         this.memberRepository = new MemberRepository();
         this.saleRepository = new SaleRepository();
         this.productRepository = new ProductRepository();
+        productOrderNumDTOS = new ArrayList<ProductOrderNumDTO>();
     }
 
     public String sellSale(){
@@ -66,12 +67,27 @@ public class SalesService {
     }
 
     public ArrayList<ProductOrderNumDTO> cancleProduct(int sequence){
+        System.out.println(productOrderNumDTOS.size());
         productOrderNumDTOS.remove(sequence);
+
         return productOrderNumDTOS;
     }
 
     public ArrayList<ProductOrderNumDTO> cancleProducts(){
         productOrderNumDTOS.clear();
+        return productOrderNumDTOS;
+    }
+    public ArrayList<ProductOrderNumDTO> returnProduct(int sequence){
+        ProductOrderNumDTO productOrderNumDTO = productOrderNumDTOS.get(sequence);
+        productOrderNumDTO.setRefundProduct();
+        productOrderNumDTOS.set(sequence,productOrderNumDTO);
+        return productOrderNumDTOS;
+    }
+
+    public ArrayList<ProductOrderNumDTO> updateOrderNum(int sequence, int orderNum){
+        ProductOrderNumDTO productOrderNumDTO = productOrderNumDTOS.get(sequence);
+        productOrderNumDTO.setProductOrderNum(orderNum);
+        productOrderNumDTOS.set(sequence,productOrderNumDTO);
         return productOrderNumDTOS;
     }
 }

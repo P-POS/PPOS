@@ -19,4 +19,10 @@ public class ProductOrderNumDTO {
     public  void setProductOrderNum(int num){
         this.productOrderNum = num;
     }
+    public void setRefundProduct(){
+        this.productDTO.setRefundProduct();
+    }
+    public  void updateOrderNum(int orderNum){
+        this.productDTO.setProductStock(orderNum);
+    }
 }

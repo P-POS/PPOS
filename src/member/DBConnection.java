@@ -1,4 +1,4 @@
-package DBConnection;
+package member;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
+
     private Connection con;
 
     public DBConnection() {
@@ -17,9 +18,9 @@ public class DBConnection {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://" +
-                    server + "/" +
-                    database +
-                    "?useSSL=false", user_name, password);
+                server + "/" +
+                database +
+                "?useSSL=false", user_name, password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

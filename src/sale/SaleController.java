@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SaleController {
     SalesService salesService;
     MemberDTO memberDTO;
-    SaleController(SalesService salesService){
+    public SaleController(SalesService salesService){
         this.salesService = salesService;
         new SaleView(this);
     }
@@ -42,6 +42,7 @@ public class SaleController {
         }
     }
     public ArrayList<ProductOrderNumDTO> getProductInfo(int productId){
+
         return salesService.getProductInfo(productId);
     }
 
@@ -51,4 +52,13 @@ public class SaleController {
     public  ArrayList<ProductOrderNumDTO> cancleProducts(){
         return salesService.cancleProducts();
     }
+
+    public ArrayList<ProductOrderNumDTO> returnProducts(int sequence){
+        return salesService.returnProduct(sequence);
+    }
+
+    public  ArrayList<ProductOrderNumDTO> updateOrderNum(int sequence,int orderNum){
+        return salesService.updateOrderNum(sequence,orderNum);
+    }
+
 }
