@@ -85,7 +85,7 @@ public class MemberRepository implements MemberDAO {
     public ArrayList<MemberDTO> getMemberUseName(String memberName) {
         dbConnector = new DBConnection();
         ArrayList<MemberDTO> members = new ArrayList<>();
-        String query = "SELECT * FROM members WHERE member_name=" + memberName;
+        String query = "SELECT * FROM members WHERE member_name='" + memberName + "'";
         try {
             stmt = dbConnector.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
