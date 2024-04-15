@@ -52,6 +52,30 @@ public class MemberServiceTest {
         assertEquals(expectedMemberModel, actualMemberModel);
     }
 
+    @Test
+    public void testGetAllMembers() {
+        // Given
+        MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
+        MemberService memberService = new MemberService(memberDAO);
+        List<MemberModel> expectedMembers = new ArrayList<>();
+        expectedMembers.add(new MemberModel(1, "John", 100));
+        expectedMembers.add(new MemberModel(2, "Alice", 200));
+        expectedMembers.add(new MemberModel(3, "Bob", 300));
+
+        memberDAO.createMember(new MemberDTO(1, "John", 100));
+        memberDAO.createMember(new MemberDTO(2, "Alice", 200));
+        memberDAO.createMember(new MemberDTO(3, "Bob", 300));
+
+        // When
+        List<MemberModel> actualMembers = memberService.getAllMembers();
+
+        // Then
+        assertEquals(expectedMembers.size(), actualMembers.size());
+        for (int i = 0; i < expectedMembers.size(); i++) {
+            assertEquals(expectedMembers.get(i), actualMembers.get(i));
+        }
+    }
+
     // 테스트용 MemberDAO 구현체
     private class TestMemberDAO implements MemberDAO {
         private MemberDTO member;
