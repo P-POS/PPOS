@@ -6,9 +6,12 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
+import main.MainController;
+import main.MainView;
 
 public class ProductView extends JFrame implements ActionListener, MouseListener {
     ProductController productController = new ProductController();
+    MainController mainController;
 
     // 테이블 임시데이터 설정
     String[][] data = {
@@ -25,9 +28,10 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
     JScrollPane scrollPane;
 
     // 검색어 입력창
-    JTextField searchInput = new JTextField();
+    JTextField searchInput = new JTextField("상품번호, 상품명");
 
     // 버튼
+    JButton btn_home = new JButton("홈");
     JButton btn_search = new JButton("검색");
     JButton btn_all = new JButton("전체 조회");
     JButton btn_register = new JButton("등록");
@@ -38,7 +42,8 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
     Font subFont = new Font("맑은 고딕", Font.PLAIN, 16);
     Font btnFont = new Font("맑은 고딕", Font.PLAIN, 14);
 
-    public ProductView() {
+    public ProductView(MainController mainController) {
+        this.mainController = mainController;
         // 프레임 크기 설정 및 화면에 표시
         setSize(1280, 960);
         setLayout(null);
@@ -54,6 +59,9 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         // 상품 불러오기
         loadProductData();
 
+        searchInput.setForeground(Color.GRAY); // placeholder 색상 설정
+
+        btn_home.addActionListener(this);
         btn_search.addActionListener(this);
         btn_all.addActionListener(this);
         btn_register.addActionListener(this);
@@ -65,6 +73,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         label.setBounds(20, 20, 1280, 50);
         scrollPane.setBounds(20, 150, 1220, 740);
         searchInput.setBounds(20, 80, 690, 50);
+        btn_home.setBounds(1175, 20, 60, 50);
         btn_search.setBounds(725, 80, 120, 50);
         btn_all.setBounds(855, 80, 120, 50);
         btn_register.setBounds(985, 80, 120, 50);
@@ -76,6 +85,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         header.setBackground(Color.lightGray);
         table.setRowHeight(24);
         searchInput.setFont(btnFont);
+        btn_home.setFont(btnFont);
         btn_search.setFont(btnFont);
         btn_all.setFont(btnFont);
         btn_register.setFont(btnFont);
@@ -84,6 +94,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         add(label);
         add(scrollPane);
         add(searchInput);
+        add(btn_home);
         add(btn_search);
         add(btn_all);
         add(btn_register);
@@ -91,6 +102,27 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        btn_home.requestFocusInWindow();
+
+        // placeholder 효과를 주기 위한 코드
+        searchInput.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // 포커스를 얻었을 때, placeholder 효과 주지 않기
+                if (searchInput.getText().equals("상품번호, 상품명")) {
+                    searchInput.setText("");
+                    searchInput.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                // 포커스를 잃었을 때, 텍스트 필드가 비어있다면 placeholder 효과 주기
+                if (searchInput.getText().isEmpty()) {
+                    searchInput.setForeground(Color.GRAY);
+                    searchInput.setText("상품번호, 상품명");
+                }
+            }
+        });
     }
 
     public void loadProductData() {
@@ -109,7 +141,11 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn_search) {
+        if (e.getSource() == btn_home) {
+            this.setVisible(false);
+            new MainView(mainController);
+        } else if (e.getSource() == btn_search) {
+            boolean isNumeric = searchInput.getText().matches("-?\\d+(\\.\\d+)?"); // 숫자인지 확인
             // 검색 버튼을 클릭했을 때
             String searchText = searchInput.getText();
             model.setRowCount(0); // 테이블 데이터 초기화
@@ -117,8 +153,17 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
             int no = 1;
             // 상품 목록에서 검색어에 해당하는 상품만 필터링하여 테이블에 추가
             for (Product product : productController.getProducts()) {
-                if (product.getProductName().contains(searchText)) {
-                    model.addRow(new Object[]{no++, product.getProductNum(), product.getProductName(), product.getProductPrice(), product.getProductQuantity()});
+                if (isNumeric) {
+                    // searchText가 숫자일 경우, productNum과 비교
+                    int searchNum = Integer.parseInt(searchText);
+                    if (product.getProductNum() == searchNum) {
+                        model.addRow(new Object[]{no++, product.getProductNum(), product.getProductName(), product.getProductPrice(), product.getProductQuantity()});
+                    }
+                } else {
+                    // searchText가 문자열일 경우, productName과 비교
+                    if (product.getProductName().contains(searchText)) {
+                        model.addRow(new Object[]{no++, product.getProductNum(), product.getProductName(), product.getProductPrice(), product.getProductQuantity()});
+                    }
                 }
             }
         } else if (e.getSource() == btn_all) {
