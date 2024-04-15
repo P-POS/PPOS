@@ -23,9 +23,6 @@ MemberModel을 매개변수로 받고, 비즈니스 로직을 처리합니다. �
 #### MemberRepository
 MemberDAO의 구현체로서, 실제 데이터베이스 조작을 담당합니다. 데이터베이스와의 통신을 수행하고 데이터 액세스 작업을 구현합니다.
 
-#### MemberServiceTest
-Junit을 활용하여 MemberService를 테스트합니다.
-
 ## MemberPopup
 
 #### MemberPopupController
