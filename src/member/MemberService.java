@@ -12,38 +12,52 @@ public class MemberService {
     }
 
     public void createMember(MemberModel member) {
-        memberDAO.createMember(new MemberDTO(
-            member.getMemberId(),
-            member.getMemberName(),
-            member.getMemberScore()));
+        int memberId = member.getMemberId();
+        MemberDTO existingMember = memberDAO.getMember(memberId);
+
+        if (existingMember != null) {
+            throw new IllegalArgumentException("Member with ID " + memberId + " already exists.");
+        }
+
+        memberDAO.createMember(
+            new MemberDTO(member.getMemberId(), member.getMemberName(), member.getMemberScore()));
     }
 
     public void deleteMember(int memberId) {
-        memberDAO.deleteMember(memberId);
+        MemberDTO existingMember = memberDAO.getMember(memberId);
+        if (existingMember != null) {
+            memberDAO.deleteMember(memberId);
+        } else {
+            throw new IllegalArgumentException("Member with ID " + memberId + " does not exist.");
+        }
     }
 
     public void updateMember(MemberModel member) {
-        memberDAO.updateMember(new MemberDTO(
-            member.getMemberId(),
-            member.getMemberName(),
-            member.getMemberScore()));
+        int memberId = member.getMemberId();
+        MemberDTO existingMember = memberDAO.getMember(memberId);
+        if (existingMember != null) {
+            memberDAO.updateMember(new MemberDTO(member.getMemberId(), member.getMemberName(),
+                member.getMemberScore()));
+        } else {
+            throw new IllegalArgumentException("Member with ID " + memberId + " does not exist.");
+        }
     }
 
     public MemberModel getMember(int memberId) {
         MemberDTO memberDTO = memberDAO.getMember(memberId);
-        return new MemberModel(
-            memberDTO.getMemberId(),
-            memberDTO.getMemberName(),
-            memberDTO.getMemberScore());
+        if (memberDTO != null) {
+            return new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
+                memberDTO.getMemberScore());
+        } else {
+            return null;
+        }
     }
 
     public List<MemberModel> getAllMembers() {
         List<MemberDTO> memberDTOs = memberDAO.getAllMembers();
         List<MemberModel> members = new ArrayList<>();
         for (MemberDTO memberDTO : memberDTOs) {
-            members.add(new MemberModel(
-                memberDTO.getMemberId(),
-                memberDTO.getMemberName(),
+            members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
                 memberDTO.getMemberScore()));
         }
         return members;
