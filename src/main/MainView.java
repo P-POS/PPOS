@@ -1,5 +1,8 @@
 package main;
 
+import SalesHistory.SalesHistoryController;
+import SalesHistory.SalesHistoryDBRepository;
+import SalesHistory.SalesHistoryView;
 import member.MemberController;
 import member.MemberRepository;
 import member.MemberService;
@@ -65,9 +68,10 @@ public class MainView extends JFrame implements ActionListener {
 
         } else if (e.getSource() == btn_product) { // 이벤트 발생한게 상품버튼
             this.setVisible(false);
-            new ProductView(mainController);
+            new ProductView();
         } else if (e.getSource() == btn_salesHistory) { // 이벤트 발생한게 판매내역버튼
-
+            this.setVisible(false);
+            new SalesHistoryView();
         }
     }
 }
