@@ -46,6 +46,7 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         searchInput.setForeground(Color.GRAY); // placeholder 색상 설정
 
         btn_search.addActionListener(this);
+        btn_all.addActionListener(this);
         btn_receipt.addActionListener(this);
         btn_return.addActionListener(this);
         table.addMouseListener(this);
@@ -106,14 +107,12 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         // 상품 목록 가져오기
         ArrayList<SalesHistory> salesHistories = salesHistoryController.getSalesHistories();
 
-        System.out.println("salesHistories: " + salesHistories);
-
         // 모델 데이터 초기화
         model.setRowCount(0);
 
         // 거래 목록을 JTable 모델에 추가
         for (SalesHistory salesHistory : salesHistories) {
-            model.addRow(new Object[]{salesHistory.transactionID, salesHistory.memberName, salesHistory.memberNum, salesHistory.totalAmount, salesHistory.date});
+            model.addRow(new Object[]{salesHistory.getTransactionID(), salesHistory.getMemberName(), salesHistory.getMemberNum(), salesHistory.getTotalAmount(), salesHistory.getDate()});
         }
     }
 
@@ -127,12 +126,13 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
             // 거래 목록에서 검색어에 해당하는 거래 목록만 필터링하여 테이블에 추가
             for (SalesHistory salesHistory : salesHistoryController.getSalesHistories()) {
                 if (salesHistory.getMemberName().contains(searchText)) {
-                    model.addRow(new Object[]{salesHistory.transactionID, salesHistory.memberName, salesHistory.memberNum, salesHistory.totalAmount, salesHistory.date});
+                    model.addRow(new Object[]{salesHistory.getTransactionID(), salesHistory.getMemberName(), salesHistory.getMemberNum(), salesHistory.getTotalAmount(), salesHistory.getDate()});
                 }
             }
         } else if (e.getSource() == btn_all) {
             // 전체 거래 내역 조회 버튼을 클릭했을 때
             loadSalesHistories();
+            searchInput.setText("");
         } else if (e.getSource() == btn_receipt) {
             // 영수증 출력 버튼을 클릭했을 때
             System.out.println("영수증 버튼 클릭");
