@@ -106,7 +106,9 @@ public class MemberRepository implements MemberDAO {
         try {
             stmt = dbConnector.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
-            return resultSet.getString("sale_date");
+            if (resultSet.next()) {
+                return resultSet.getString("sale_date");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
