@@ -7,8 +7,6 @@ public class SalesHistory {
     private int totalAmount;
     private String date;
 
-    public SalesHistory() {}
-
     public SalesHistory(SalesHistoryResDTO salesHistoryResDTOS) {
         this.transactionID = salesHistoryResDTOS.getTransactionID();
         this.memberNum = salesHistoryResDTOS.getMemberNum();
