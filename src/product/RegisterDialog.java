@@ -99,7 +99,7 @@ class RegisterDialog extends JDialog implements ActionListener {
             productController.updateProduct(product);
         }
 
-         productView.loadProductData();
+        productView.loadProductData();
 
         dispose(); // 다이얼로그 닫기
     }
