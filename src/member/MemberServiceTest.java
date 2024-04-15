@@ -53,7 +53,7 @@ public class MemberServiceTest {
         memberService.deleteMember(11);
 
         // Then
-        assertNull(memberDAO.getMember(11).get(0));
+        assertEquals(0, memberDAO.getMember(11).size());
     }
 
     @Test

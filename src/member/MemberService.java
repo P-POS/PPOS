@@ -13,9 +13,9 @@ public class MemberService {
 
     public void createMember(MemberModel member) {
         int memberId = member.getMemberId();
-        MemberDTO existingMember = memberDAO.getMember(memberId).get(0);
+        ArrayList<MemberDTO> existingMember = memberDAO.getMember(memberId);
 
-        if (existingMember != null) {
+        if (existingMember.size() != 0) {
             throw new IllegalArgumentException("Member with ID " + memberId + " already exists.");
         }
 
@@ -24,8 +24,8 @@ public class MemberService {
     }
 
     public void deleteMember(int memberId) {
-        MemberDTO existingMember = memberDAO.getMember(memberId).get(0);
-        if (existingMember != null) {
+        ArrayList<MemberDTO> existingMember = memberDAO.getMember(memberId);
+        if (existingMember.size() != 0) {
             memberDAO.deleteMember(memberId);
         } else {
             throw new IllegalArgumentException("Member with ID " + memberId + " does not exist.");
