@@ -47,9 +47,10 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
     public SalesHistoryResDTO getSalesHistoryByID(int transactionID) {
         SalesHistoryResDTO salesHistoryResDTO = null;
         try {
-            String query = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id"
-            + "FROM sales LEFT JOIN members ON sales.member_id = members.member_id"
-            + "WHERE sale_id = " + transactionID;
+            String query = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id " +
+                "FROM sales " +
+                "LEFT JOIN members ON sales.member_id = members.member_id " +
+                "WHERE sale_id = " + transactionID;
             ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 int totalAmount = resultSet.getInt("sale_total");
@@ -69,9 +70,10 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
     public SalesHistoryResDTO getSalesHistoryByMemberName(String memberName) {
         SalesHistoryResDTO salesHistoryResDTO = null;
         try {
-            String query = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id"
-                + "FROM sales LEFT JOIN members ON sales.member_id = members.member_id"
-                + "WHERE member_name = '" + memberName + "'";
+            String query = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id " +
+                "FROM sales " +
+                "LEFT JOIN members ON sales.member_id = members.member_id " +
+                "WHERE member_name = '" + memberName + "'";
             ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 int transactionID = resultSet.getInt("sale_id");
@@ -87,28 +89,27 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
         return salesHistoryResDTO;
     }
 
-
-
     @Override
     public void refundSalesHistory(int transactionID) {
         try {
-            String query1 = "SELECT *"
-                + "FROM sales"
-                + "WHERE sale_id = " + transactionID;
+            String query1 = "SELECT * " +
+                "FROM sales " +
+                "WHERE sale_id = " + transactionID;
             ResultSet resultSet = statement.executeQuery(query1);
             if (resultSet.next()) {
                 int totalAmount = resultSet.getInt("sale_total");
                 int memberNum = resultSet.getInt("member_id");
-                totalAmount = -totalAmount;
+                totalAmount = -totalAmount; // Assuming you're processing refunds by inserting negative transactions
                 String date = resultSet.getString("sale_date");
 
-                String query2 = String.format("INSERT INTO sales (sale_date,sale_total,member_id) VALUES ('%s', %d, %d)",
+                String query2 = String.format("INSERT INTO sales (sale_date, sale_total, member_id) VALUES ('%s', %d, %d)",
                     date, totalAmount, memberNum);
 
-                statement.executeQuery(query2);
+                statement.executeUpdate(query2);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }
