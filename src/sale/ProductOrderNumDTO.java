@@ -16,4 +16,7 @@ public class ProductOrderNumDTO {
     public int getProductOrderNum() {
         return productOrderNum;
     }
+    public  void setProductOrderNum(int num){
+        this.productOrderNum = num;
+    }
 }

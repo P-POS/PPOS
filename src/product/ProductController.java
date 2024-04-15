@@ -23,11 +23,11 @@ public class ProductController {
     }
 
     public void addProduct(Product product) {
-        productService.addProduct(new ProductReqDTO(product));
+//        productService.addProduct(new ProductReqDTO(product));
     }
 
     public void updateProduct(Product product) {
-        productService.updateProduct(new ProductReqDTO(product));
+//        productService.updateProduct(new ProductReqDTO(product));
     }
 
     public void deleteProduct(int productNum) {

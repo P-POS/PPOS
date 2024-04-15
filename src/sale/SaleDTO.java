@@ -15,6 +15,12 @@ public class SaleDTO {
         this.memberId = memberId;
     }
 
+    public SaleDTO(Date date, int totalSale, int memberId) {
+        this.date = date;
+        this.totalSale = totalSale;
+        this.memberId = memberId;
+    }
+
     public Date getDate() {
         return date;
     }
