@@ -17,6 +17,14 @@ public class SalesHistory {
         this.date = salesHistoryResDTOS.getDate();
     }
 
+    public SalesHistory(int transactionID, int memberNum, String memberName, int totalAmount, String date) {
+        this.transactionID = transactionID;
+        this.memberNum = memberNum;
+        this.memberName = memberName;
+        this.totalAmount = totalAmount;
+        this.date = date;
+    }
+
     public String getDate() {
         return date;
     }
