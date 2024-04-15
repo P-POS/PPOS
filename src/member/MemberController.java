@@ -1,5 +1,6 @@
 package member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemberController {
@@ -41,8 +42,8 @@ public class MemberController {
         }
     }
 
-    public List<MemberModel> getAllMembers() {
-        List<MemberModel> members = memberService.getAllMembers();
+    public ArrayList getAllMembers() {
+        ArrayList<MemberModel> members = (ArrayList<MemberModel>) memberService.getAllMembers();
         if (!members.isEmpty()) {
             return members;
         } else {
