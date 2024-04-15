@@ -1,3 +1,4 @@
+
 package member;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +22,7 @@ public class MemberServiceTest {
         memberService.createMember(memberModel);
 
         // Then
-        assertEquals("John", memberDAO.getMember(11).getMemberName());
+        assertEquals("John", memberDAO.getMember(11).get(0).getMemberName());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class MemberServiceTest {
         memberService.deleteMember(11);
 
         // Then
-        assertNull(memberDAO.getMember(11));
+        assertEquals(0, memberDAO.getMember(11).size());
     }
 
     @Test
@@ -85,7 +86,7 @@ public class MemberServiceTest {
         memberService.updateMember(new MemberModel(11, "Jane", 200)); // 회원 정보 업데이트
 
         // Then
-        MemberDTO updatedMember = memberDAO.getMember(11);
+        MemberDTO updatedMember = memberDAO.getMember(11).get(0);
         assertEquals("Jane", updatedMember.getMemberName()); // 회원 이름이 업데이트되었는지 확인
         assertEquals(200, updatedMember.getMemberScore()); // 회원 점수가 업데이트되었는지 확인
     }
@@ -99,7 +100,24 @@ public class MemberServiceTest {
         memberDAO.createMember(new MemberDTO(11, "John", 100));
 
         // When
-        MemberModel actualMemberModel = memberService.getMember(11);
+        MemberModel actualMemberModel = memberService.getMember(11).get(0);
+
+        // Then
+        assertEquals(expectedMemberModel.getMemberId(), actualMemberModel.getMemberId());
+        assertEquals(expectedMemberModel.getMemberName(), actualMemberModel.getMemberName());
+        assertEquals(expectedMemberModel.getMemberScore(), actualMemberModel.getMemberScore());
+    }
+
+    @Test
+    public void testGetMemberUseName() {
+        // Given
+        MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
+        MemberService memberService = new MemberService(memberDAO);
+        MemberModel expectedMemberModel = new MemberModel(11, "John", 100);
+        memberDAO.createMember(new MemberDTO(11, "John", 100));
+
+        // When
+        MemberModel actualMemberModel = memberService.getMemberUseName("John").get(0);
 
         // Then
         assertEquals(expectedMemberModel.getMemberId(), actualMemberModel.getMemberId());
@@ -139,7 +157,7 @@ public class MemberServiceTest {
     private class TestMemberDAO implements MemberDAO {
 
         private MemberDTO member;
-        private List<MemberDTO> members = new ArrayList<>();
+        private ArrayList<MemberDTO> members = new ArrayList<>();
 
         @Override
         public void createMember(MemberDTO member) {
@@ -168,18 +186,35 @@ public class MemberServiceTest {
         }
 
         @Override
-        public MemberDTO getMember(int memberId) {
+        public ArrayList<MemberDTO> getMember(int memberId) {
+            ArrayList<MemberDTO> memberDTOs = new ArrayList<>();
             for (MemberDTO member : members) {
                 if (member.getMemberId() == memberId) {
-                    return member;
+                    memberDTOs.add(member);
                 }
             }
-            return null;
+            return memberDTOs;
         }
 
         @Override
-        public List<MemberDTO> getAllMembers() {
+        public ArrayList<MemberDTO> getMemberUseName(String memberName) {
+            ArrayList<MemberDTO> memberDTOs = new ArrayList<>();
+            for (MemberDTO member : members) {
+                if (member.getMemberName().equals(memberName)) {
+                    memberDTOs.add(member);
+                }
+            }
+            return memberDTOs;
+        }
+
+        @Override
+        public ArrayList<MemberDTO> getAllMembers() {
             return members;
+        }
+
+        @Override
+        public String getLatestSaleDate(int memberId) {
+            return null;
         }
     }
 }

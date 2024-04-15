@@ -1,5 +1,8 @@
 package main;
 
+import SalesHistory.SalesHistoryController;
+import SalesHistory.SalesHistoryDBRepository;
+import SalesHistory.SalesHistoryView;
 import member.MemberController;
 import member.MemberRepository;
 import member.MemberService;
@@ -8,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import product.ProductView;
 
 
 public class MainView extends JFrame implements ActionListener {
@@ -59,13 +63,15 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_member) { // 이벤트 발생한게 회원버튼
             this.setVisible(false);
-            new member.MemberView(new MemberController(new MemberService(new MemberRepository())));
+            new MemberController(new MemberService(new MemberRepository()));
         } else if (e.getSource() == btn_sale) { // 이벤트 발생한게 판매버튼
 
         } else if (e.getSource() == btn_product) { // 이벤트 발생한게 상품버튼
-
+            this.setVisible(false);
+            new ProductView();
         } else if (e.getSource() == btn_salesHistory) { // 이벤트 발생한게 판매내역버튼
-
+            this.setVisible(false);
+            new SalesHistoryView();
         }
     }
 }
