@@ -42,8 +42,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
     Font subFont = new Font("맑은 고딕", Font.PLAIN, 16);
     Font btnFont = new Font("맑은 고딕", Font.PLAIN, 14);
 
-    public ProductView(MainController mainController) {
-        this.mainController = mainController;
+    public ProductView() {
         // 프레임 크기 설정 및 화면에 표시
         setSize(1280, 960);
         setLayout(null);
@@ -102,7 +101,6 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        btn_home.requestFocusInWindow();
 
         // placeholder 효과를 주기 위한 코드
         searchInput.addFocusListener(new FocusListener() {
@@ -169,7 +167,8 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         } else if (e.getSource() == btn_all) {
             // 전체 상품 조회 버튼을 클릭했을 때
             loadProductData();
-            searchInput.setText("");
+            searchInput.setForeground(Color.GRAY);
+            searchInput.setText("상품번호, 상품명");
         } else if (e.getSource() == btn_register) {
             // 등록 버튼 클릭 시 모달 다이얼로그 띄우기
             RegisterDialog registerDialog = new RegisterDialog(this, "상품 등록", true, this);
