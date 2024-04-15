@@ -15,9 +15,9 @@ public class MemberRepository implements MemberDAO {
     public void createMember(MemberDTO member) {
         dbConnector = new DBConnection();
         String query =
-            "INSERT INTO members (member_name, member_score) VALUES ('" + member.getMemberName()
+            "INSERT INTO members (member_name, member_id) VALUES ('" + member.getMemberName()
                 + "', "
-                + member.getMemberScore() + ")";
+                + member.getMemberId() + ")";
         try {
             stmt.executeUpdate(query);
             System.out.println("Member created successfully.");
