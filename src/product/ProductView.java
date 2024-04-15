@@ -95,8 +95,6 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         // 상품 목록 가져오기
         ArrayList<Product> products = productController.getProducts();
 
-        System.out.println("products: " + products);
-
         // 모델 데이터 초기화
         model.setRowCount(0);
 
@@ -124,6 +122,7 @@ public class ProductView extends JFrame implements ActionListener, MouseListener
         } else if (e.getSource() == btn_all) {
             // 전체 상품 조회 버튼을 클릭했을 때
             loadProductData();
+            searchInput.setText("");
         } else if (e.getSource() == btn_register) {
             // 등록 버튼 클릭 시 모달 다이얼로그 띄우기
             RegisterDialog registerDialog = new RegisterDialog(this, "상품 등록", true);
