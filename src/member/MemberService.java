@@ -26,7 +26,12 @@ public class MemberService {
     }
 
     public void deleteMember(int memberId) {
-        memberDAO.deleteMember(memberId);
+        MemberDTO existingMember = memberDAO.getMember(memberId);
+        if (existingMember != null) {
+            memberDAO.deleteMember(memberId);
+        } else {
+            throw new IllegalArgumentException("Member with ID " + memberId + " does not exist.");
+        }
     }
 
     public void updateMember(MemberModel member) {
