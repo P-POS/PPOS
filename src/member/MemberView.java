@@ -148,7 +148,13 @@ public class MemberView extends JFrame implements ActionListener {
             this.dispose(); // 현재 창 닫기
             new MainView(new MainController());
         } else if (e.getSource() == btn_search) { // 이벤트 발생한게 검색버튼
-            prepareList(tf_member.getText());
+            System.out.println(tf_member.getText());
+            if(tf_member.getText().length()==0){
+                prepareList();
+            }
+            else{
+                prepareList(tf_member.getText());
+            }
         } else if (e.getSource() == btn_register) { // 이벤트 발생한게 등록버튼
             // 새 회원 등록 다이얼로그 띄우기
             new NewMemberDialog(this);
