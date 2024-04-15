@@ -1,8 +1,11 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.*;
+
 
 
 public class MartAPP {
@@ -10,10 +13,12 @@ public class MartAPP {
     public static void main(String[] args) {
         Connection con = null;
 
+
         String server = "172.16.1.218:3306";
         String database = "pposDB";
         String user_name = "ppos";
         String password = "ppos";
+
 
         try {
             Class.forName("org.mariadb.jdbc.Driver");
