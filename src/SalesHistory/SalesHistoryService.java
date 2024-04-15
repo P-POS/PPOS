@@ -8,9 +8,9 @@ public class SalesHistoryService {
 
     SalesHistoryResDTO getSalesHistory(String searchSource) {
         if(isNumberic(searchSource)){
-            return salesHistoryDBRepository.getSalesHistoryByID();
+            return salesHistoryDBRepository.getSalesHistoryByID(Integer.parseInt(searchSource));
         }else {
-            return salesHistoryDBRepository.getSalesHistoryByName();
+            return salesHistoryDBRepository.getSalesHistoryByMemberName(searchSource);
         }
     };
 
