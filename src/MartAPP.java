@@ -1,11 +1,33 @@
-
 import main.MainController;
 import main.MainView;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import sale.SaleView;
+
 
 
 public class MartAPP {
     public static void main(String[] args) {
+
+        Connection con = null;
+
+        SaleView saleView = new SaleView();
+
+        String server = "172.16.1.218:3306";
+        String database = "pposDB";
+        String user_name = "ppos";
+        String password = "ppos";
+
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(" 드라이버 로딩 오류 : " + e.getMessage());
+            e.printStackTrace();
+
 
  
         DBConnection dbConnector = new DBConnection();

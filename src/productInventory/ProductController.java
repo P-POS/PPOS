@@ -1,4 +1,5 @@
-package ProductInventory;
+package productInventory;
 
 public class ProductController {
+
 }
