@@ -12,30 +12,9 @@ public class MemberRepository implements MemberDAO {
     DBConnection dbConnector;
     Statement stmt;
 
-    public MemberRepository() {
-        dbConnector = new DBConnection();
-
-        try {
-            stmt = dbConnector.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT * FROM members;");
-            resultSet.next();
-            System.out.println(resultSet.getString(2));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            dbConnector.closeConnection();
-        }
-    }
-
     @Override
     public void createMember(MemberDTO member) {
+        dbConnector = new DBConnection();
         String query =
             "INSERT INTO members (member_name, member_score) VALUES ('" + member.getMemberName()
                 + "', "
@@ -50,6 +29,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void deleteMember(int memberId) {
+        dbConnector = new DBConnection();
         String query = "DELETE FROM members WHERE member_id=" + memberId;
         try {
             stmt.executeUpdate(query);
@@ -61,6 +41,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void updateMember(MemberDTO member) {
+        dbConnector = new DBConnection();
         String query =
             "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
                 + member.getMemberScore() + " WHERE member_id=" + member.getMemberId();
@@ -74,6 +55,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public MemberDTO getMember(int memberId) {
+        dbConnector = new DBConnection();
         String query = "SELECT * FROM members WHERE member_id=" + memberId;
         try {
             ResultSet resultSet = stmt.executeQuery(query);
@@ -91,6 +73,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public ArrayList<MemberDTO> getAllMembers() {
+        dbConnector = new DBConnection();
         ArrayList<MemberDTO> members = new ArrayList<>();
         try {
             stmt = dbConnector.createStatement();
