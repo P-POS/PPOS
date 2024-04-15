@@ -122,7 +122,7 @@ public class MemberServiceTest {
         memberDAO.createMember(new MemberDTO(13, "Bob", 300));
 
         // When
-        List<MemberModel> actualMembers = memberService.getAllMembers();
+        ArrayList<MemberModel> actualMembers = (ArrayList<MemberModel>) memberService.getAllMembers();
 
         // Then
         assertEquals(expectedMembers.size(), actualMembers.size());
