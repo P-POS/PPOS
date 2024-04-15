@@ -1,7 +1,5 @@
 package sale;
 
-import static com.sun.beans.introspect.ClassInfo.clear;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,7 +32,7 @@ public class SalesService {
         saleRepository.sellSale(new SaleDTO(new Date(),totalSale, memberDTO.getClientId()));
 
         productRepository.sellProduct(productOrderNumDTOS);
-        productOrderN mDTOS.clear();
+        productOrderNumDTOS.clear();
         this.memberDTO = getMemberInfo(memberDTO.getClientId());
         return "success";
     }
@@ -53,12 +51,17 @@ public class SalesService {
 
     public String sellSaleUsePoint(int score){
         if(memberDTO.getPointScore()<score){
-            return "fail";
+            return "pointFail";
         }
         else{
             memberRepository.usePoint(memberDTO,score);
-
-            return "success";
+            String key = sellSale();
+            if(key!="success"){
+                memberRepository.usePoint(memberDTO,-score);
+                return key;
+            }
+            else
+                return "success";
         }
     }
 
