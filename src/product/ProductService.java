@@ -14,16 +14,16 @@ public class ProductService {
         return productDBRepository.selectProductList();
     }
 
-    public void addProduct(ProductReqDTO productReqDTO){
-        productDBRepository.insertProduct(productReqDTO);
+    public boolean addProduct(ProductReqDTO productReqDTO){
+        return productDBRepository.insertProduct(productReqDTO);
     }
 
-    public void updateProduct(ProductReqDTO productReqDTO){
-        productDBRepository.updateProduct(productReqDTO);
+    public boolean updateProduct(ProductReqDTO productReqDTO){
+        return productDBRepository.updateProduct(productReqDTO);
     }
 
-    public void deleteProduct(int productNum){
-        productDBRepository.deleteProduct(productNum);
+    public boolean deleteProduct(int productNum){
+        return productDBRepository.deleteProduct(productNum);
     }
 
 
