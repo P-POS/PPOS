@@ -1,5 +1,8 @@
 package member;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 
 public class MemberController {
@@ -12,24 +15,26 @@ public class MemberController {
         this.memberView = new MemberView(this);
     }
 
-    public void createMember(int memberId, String memberName, Integer memberScore) {
+    public boolean createMember(int memberId, String memberName, Integer memberScore) {
         if (memberScore == null) {
             memberScore = 0;
         }
-        MemberModel memberModel = new MemberModel(memberId, memberName, memberScore);
-        memberService.createMember(memberModel);
-        // memberView.displayMessage("Member created successfully.");
+        try {
+            MemberModel memberModel = new MemberModel(memberId, memberName, memberScore);
+            memberService.createMember(memberModel);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public void deleteMember(int memberId) {
         memberService.deleteMember(memberId);
-        // memberView.displayMessage("Member deleted successfully.");
     }
 
     public void updateMember(int memberId, String memberName, int memberScore) {
         MemberModel memberModel = new MemberModel(memberId, memberName, memberScore);
         memberService.updateMember(memberModel);
-        // memberView.displayMessage("Member updated successfully.");
     }
 
     public MemberModel getMember(int memberId) {
