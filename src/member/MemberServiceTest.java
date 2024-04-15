@@ -40,19 +40,19 @@ public class MemberServiceTest {
     // 테스트용 MemberDAO 구현체
     private class TestMemberDAO implements MemberDAO {
         private MemberDTO member;
-        private List<MemberDTO> memberList = new ArrayList<>();
+        private List<MemberDTO> members = new ArrayList<>();
 
         @Override
         public void createMember(MemberDTO member) {
             this.member = member;
-            memberList.add(member);
+            members.add(member);
         }
 
         @Override
         public void deleteMember(int memberId) {
-            for (MemberDTO member : memberList) {
+            for (MemberDTO member : members) {
                 if (member.getMemberId() == memberId) {
-                    memberList.remove(member);
+                    members.remove(member);
                     break;
                 }
             }
@@ -60,9 +60,9 @@ public class MemberServiceTest {
 
         @Override
         public void updateMember(MemberDTO member) {
-            for (int i = 0; i < memberList.size(); i++) {
-                if (memberList.get(i).getMemberId() == member.getMemberId()) {
-                    memberList.set(i, member);
+            for (int i = 0; i < members.size(); i++) {
+                if (members.get(i).getMemberId() == member.getMemberId()) {
+                    members.set(i, member);
                     break;
                 }
             }
@@ -70,7 +70,7 @@ public class MemberServiceTest {
 
         @Override
         public MemberDTO getMember(int memberId) {
-            for (MemberDTO member : memberList) {
+            for (MemberDTO member : members) {
                 if (member.getMemberId() == memberId) {
                     return member;
                 }
@@ -80,7 +80,7 @@ public class MemberServiceTest {
 
         @Override
         public List<MemberDTO> getAllMembers() {
-            return memberList;
+            return members;
         }
     }
 }
