@@ -13,9 +13,9 @@ public class MemberService {
 
     public void createMember(MemberModel member) {
         int memberId = member.getMemberId();
-        MemberDTO existingMember = memberDAO.getMember(memberId);
+        ArrayList<MemberDTO> existingMember = memberDAO.getMember(memberId);
 
-        if (existingMember != null) {
+        if (existingMember.size() != 0) {
             throw new IllegalArgumentException("Member with ID " + memberId + " already exists.");
         }
 
@@ -24,8 +24,8 @@ public class MemberService {
     }
 
     public void deleteMember(int memberId) {
-        MemberDTO existingMember = memberDAO.getMember(memberId);
-        if (existingMember != null) {
+        ArrayList<MemberDTO> existingMember = memberDAO.getMember(memberId);
+        if (existingMember.size() != 0) {
             memberDAO.deleteMember(memberId);
         } else {
             throw new IllegalArgumentException("Member with ID " + memberId + " does not exist.");
@@ -34,7 +34,7 @@ public class MemberService {
 
     public void updateMember(MemberModel member) {
         int memberId = member.getMemberId();
-        MemberDTO existingMember = memberDAO.getMember(memberId);
+        MemberDTO existingMember = memberDAO.getMember(memberId).get(0);
         if (existingMember != null) {
             memberDAO.updateMember(new MemberDTO(member.getMemberId(), member.getMemberName(),
                 member.getMemberScore()));
@@ -43,23 +43,42 @@ public class MemberService {
         }
     }
 
-    public MemberModel getMember(int memberId) {
-        MemberDTO memberDTO = memberDAO.getMember(memberId);
-        if (memberDTO != null) {
-            return new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
-                memberDTO.getMemberScore());
-        } else {
-            return null;
-        }
-    }
-
-    public List<MemberModel> getAllMembers() {
-        List<MemberDTO> memberDTOs = memberDAO.getAllMembers();
-        List<MemberModel> members = new ArrayList<>();
+    public ArrayList<MemberModel> getMember(int memberId) {
+        ArrayList<MemberDTO> memberDTOs = memberDAO.getMember(memberId);
+        ArrayList<MemberModel> members = new ArrayList<>();
         for (MemberDTO memberDTO : memberDTOs) {
             members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
                 memberDTO.getMemberScore()));
         }
         return members;
+    }
+
+    public ArrayList<MemberModel> getMemberUseName(String memberName) {
+        ArrayList<MemberDTO> memberDTOs = memberDAO.getMemberUseName(memberName);
+        ArrayList<MemberModel> members = new ArrayList<>();
+        for (MemberDTO memberDTO : memberDTOs) {
+            members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
+                memberDTO.getMemberScore()));
+        }
+        return members;
+    }
+
+    public ArrayList<MemberModel> getAllMembers() {
+        ArrayList<MemberDTO> memberDTOs = memberDAO.getAllMembers();
+        ArrayList<MemberModel> members = new ArrayList<>();
+        for (MemberDTO memberDTO : memberDTOs) {
+            members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
+                memberDTO.getMemberScore()));
+        }
+        return members;
+    }
+
+    public String getLatestSaleDate(int memberId) {
+        String latestSaleDate = memberDAO.getLatestSaleDate(memberId);
+        if (latestSaleDate != null) {
+            return latestSaleDate;
+        } else {
+            return null;
+        }
     }
 }

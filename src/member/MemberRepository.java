@@ -4,21 +4,71 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import DBConnection.DBConnection;
 
 public class MemberRepository implements MemberDAO {
 
     DBConnection dbConnector;
     Statement stmt;
 
-    public MemberRepository() {
+    @Override
+    public void createMember(MemberDTO member) {
         dbConnector = new DBConnection();
-
+        String query =
+            "INSERT INTO members (member_name, member_id) VALUES ('" + member.getMemberName()
+                + "', "
+                + member.getMemberId() + ")";
         try {
             stmt = dbConnector.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT * FROM members;");
-            resultSet.next();
-            System.out.println(resultSet.getString(2));
+            stmt.executeUpdate(query);
+            System.out.println("Member created successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteMember(int memberId) {
+        dbConnector = new DBConnection();
+        String query = "DELETE FROM members WHERE member_id=" + memberId;
+        try {
+            stmt = dbConnector.createStatement();
+            stmt.executeUpdate(query);
+            System.out.println("Member deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateMember(MemberDTO member) {
+        dbConnector = new DBConnection();
+        String query =
+            "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
+                + member.getMemberScore() + " WHERE member_id=" + member.getMemberId();
+        try {
+            stmt = dbConnector.createStatement();
+            stmt.executeUpdate(query);
+            System.out.println("Member updated successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public ArrayList<MemberDTO> getMember(int memberId) {
+        dbConnector = new DBConnection();
+        ArrayList<MemberDTO> members = new ArrayList<>();
+        String query = "SELECT * FROM members WHERE member_id=" + memberId;
+        try {
+            stmt = dbConnector.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            while (resultSet.next()) {
+                int rmemberId = resultSet.getInt("member_id");
+                String rmemberName = resultSet.getString("member_name");
+                int rmemberScore = resultSet.getInt("member_score");
+                members.add(new MemberDTO(rmemberId, rmemberName, rmemberScore));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -31,66 +81,42 @@ public class MemberRepository implements MemberDAO {
             }
             dbConnector.closeConnection();
         }
+        return members;
     }
 
     @Override
-    public void createMember(MemberDTO member) {
-        String query =
-            "INSERT INTO members (member_name, member_score) VALUES ('" + member.getMemberName()
-                + "', "
-                + member.getMemberScore() + ")";
+    public ArrayList<MemberDTO> getMemberUseName(String memberName) {
+        dbConnector = new DBConnection();
+        ArrayList<MemberDTO> members = new ArrayList<>();
+        String query = "SELECT * FROM members WHERE member_name='" + memberName + "'";
         try {
-            stmt.executeUpdate(query);
-            System.out.println("Member created successfully.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void deleteMember(int memberId) {
-        String query = "DELETE FROM members WHERE member_id=" + memberId;
-        try {
-            stmt.executeUpdate(query);
-            System.out.println("Member deleted successfully.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void updateMember(MemberDTO member) {
-        String query =
-            "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
-                + member.getMemberScore() + " WHERE member_id=" + member.getMemberId();
-        try {
-            stmt.executeUpdate(query);
-            System.out.println("Member updated successfully.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public MemberDTO getMember(int memberId) {
-        String query = "SELECT * FROM members WHERE member_id=" + memberId;
-        try {
+            stmt = dbConnector.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
-            if (resultSet.next()) {
-                return new MemberDTO(
-                    resultSet.getInt("member_id"),
-                    resultSet.getString("member_name"),
-                    resultSet.getInt("member_score"));
+            while (resultSet.next()) {
+                int rmemberId = resultSet.getInt("member_id");
+                String rmemberName = resultSet.getString("member_name");
+                int rmemberScore = resultSet.getInt("member_score");
+                members.add(new MemberDTO(rmemberId, rmemberName, rmemberScore));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
         }
-        return null;
+        return members;
     }
 
     @Override
-    public List<MemberDTO> getAllMembers() {
-        List<MemberDTO> members = new ArrayList<>();
+    public ArrayList<MemberDTO> getAllMembers() {
+        dbConnector = new DBConnection();
+        ArrayList<MemberDTO> members = new ArrayList<>();
         try {
             stmt = dbConnector.createStatement();
             ResultSet resultSet = stmt.executeQuery("SELECT * FROM members;");
@@ -113,5 +139,22 @@ public class MemberRepository implements MemberDAO {
             dbConnector.closeConnection();
         }
         return members;
+    }
+
+    @Override
+    public String getLatestSaleDate(int memberId) {
+        dbConnector = new DBConnection();
+        String query =
+            "SELECT * FROM sales WHERE member_id=" + memberId + " ORDER BY sale_date DESC LIMIT 1";
+        try {
+            stmt = dbConnector.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            if (resultSet.next()) {
+                return resultSet.getString("sale_date");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

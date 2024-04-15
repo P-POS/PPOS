@@ -23,16 +23,4 @@ public class MemberModel {
     public int getMemberScore() {
         return memberScore;
     }
-
-    public void setMemberId(int memberId) {
-        this.memberId = memberId;
-    }
-
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
-    }
-
-    public void setMemberScore(int memberScore) {
-        this.memberScore = memberScore;
-    }
 }

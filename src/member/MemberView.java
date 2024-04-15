@@ -1,5 +1,9 @@
 package member;
 
+import main.MainController;
+import main.MainView;
+
+import javax.management.StringValueExp;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -8,24 +12,25 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MemberView extends JFrame implements ActionListener {
 
     MemberController memberController;
 
-    String classRow[] = {"고객번호","고객이름","포인트점수","최근거래일자","조회","삭제"};
+    String classRow[] = {"고객번호","고객이름","포인트점수","최근거래일자","삭제"};
     //    String classThings[][];
     String classThings[][] = {
-            {"1", "홍길동", "100","2024-03-30"},
-            {"2", "이순신", "200","2024-04-03"},
-            {"3", "강감찬", "150","2024-02-08"}
+//            {"1", "홍길동", "100","2024-03-30"},
+//            {"2", "이순신", "200","2024-04-03"},
+//            {"3", "강감찬", "150","2024-02-08"}
             // 이하 추가 데이터 필요
     };
     DefaultTableCellRenderer item_renderer = new DefaultTableCellRenderer();
     DefaultTableCellRenderer header_renderer;
     DefaultTableModel model_member = new DefaultTableModel(classThings, classRow){
-        public boolean isCellEditable(int i, int c) {
-            if(c==3)
+        public boolean isCellEditable(int i, int c) { // 최근 거래일자 까지는 수정안되게
+            if(c==4)
                 return true;
             else return false;
         }
@@ -39,12 +44,15 @@ public class MemberView extends JFrame implements ActionListener {
     JTextField tf_member = new JTextField();
     JButton btn_search = new JButton("검색");
     JButton btn_register = new JButton("등록");
+    JButton btn_back = new JButton("Back");
 
     JTableHeader header;
     Dimension headerSize;
 
     public MemberView(MemberController memberController){
         this.memberController = memberController;
+
+        prepareList();
 
         // 전체 레이아웃 설정
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,11 +71,18 @@ public class MemberView extends JFrame implements ActionListener {
         tf_member.setBounds(110,30,890,60);
         btn_search.setBounds(1025,30,60,60);
         btn_register.setBounds(1090,30,60,60);
+        btn_back.setBounds(1200,10 , 50, 50); // 좌표 및 크기 설정
+
+        // 버튼 액션 리스너
+        btn_back.addActionListener(this); // 액션 리스너 추가
+        btn_search.addActionListener(this);
+        btn_register.addActionListener(this);
 
         // panel에 텍스트 필드, 조회 버튼, 검색 버튼 추가
         p_search.add(tf_member);
         p_search.add(btn_search);
         p_search.add(btn_register);
+        p_search.add(btn_back); // 패널에 버튼 추가
 
         // 테이블 구성
         header_renderer = (DefaultTableCellRenderer) tb_member.getTableHeader().getDefaultRenderer();
@@ -75,17 +90,17 @@ public class MemberView extends JFrame implements ActionListener {
         item_renderer.setHorizontalAlignment(SwingConstants.CENTER);
         tb_member.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tb_member.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tb_member.getColumnModel().getColumn(0).setPreferredWidth(260);
-        tb_member.getColumnModel().getColumn(1).setPreferredWidth(260);
-        tb_member.getColumnModel().getColumn(2).setPreferredWidth(260);
-        tb_member.getColumnModel().getColumn(3).setPreferredWidth(260);
+        tb_member.getColumnModel().getColumn(0).setPreferredWidth(270);
+        tb_member.getColumnModel().getColumn(1).setPreferredWidth(270);
+        tb_member.getColumnModel().getColumn(2).setPreferredWidth(270);
+        tb_member.getColumnModel().getColumn(3).setPreferredWidth(270);
         for(int i=0;i<4;i++) {
             tb_member.getColumnModel().getColumn(i).setCellRenderer(item_renderer);
         }
         tb_member.getColumnModel().getColumn(4).setPreferredWidth(67);
-        tb_member.getColumnModel().getColumn(5).setPreferredWidth(67);
-        tb_member.getColumn("조회").setCellRenderer(new ButtonRendererSearch());
         tb_member.getColumn("삭제").setCellRenderer(new ButtonRendererDelete());
+        tb_member.getColumn("삭제").setCellEditor(new ButtonEditorDelete(new JCheckBox()));
+
         // tb_member.getColumn("삭제").setCellEditor(new ButtonEditor1(new JCheckBox()));
         header = tb_member.getTableHeader();
         headerSize = header.getPreferredSize();
@@ -113,26 +128,6 @@ public class MemberView extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    class ButtonRendererSearch extends JButton implements TableCellRenderer {
-        protected JButton button;
-        public ButtonRendererSearch() {
-            setOpaque(true);
-        }
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus, int row, int column) {
-            button = new JButton("조회");
-            button.setContentAreaFilled(false);
-            button.setFont(new Font("Arial",Font.BOLD,14));
-            button.setBounds(0,0,60,30);
-            //setText((value == null) ? "" : value.toString());
-            return button;
-        }
-    }
     class ButtonRendererDelete extends JButton implements TableCellRenderer {
         protected JButton button;
         public ButtonRendererDelete() {
@@ -146,6 +141,166 @@ public class MemberView extends JFrame implements ActionListener {
             button.setBounds(0,0,60,30);
             //setText((value == null) ? "" : value.toString());
             return button;
+        }
+    }
+    class ButtonEditorDelete extends DefaultCellEditor {
+        protected JButton button;
+        private boolean isPushed;
+        public String buttonSID;
+        public int row, column;
+        public ButtonEditorDelete(JCheckBox checkBox) {
+            super(checkBox);
+            button = new JButton();
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if(e.getSource()==button) {
+                        buttonSID = (String) tb_member.getValueAt(row, 0);
+                        memberController.deleteMember(Integer.parseInt(buttonSID));
+                        prepareList();
+                    }
+                    fireEditingStopped();
+                }
+            });
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                                                     boolean isSelected, int row, int column) {
+            this.row = row;
+            this.column = column;
+            isPushed = true;
+            return button;
+        }
+        public Object getCellEditorValue() {
+            return isPushed;
+        }
+        public boolean stopCellEditing() {
+            isPushed = false;
+            return super.stopCellEditing();
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btn_back) { // 이벤트 발생한게 뒤로가기
+            this.dispose(); // 현재 창 닫기
+            new MainView(new MainController());
+        } else if (e.getSource() == btn_search) { // 이벤트 발생한게 검색버튼
+            if(tf_member.getText().length()==0){
+                prepareList();
+            }
+            else{
+                prepareList(tf_member.getText());
+            }
+        } else if (e.getSource() == btn_register) { // 이벤트 발생한게 등록버튼
+            // 새 회원 등록 다이얼로그 띄우기
+            new NewMemberDialog(this);
+        }
+    }
+
+    public void prepareList(){
+        model_member.getDataVector().removeAllElements();
+        String[] list = new String[4];
+        ArrayList<MemberModel> memberModels = memberController.getAllMembers();
+
+        for(int i=0;i<memberModels.size();i++){
+            list[0] = String.valueOf(memberModels.get(i).getMemberId());
+            list[1] = memberModels.get(i).getMemberName();
+            list[2] = String.valueOf(memberModels.get(i).getMemberScore());
+            list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
+            model_member.addRow(list);
+        }
+    }
+    public void prepareList(String value){
+        model_member.getDataVector().removeAllElements();
+        String[] list = new String[4];
+        ArrayList<MemberModel> memberModels = memberController.getMemberUseName(value);
+
+        if(memberModels.size()==0){
+            model_member.getDataVector().removeAllElements();
+        }
+        else{
+            for(int i=0;i<memberModels.size();i++){
+                list[0] = String.valueOf(memberModels.get(i).getMemberId());
+                list[1] = memberModels.get(i).getMemberName();
+                list[2] = String.valueOf(memberModels.get(i).getMemberScore());
+                list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
+                model_member.addRow(list);
+            }
+        }
+    }
+}
+
+class NewMemberDialog extends JDialog implements ActionListener {
+    private JTextField tfName = new JTextField();;
+    private JTextField tfNumber = new JTextField();;
+    private JButton btnRegister = new JButton("등록");
+
+    private MemberView parentView; // 부모 창에 대한 참조
+
+    JPanel panel = new JPanel();
+    JLabel lblName = new JLabel("이름:");
+    JLabel lblNumber = new JLabel("번호:");
+    JLabel lblError = new JLabel("이미 등록된 번호입니다");
+
+
+    public NewMemberDialog(MemberView parent) {
+        this.parentView = parent;
+
+        setTitle("새 회원 등록");
+        setSize(400, 250);
+        setResizable(false);
+        setLocationRelativeTo(parent);
+        setModal(true); // 모달 다이얼로그 설정
+        panel.setLayout(null);
+
+        // 이름 라벨과 텍스트 필드
+        lblName.setFont(new Font("Arial", Font.BOLD, 14));
+        lblName.setBounds(50, 20, 60, 50); // 위치와 크기 지정
+        panel.add(lblName);
+
+        tfName.setBounds(120, 20, 150, 50); // 위치와 크기 지정
+        panel.add(tfName);
+
+        // 번호 라벨과 텍스트 필드
+        lblNumber.setFont(new Font("Arial", Font.BOLD, 14));
+        lblNumber.setBounds(50, 100, 60, 50); // 위치와 크기 지정
+        panel.add(lblNumber);
+
+        tfNumber.setBounds(120, 100, 150, 50); // 위치와 크기 지정
+        panel.add(tfNumber);
+
+        btnRegister.setBounds(250, 180, 100, 30); // 위치와 크기 지정
+        panel.add(btnRegister);
+        btnRegister.addActionListener(this);
+
+        lblError.setBounds(20,180,130,30);
+        lblError.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblError.setForeground(Color.RED);
+        lblError.setVisible(false); // 처음엔 안보이게
+        panel.add(lblError);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnRegister) {
+            // 이름과 번호를 가져와서 회원 등록 메서드 호출
+            String name = tfName.getText();
+            Integer number = Integer.parseInt(tfNumber.getText());
+
+            // 회원 등록 메서드 호출 (이 부분은 MemberController에 구현된 메서드를 호출하도록 변경해야 합니다)
+            boolean check_create = parentView.memberController.createMember(number,name,null);
+            if (check_create){
+                // 다이얼로그 닫기
+                lblError.setVisible(true);
+                dispose();
+                parentView.prepareList();
+            }
+            else{
+                lblError.setVisible(true);
+            }
         }
     }
 }
