@@ -12,6 +12,13 @@ public class MemberService {
     }
 
     public void createMember(MemberModel member) {
+        int memberId = member.getMemberId();
+        MemberDTO existingMember = memberDAO.getMember(memberId);
+
+        if (existingMember != null) {
+            throw new IllegalArgumentException("Member with ID " + memberId + " already exists.");
+        }
+
         memberDAO.createMember(new MemberDTO(
             member.getMemberId(),
             member.getMemberName(),
