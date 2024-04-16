@@ -18,6 +18,7 @@ public class SalesService {
         productOrderNumDTOS = new ArrayList<>();
         this.usePoint = 0;
         this.totalCal = 0;
+        memberDTO = null;
     }
     public int getTotal(){
         this.totalCal = 0;
@@ -28,24 +29,30 @@ public class SalesService {
         return totalCal-usePoint;
     }
     public String sellSale(){
-        int totalSale = 0;
+
         for(ProductOrderNumDTO tempProduct : productOrderNumDTOS){
-            int tempProductPrice = tempProduct.productDTO.getProductPrice();
             int tempProductStock = tempProduct.productDTO.getProductStock();
             int tempProductNum = tempProduct.productOrderNum;
-            totalSale += tempProductNum*tempProductPrice;
-            if(tempProductStock<tempProductNum){
+            int tempProductPrice = tempProduct.productDTO.getProductPrice();
+            if(tempProductStock<tempProductNum&&tempProductPrice>0){
                 return String.format("%s의 재고가 부족합니다.",tempProduct.productDTO.getProductName());
             }
+
         }
-        memberRepository.usePoint(memberDTO,this.usePoint);
-        memberRepository.stackPoint(memberDTO.getClientId() ,(int)Math.floor(totalSale*0.01));
 
-        saleRepository.sellSale(new SaleDTO(new Date(),totalSale, memberDTO.getClientId()));
-
+        if(memberDTO != null){
+            System.out.println((int)Math.floor((totalCal-usePoint)*0.01));
+            System.out.println(totalCal);
+            memberRepository.stackPoint(memberDTO.getClientId(),(int)Math.floor((totalCal-usePoint)*0.01));
+            memberRepository.usePoint(memberDTO,this.usePoint);
+            saleRepository.sellSale(new SaleDTO(new Date(),totalCal, memberDTO.getClientId()));
+        }
+        else{
+            saleRepository.sellSale(new SaleDTO(new Date(),totalCal));
+        }
         productRepository.sellProduct(productOrderNumDTOS);
         productOrderNumDTOS.clear();
-        this.memberDTO = getMemberInfo(memberDTO.getClientId());
+        this.memberDTO = null;
         return "success";
     }
 

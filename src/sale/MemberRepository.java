@@ -41,7 +41,7 @@ public class MemberRepository implements MemberDAO{
     @Override
     public void stackPoint(int memberId,int score) {
         try{
-            String query = String.format("update members set member_score = member_score + %d where member_id = %d;",memberId,score);
+            String query = String.format("update members set member_score = member_score + %d where member_id = %d;",score,memberId);
             ResultSet resultSet = statement.executeQuery(query);
         }
         catch (SQLException e){
