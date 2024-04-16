@@ -12,6 +12,7 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
     Statement statement;
 
     public SalesHistoryDBRepository() {
+
         this.dbConnection = new DBConnection();
         try {
             statement = dbConnection.createStatement();
@@ -22,6 +23,7 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
 
     @Override
     public ArrayList<SalesHistoryResDTO> getSalesHistories() {
+
         ArrayList<SalesHistory> salesHistories = new ArrayList<>();
         ArrayList<SalesHistoryResDTO> salesHistoriesResDTO = new ArrayList<>();
         try {
@@ -33,7 +35,8 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
                 int memberNum = resultSet.getInt("member_id");
                 String date = resultSet.getString("sale_date");
                 String memberName = resultSet.getString("member_name");
-                SalesHistory salesHistory = new SalesHistory(transactionID, memberNum, memberName, totalAmount, date);
+                SalesHistory salesHistory = new SalesHistory(transactionID, memberNum, memberName,
+                    totalAmount, date);
                 salesHistories.add(salesHistory);
                 salesHistoriesResDTO.add(new SalesHistoryResDTO(salesHistory));
             }
@@ -45,19 +48,22 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
 
     @Override
     public SalesHistoryResDTO getSalesHistoryByID(int transactionID) {
+
         SalesHistoryResDTO salesHistoryResDTO = null;
         try {
-            String query = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id " +
-                "FROM sales " +
-                "LEFT JOIN members ON sales.member_id = members.member_id " +
-                "WHERE sale_id = " + transactionID;
+            String query =
+                "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id " +
+                    "FROM sales " +
+                    "LEFT JOIN members ON sales.member_id = members.member_id " +
+                    "WHERE sale_id = " + transactionID;
             ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 int totalAmount = resultSet.getInt("sale_total");
                 int memberNum = resultSet.getInt("member_id");
                 String date = resultSet.getString("sale_date");
                 String memberName = resultSet.getString("member_name");
-                SalesHistory salesHistory = new SalesHistory(transactionID, memberNum, memberName, totalAmount, date);
+                SalesHistory salesHistory = new SalesHistory(transactionID, memberNum, memberName,
+                    totalAmount, date);
                 salesHistoryResDTO = new SalesHistoryResDTO(salesHistory);
             }
         } catch (SQLException e) {
@@ -68,19 +74,22 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
 
     @Override
     public SalesHistoryResDTO getSalesHistoryByMemberName(String memberName) {
+
         SalesHistoryResDTO salesHistoryResDTO = null;
         try {
-            String query = "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id " +
-                "FROM sales " +
-                "LEFT JOIN members ON sales.member_id = members.member_id " +
-                "WHERE member_name = '" + memberName + "'";
+            String query =
+                "SELECT sale_id, sale_total, sale_date, members.member_name, sales.member_id " +
+                    "FROM sales " +
+                    "LEFT JOIN members ON sales.member_id = members.member_id " +
+                    "WHERE member_name = '" + memberName + "'";
             ResultSet resultSet = statement.executeQuery(query);
             if (resultSet.next()) {
                 int transactionID = resultSet.getInt("sale_id");
                 int totalAmount = resultSet.getInt("sale_total");
                 int memberNum = resultSet.getInt("member_id");
                 String date = resultSet.getString("sale_date");
-                SalesHistory salesHistory = new SalesHistory(transactionID, memberNum, memberName, totalAmount, date);
+                SalesHistory salesHistory = new SalesHistory(transactionID, memberNum, memberName,
+                    totalAmount, date);
                 salesHistoryResDTO = new SalesHistoryResDTO(salesHistory);
             }
         } catch (SQLException e) {
@@ -91,6 +100,7 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
 
     @Override
     public boolean refundSalesHistory(int transactionID) {
+
         boolean success = false;
         try {
             String query1 = "SELECT * " +
@@ -103,7 +113,8 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
                 totalAmount = -totalAmount;
                 String date = resultSet.getString("sale_date");
 
-                String query2 = String.format("INSERT INTO sales (sale_date, sale_total, member_id) VALUES ('%s', %d, %d)",
+                String query2 = String.format(
+                    "INSERT INTO sales (sale_date, sale_total, member_id) VALUES ('%s', %d, %d)",
                     date, totalAmount, memberNum);
 
                 int rowsAffected = statement.executeUpdate(query2);
@@ -114,5 +125,4 @@ public class SalesHistoryDBRepository implements SalesHistoryDAO {
         }
         return success;
     }
-
 }

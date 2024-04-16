@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+public class MemberRepository implements MemberDAO {
 
-public class MemberRepository implements MemberDAO{
     DBConnection dbConnection;
     Statement statement;
+
     public MemberRepository() {
+
         this.dbConnection = new DBConnection();
         try {
             statement = dbConnection.createStatement();
@@ -21,8 +23,9 @@ public class MemberRepository implements MemberDAO{
 
     @Override
     public MemberDTO getMemberInfo(int memberId) {
+
         try {
-            String query = String.format("SELECT * FROM members where member_id = %d;",memberId);
+            String query = String.format("SELECT * FROM members where member_id = %d;", memberId);
             ResultSet resultSet = statement.executeQuery(query);
             resultSet.next();
 
@@ -39,31 +42,34 @@ public class MemberRepository implements MemberDAO{
     }
 
     @Override
-    public void stackPoint(int memberId,int score) {
-        try{
-            String query = String.format("update members set member_score = member_score + %d where member_id = %d;",score,memberId);
+    public void stackPoint(int memberId, int score) {
+
+        try {
+            String query = String.format(
+                "update members set member_score = member_score + %d where member_id = %d;", score,
+                memberId);
             ResultSet resultSet = statement.executeQuery(query);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
     @Override
-    public void usePoint(MemberDTO memberDTO,int score) {
+    public void usePoint(MemberDTO memberDTO, int score) {
+
         try {
 
-            String query = String.format("update members set member_score = member_score - %d where member_id = %d;",score,memberDTO.getClientId());
+            String query = String.format(
+                "update members set member_score = member_score - %d where member_id = %d;", score,
+                memberDTO.getClientId());
             ResultSet resultSet = statement.executeQuery(query);
-        }
-        catch ( SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-
-    public  void close(){
+    public void close() {
         dbConnection.closeConnection();
     }
 }

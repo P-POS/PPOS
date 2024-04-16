@@ -175,6 +175,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public ArrayList<MemberDTO> getAllMembers() {
+
         dbConnector = new DBConnection();
         ArrayList<MemberDTO> members = new ArrayList<>();
         try {
@@ -203,6 +204,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public String getLatestSaleDate(int memberId) {
+
         dbConnector = new DBConnection();
         String query =
             "SELECT * FROM sales WHERE member_id=" + memberId + " ORDER BY sale_date DESC LIMIT 1";

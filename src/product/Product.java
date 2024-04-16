@@ -1,12 +1,14 @@
 package product;
 
 public class Product {
+
     private int productNum;
     private String productName;
     private int productPrice;
     private int productQuantity;
 
     public Product(int productNum, String productName, int productPrice, int productQuantity) {
+
         this.productNum = productNum;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -14,6 +16,7 @@ public class Product {
     }
 
     public Product(ProductResDTO productResDTO) {
+
         this.productNum = productResDTO.getProductNum();
         this.productName = productResDTO.getProductName();
         this.productPrice = productResDTO.getProductPrice();
