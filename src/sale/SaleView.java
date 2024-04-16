@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import product.ProductController;
 
 class TableSelectionListener implements ListSelectionListener {
     private final JTable table;
@@ -66,11 +67,6 @@ public class SaleView extends JFrame implements ActionListener {
     JButton btn_cancle = new JButton("취소");
     JButton btn_allCancle = new JButton("전체 취소");
     JButton btn_home = new JButton("홈");
-
-
-    String name;
-    int point;
-    String data = "2024-01-01";
     JPanel userInfoPanel = new JPanel();
     JLabel userTitle = new JLabel("정보");
     JLabel userName = new JLabel("회원 이름 : ");
@@ -78,7 +74,6 @@ public class SaleView extends JFrame implements ActionListener {
 
 
     SaleController saleController;
-
     public void setRow(DefaultTableModel model, int selectedRow){
         this.model = model;
         this.selectedRow = selectedRow;
@@ -86,13 +81,12 @@ public class SaleView extends JFrame implements ActionListener {
 
     public SaleView(SaleController saleController) {
         this.saleController = saleController;
-
         setSize(1280, 960);
         setLayout(null);
 
         // 홈 버튼
         btn_home.addActionListener(this);
-        btn_home.setBounds(1175, 20, 60, 50);
+        btn_home.setBounds(30, 695, 60, 50);
         btn_home.setFont(new Font("Arial", Font.PLAIN, 18));
 
         // 상품 테이블 설정.
@@ -163,6 +157,7 @@ public class SaleView extends JFrame implements ActionListener {
         btn_allCancle.setFont(new Font("Arial", Font.PLAIN, 18));
         btn_allCancle.addActionListener(this);
 
+        add(btn_home);
         add(scrollPane);
         add(sumPrice);
         add(inputBox);
@@ -210,8 +205,10 @@ public class SaleView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int key = Integer.parseInt(inputBox.getText());
-
-        if (e.getSource() == btn_addProduct) {  //완료
+        if(e.getSource() == btn_home){
+            this.setVisible(false);
+            //saleController.openMainPage();
+        } else if (e.getSource() == btn_addProduct) {  //완료
             ArrayList<ProductOrderNumDTO> result = saleController.getProductInfo(key);
 
             // DefaultTableModel 객체 생성
@@ -264,9 +261,12 @@ public class SaleView extends JFrame implements ActionListener {
         }
         else if (e.getSource() == btn_usePoint) {
             // 이따 추가
-           //int result = saleController.sellSaleUsePoint(key);
-           //if (result == -1){
-           //}
+           int result = saleController.usePoint(key);
+           if (result == -1){
+           } else {
+               totalPriceSum = result;
+               sumPrice.setText("총 가격 : "+result);
+           }
         }
     }
 }
