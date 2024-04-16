@@ -90,7 +90,7 @@ public class MemberRepository implements MemberDAO {
 
         dbConnector = new DBConnection();
         ArrayList<MemberDTO> members = new ArrayList<>();
-        String query = "SELECT * FROM members WHERE member_id=" + memberId;
+        String query = "SELECT * FROM members WHERE CAST(member_id AS CHAR) LIKE '%" + memberId + "%'";
         try {
             stmt = dbConnector.createStatement();
             ResultSet resultSet = stmt.executeQuery(query);
