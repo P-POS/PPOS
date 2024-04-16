@@ -66,6 +66,7 @@ public class MainView extends JFrame implements ActionListener {
             this.setVisible(false);
             mainController.openMemberPage();
         } else if (e.getSource() == btn_sale) { // 이벤트 발생한게 판매버튼
+            this.setVisible(false);
             mainController.openSalePage();
         } else if (e.getSource() == btn_product) { // 이벤트 발생한게 상품버튼
             this.setVisible(false);
