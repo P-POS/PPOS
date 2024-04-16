@@ -1,10 +1,19 @@
 package product;
 
 import java.util.ArrayList;
+import main.MainController;
 
 public class ProductController {
 
-    ProductService productService = new ProductService();
+    private ProductView productView;
+    private ProductService productService;
+    private MainController mainController;
+
+    ProductController(){
+        mainController = new MainController();
+        productView = new ProductView();
+        productService = new ProductService();
+    }
 
     public Product getProduct(int productNum) {
        return new Product(productService.getProduct(productNum));
@@ -33,5 +42,4 @@ public class ProductController {
     public boolean deleteProduct(int productNum) {
         return productService.deleteProduct(productNum);
     }
-
 }
