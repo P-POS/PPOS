@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class SaleView extends JFrame implements ActionListener {
@@ -61,14 +63,14 @@ public class SaleView extends JFrame implements ActionListener {
     JButton btn_allCancle = new JButton("전체 취소");
 
 
-    String name = "김신한";
-    int point = 3013;
+    String name;
+    int point;
     String data = "2024-01-01";
     JPanel userInfoPanel = new JPanel();
     JLabel userTitle = new JLabel("정보");
-    JLabel userName = new JLabel("회원 이름 : " + name);
-    JLabel userPoint = new JLabel("포인트 점수 : " + Integer.toString(point) + " 점");
-    JLabel userData = new JLabel("최근 거래일 : " + data);
+    JLabel userName = new JLabel("회원 이름 : ");
+    JLabel userPoint = new JLabel("포인트 점수 : 0 점");
+
 
     SaleController saleController;
 
@@ -92,12 +94,11 @@ public class SaleView extends JFrame implements ActionListener {
         userTitle.setBounds(710, 360, 200, 40); // 유저 정보 제목
         userName.setBounds(710, 400, 200, 40);
         userPoint.setBounds(710, 440, 200, 40);
-        userData.setBounds(710, 480, 200, 40);
+
 
         userTitle.setFont(new Font("Arial", Font.PLAIN, 28));
         userName.setFont(new Font("Arial", Font.PLAIN, 16));
         userPoint.setFont(new Font("Arial", Font.PLAIN, 16));
-        userData.setFont(new Font("Arial", Font.PLAIN, 16));
 
         userInfoPanel.setLayout(null);
         userInfoPanel.setBounds(700, 350, 515, 170);
@@ -106,7 +107,6 @@ public class SaleView extends JFrame implements ActionListener {
         userInfoPanel.add(userTitle);
         userInfoPanel.add(userName);
         userInfoPanel.add(userPoint);
-        userInfoPanel.add(userData);
         // 유저정보 ===================
 
         // 오른쪽
@@ -116,27 +116,36 @@ public class SaleView extends JFrame implements ActionListener {
         // 상품등록
         btn_addProduct.setBounds(700, 100, 250, 100);
         btn_addProduct.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_addProduct.addActionListener(this);
         // 고객 조회
         btn_getUser.setBounds(970, 100, 250, 100);
         btn_getUser.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_getUser.addActionListener(this);
+
         // 결제
         btn_payment.setBounds(700, 210, 250, 100);
         btn_payment.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_payment.addActionListener(this);
         // 포인트 사용
         btn_usePoint.setBounds(970, 210, 250, 100);
         btn_usePoint.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_usePoint.addActionListener(this);
         // 쓰레기 봉투
         btn_trash.setBounds(700, 550, 250, 100);
         btn_trash.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_trash.addActionListener(this);
         //  소주 공병
         btn_soju.setBounds(970, 550, 250, 100);
         btn_soju.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_soju.addActionListener(this);
         // 취소
         btn_cancle.setBounds(700, 660, 250, 100);
         btn_cancle.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_cancle.addActionListener(this);
         // 전체 취소
         btn_allCancle.setBounds(970, 660, 250, 100);
         btn_allCancle.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_allCancle.addActionListener(this);
 
         add(scrollPane);
         add(sumPrice);
@@ -153,7 +162,6 @@ public class SaleView extends JFrame implements ActionListener {
 
         add(userName);
         add(userPoint);
-        add(userData);
         add(userTitle);
         add(userInfoPanel);
 
@@ -166,8 +174,22 @@ public class SaleView extends JFrame implements ActionListener {
         int key = Integer.parseInt(inputBox.getText());
 
         if (e.getSource() == btn_addProduct) {
-            //int result = saleController.getProducInfo(key);
-            //System.out.println(result);
+            ArrayList<ProductOrderNumDTO> result = saleController.getProductInfo(key);
+
+        }else if (e.getSource() == btn_getUser){
+            MemberDTO result = saleController.getMemberInfo(key);
+
+            userName.setText("회원 이름 : " + result.getClientName());
+            userPoint.setText("포인트 점수 : " + result.getPointScore());
+
+        } else if (e.getSource() == btn_payment) {
+
+        } else if (e.getSource() == btn_cancle) {
+            ArrayList<ProductOrderNumDTO> result = saleController.cancleProduct(key);
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        } else if (e.getSource() == btn_allCancle) {
+            ArrayList<ProductOrderNumDTO> result = saleController.cancleProducts();
         }
 
     }
