@@ -63,7 +63,7 @@ public class ProductDBRepository implements ProductDAO {
     public boolean deleteProduct(int productNum) {
         boolean success = false;
         try {
-            String query = String.format("DELETE FROM products WHERE product_num = %d", productNum);
+            String query = String.format("DELETE FROM products WHERE product_id = %d", productNum);
             int rowsAffected = statement.executeUpdate(query);
             success = rowsAffected > 0;
         } catch (SQLException e) {
