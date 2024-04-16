@@ -5,12 +5,17 @@ import java.util.ArrayList;
 public class MemberController {
 
     private MemberService memberService;
-    private MemberView memberView;
+
+    public MemberController() {
+
+        memberService = new MemberService();
+        new MemberView(this);
+    }
 
     public MemberController(MemberService memberService) {
 
         this.memberService = memberService;
-        this.memberView = new MemberView(this);
+        new MemberView(this);
     }
 
     public boolean createMember(int memberId, String memberName, Integer memberScore) {
