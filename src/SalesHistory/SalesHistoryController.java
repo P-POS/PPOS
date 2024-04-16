@@ -1,11 +1,22 @@
 package SalesHistory;
 
 import java.util.ArrayList;
+import main.MainController;
 
 
 public class SalesHistoryController {
+    private MainController mainController;
+    private SalesHistoryService salesHistoryService;
 
-    SalesHistoryService salesHistoryService = new SalesHistoryService();
+    public SalesHistoryController(MainController mainController) {
+        salesHistoryService = new SalesHistoryService();
+        this.mainController = mainController;
+        new SalesHistoryView(this);
+    }
+
+    public void openMainPage(){
+        mainController.openMainPage();
+    }
 
     SalesHistory getSalesHistory(String searchSource) {
 
