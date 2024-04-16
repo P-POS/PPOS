@@ -17,6 +17,4 @@ public interface MemberDAO {
     ArrayList<MemberDTO> getMemberUseName(String memberName);
 
     ArrayList<MemberDTO> getAllMembers();
-
-//    String getLatestSaleDate(int memberId);
 }
