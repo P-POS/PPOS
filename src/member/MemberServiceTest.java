@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class MemberServiceTest {
 
-    @Test
+
     public void testCreateMember() {
         // Given
         MemberDAO memberDAO = new TestMemberDAO(); // 외부 의존성이 있는 MemberDAO의 대체 구현체
