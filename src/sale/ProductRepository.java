@@ -46,7 +46,13 @@ public class ProductRepository implements ProductDAO {
                 ProductDTO productDTO = products.get(i).getProductDTO();
                 int productId = productDTO.getProductId();
                 int productOrderNum = products.get(i).getProductOrderNum();
-                String query = String.format("update products set product_stock = product_stock - %d where product_id = %d;",productOrderNum, productId);
+                int productPrice = productDTO.getProductPrice();
+                String query;
+                if(productPrice>0)
+                {query = String.format("update products set product_stock = product_stock - %d where product_id = %d;",productOrderNum, productId);}
+                else{
+                    query = String.format("update products set product_stock = product_stock + %d where product_id = %d;",productOrderNum, productId);
+                }
                 statement.executeQuery(query);
             }
         }

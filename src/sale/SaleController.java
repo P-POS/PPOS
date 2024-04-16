@@ -12,6 +12,10 @@ public class SaleController {
         new SaleView(this);
     }
 
+    public void openMainPage(){
+        mainController.openMainPage();
+    }
+
     public String sellSale(){
         String key = salesService.sellSale();
         if(key=="success"){

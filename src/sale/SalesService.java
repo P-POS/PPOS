@@ -33,9 +33,11 @@ public class SalesService {
         for(ProductOrderNumDTO tempProduct : productOrderNumDTOS){
             int tempProductStock = tempProduct.productDTO.getProductStock();
             int tempProductNum = tempProduct.productOrderNum;
-            if(tempProductStock<tempProductNum){
+            int tempProductPrice = tempProduct.productDTO.getProductPrice();
+            if(tempProductStock<tempProductNum&&tempProductPrice>0){
                 return String.format("%s의 재고가 부족합니다.",tempProduct.productDTO.getProductName());
             }
+
         }
 
         if(memberDTO != null){
@@ -69,7 +71,7 @@ public class SalesService {
     public int usePoint(int score){
         if(memberDTO.getPointScore()>score){
             this.usePoint = score;
-            return score;
+            return memberDTO.getPointScore()-score;
         }
         else{
             return -1;
