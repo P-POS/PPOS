@@ -245,6 +245,9 @@ public class SaleView extends JFrame implements ActionListener {
                         userName.setText("회원 이름 : ");
                         userPoint.setText("포인트 점수 : ");
                     }
+                    else{
+                        JOptionPane.showMessageDialog(this, "수량이 부족합니다.", "경고", JOptionPane.ERROR_MESSAGE);
+                    }
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "결제 정보를 확인해보세요.", "경고", JOptionPane.ERROR_MESSAGE);
                 }
