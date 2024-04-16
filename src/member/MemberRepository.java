@@ -13,6 +13,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void createMember(MemberDTO member) {
+
         dbConnector = new DBConnection();
         String query =
             "INSERT INTO members (member_name, member_id) VALUES ('" + member.getMemberName()
@@ -38,6 +39,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void deleteMember(int memberId) {
+
         dbConnector = new DBConnection();
         String query = "DELETE FROM members WHERE member_id=" + memberId;
         try {
@@ -60,6 +62,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void updateMember(MemberDTO member) {
+
         dbConnector = new DBConnection();
         String query =
             "UPDATE members SET member_name='" + member.getMemberName() + "', member_score="
@@ -84,6 +87,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public ArrayList<MemberDTO> getMember(int memberId) {
+
         dbConnector = new DBConnection();
         ArrayList<MemberDTO> members = new ArrayList<>();
         String query = "SELECT * FROM members WHERE member_id=" + memberId;
@@ -113,6 +117,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public ArrayList<MemberDTO> getMemberUseName(String memberName) {
+
         dbConnector = new DBConnection();
         ArrayList<MemberDTO> members = new ArrayList<>();
         String query = "SELECT * FROM members WHERE member_name='" + memberName + "'";
