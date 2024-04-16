@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
-import main.MainController;
 
 public class ProductView extends JFrame implements ActionListener {
     private final ProductController productController;
@@ -182,7 +181,7 @@ public class ProductView extends JFrame implements ActionListener {
             searchInput.setText("상품번호, 상품명");
         } else if (e.getSource() == btn_register) {
             // 등록 버튼 클릭 시 모달 다이얼로그 띄우기
-            RegisterDialog registerDialog = new RegisterDialog(this, "상품 등록", true, this, productController);
+            RegisterDialog registerDialog = new RegisterDialog(this, "상품 등록", true, this, productController, searchInput);
             registerDialog.setVisible(true);
         } else if (e.getSource() == btn_update) {
             // 수정 버튼을 클릭했을 때
@@ -196,7 +195,7 @@ public class ProductView extends JFrame implements ActionListener {
 
                 // 선택된 행의 데이터를 RegisterDialog에 전달
                 RegisterDialog registerDialog = new RegisterDialog(this, "상품 수정", true, productNum,
-                        productName, productPrice, productQuantity, this, productController);
+                        productName, productPrice, productQuantity, this, productController, searchInput);
                 registerDialog.setVisible(true);
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
@@ -227,6 +226,7 @@ public class ProductView extends JFrame implements ActionListener {
 class RegisterDialog extends JDialog implements ActionListener {
     ProductView productView;
     ProductController productController;
+    JTextField searchInput;
     JLabel nameLabel = new JLabel("상품명:");
     JTextField tfName = new JTextField(20);
     JLabel numberLabel = new JLabel("상품번호:");
@@ -239,19 +239,21 @@ class RegisterDialog extends JDialog implements ActionListener {
 
     Font labelFont = new Font("맑은 고딕", Font.PLAIN, 14);
 
-    public RegisterDialog(JFrame owner, String title, boolean modal, ProductView productView, ProductController productController) {
+    public RegisterDialog(JFrame owner, String title, boolean modal, ProductView productView, ProductController productController, JTextField searchInput) {
         super(owner, title, modal);
         this.productView = productView;
         this.productController = productController;
+        this.searchInput = searchInput;
         initializeUI();
         setLocationRelativeTo(owner);
         btn_save.setText("등록");
     }
 
-    public RegisterDialog(JFrame owner, String title, boolean modal, int productNum, String productName, int productPrice, int productQuantity, ProductView productView, ProductController productController) {
+    public RegisterDialog(JFrame owner, String title, boolean modal, int productNum, String productName, int productPrice, int productQuantity, ProductView productView, ProductController productController, JTextField searchInput) {
         super(owner, title, modal);
         this.productView = productView;
         this.productController = productController;
+        this.searchInput = searchInput;
         initializeUI();
         setLocationRelativeTo(owner);
         btn_save.setText("수정");
@@ -319,6 +321,8 @@ class RegisterDialog extends JDialog implements ActionListener {
                 JLabel label = new JLabel("상품 등록이 완료되었습니다.");
                 label.setFont(labelFont);
                 JOptionPane.showMessageDialog(this, label, "등록 완료", JOptionPane.INFORMATION_MESSAGE);
+                searchInput.setForeground(Color.GRAY);
+                searchInput.setText("상품번호, 상품명");
             } else {
                 JLabel label = new JLabel("정확한 정보를 입력해주세요.");
                 label.setFont(labelFont);
@@ -329,6 +333,8 @@ class RegisterDialog extends JDialog implements ActionListener {
                 JLabel label = new JLabel("상품 수정이 완료되었습니다.");
                 label.setFont(labelFont);
                 JOptionPane.showMessageDialog(this, label, "수정 완료", JOptionPane.INFORMATION_MESSAGE);
+                searchInput.setForeground(Color.GRAY);
+                searchInput.setText("상품번호, 상품명");
             } else {
                 JLabel label = new JLabel("정확한 정보를 입력해주세요.");
                 label.setFont(labelFont);

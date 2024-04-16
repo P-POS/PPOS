@@ -172,6 +172,8 @@ public class SalesHistoryView extends JFrame implements ActionListener {
                     label.setFont(btnFont);
                     JOptionPane.showMessageDialog(this, label, "반품 완료", JOptionPane.INFORMATION_MESSAGE);
                     loadSalesHistories();
+                    searchInput.setForeground(Color.GRAY);
+                    searchInput.setText("고객번호, 고객이름");
                 }
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
