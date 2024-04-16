@@ -1,6 +1,5 @@
 package member;
 
-
 import main.MainController;
 import java.util.ArrayList;
 
