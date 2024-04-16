@@ -6,12 +6,7 @@ public class ProductReqDTO {
     private int productQuantity;
     private int productNum;
 
-    public ProductReqDTO(Product product) {
-        this.productName = product.getProductName();
-        this.productPrice = product.getProductPrice();
-        this.productQuantity = product.getProductQuantity();
-        this.productNum = product.getProductNum();
-    }
+
 
     public String getProductName() { return productName; }
 
