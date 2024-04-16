@@ -23,13 +23,4 @@ public class MemberDTO {
     public int getMemberScore() {
         return memberScore;
     }
-
-    @Override
-    public String toString() {
-        return "MemberDTO{" +
-            "memberId=" + memberId +
-            ", memberName='" + memberName + '\'' +
-            ", memberScore=" + memberScore +
-            '}';
-    }
 }
