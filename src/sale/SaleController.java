@@ -1,6 +1,7 @@
 package sale;
 import java.util.ArrayList;
 import main.MainController;
+import product.ProductController;
 
 
 public class SaleController {
