@@ -1,18 +1,16 @@
 package product;
 
 import main.MainController;
-
 import java.util.ArrayList;
-import main.MainController;
 
 public class ProductController {
     private MainController mainController;
     private ProductService productService;
 
     public ProductController(MainController mainController) {
+        productService = new ProductService();
         this.mainController = mainController;
         new ProductView(this);
-        this.productService = new ProductService();
     }
 
     public void openMainPage(){
@@ -36,11 +34,11 @@ public class ProductController {
     }
 
     public boolean addProduct(Product product) {
-        return productService.addProduct(new ProductReqDTO());
+        return productService.addProduct(new ProductReqDTO(product));
     }
 
     public boolean updateProduct(Product product) {
-        return productService.updateProduct(new ProductReqDTO());
+        return productService.updateProduct(new ProductReqDTO(product));
     }
 
     public boolean deleteProduct(int productNum) {
