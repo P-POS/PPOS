@@ -12,6 +12,8 @@ public interface MemberDAO {
 
     ArrayList<MemberDTO> getMember(int memberId);
 
+    ArrayList<MemberDTO> getMemberUseId(int memberId);
+
     ArrayList<MemberDTO> getMemberUseName(String memberName);
 
     ArrayList<MemberDTO> getAllMembers();

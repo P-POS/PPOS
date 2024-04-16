@@ -18,7 +18,7 @@ public class MainController {
         new MemberController(this);
     }
     public void openProductPage(){
-        //new ProductController(this);
+        new ProductController(this);
     }
     public void openSalePage(){
         new SaleController(this);

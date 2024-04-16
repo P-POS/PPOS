@@ -1,24 +1,26 @@
 package product;
 
 import main.MainController;
-
 import java.util.ArrayList;
 import main.MainController;
 
 public class ProductController {
-
-    private ProductView productView;
-    private ProductService productService;
     private MainController mainController;
+    private ProductService productService;
 
-    ProductController(MainController mainController){
-        this.mainController = mainController;
-        productView = new ProductView();
+    public ProductController(MainController mainController) {
         productService = new ProductService();
+        this.mainController = mainController;
+        new ProductView(this);
     }
 
+    public void openMainPage(){
+        mainController.openMainPage();
+    }
+
+
     public Product getProduct(int productNum) {
-       return new Product(productService.getProduct(productNum));
+        return new Product(productService.getProduct(productNum));
     }
 
     public ArrayList<Product> getProducts() {
