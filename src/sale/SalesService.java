@@ -71,7 +71,7 @@ public class SalesService {
     public int usePoint(int score){
         if(memberDTO.getPointScore()>score){
             this.usePoint = score;
-            return memberDTO.getPointScore()-score;
+            return score;
         }
         else{
             return -1;
