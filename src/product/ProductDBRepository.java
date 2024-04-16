@@ -27,9 +27,10 @@ public class ProductDBRepository implements ProductDAO {
             String productName = productReqDTO.getProductName();
             int productPrice = productReqDTO.getProductPrice();
             int productQuantity = productReqDTO.getProductQuantity();
+            int productNum = productReqDTO.getProductNum();
 
-            String query = String.format("INSERT INTO products (product_name, product_price, product_stock) VALUES ('%s', %d, %d)",
-                productName, productPrice, productQuantity);
+            String query = String.format("INSERT INTO products (product_name, product_price, product_stock, product_id) VALUES ('%s', %d, %d, %d)",
+                productName, productPrice, productQuantity, productNum);
 
             int rowsAffected = statement.executeUpdate(query);
             success = rowsAffected > 0;
