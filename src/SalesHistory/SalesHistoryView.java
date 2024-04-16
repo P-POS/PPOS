@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import main.MainController;
@@ -16,6 +17,9 @@ public class SalesHistoryView extends JFrame implements ActionListener {
     DefaultTableModel model;
     JTable table;
     JScrollPane scrollPane;
+
+    DefaultTableCellRenderer item_renderer = new DefaultTableCellRenderer();
+    DefaultTableCellRenderer header_renderer;
 
     // 검색어 입력창
     JTextField searchInput = new JTextField("고객번호, 고객이름");
@@ -43,6 +47,14 @@ public class SalesHistoryView extends JFrame implements ActionListener {
         table = new JTable(model);
         scrollPane = new JScrollPane(table);
         JTableHeader header = table.getTableHeader();
+
+        header_renderer = (DefaultTableCellRenderer) table.getTableHeader()
+                .getDefaultRenderer();
+        header_renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        item_renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < 5; i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(item_renderer);
+        }
 
         loadSalesHistories();
 
@@ -156,15 +168,16 @@ public class SalesHistoryView extends JFrame implements ActionListener {
                 int transactionID = (int) table.getValueAt(selectedRow, 0);
 
                 if (salesHistoryController.refundSalesHistory(transactionID)) {
-                    JOptionPane.showMessageDialog(this, "반품되었습니다.", "반품 완료", JOptionPane.INFORMATION_MESSAGE);
+                    JLabel label = new JLabel("반품되었습니다.");
+                    label.setFont(btnFont);
+                    JOptionPane.showMessageDialog(this, label, "반품 완료", JOptionPane.INFORMATION_MESSAGE);
                     loadSalesHistories();
-                } else {
-                    JOptionPane.showMessageDialog(this, "반품할 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
                 }
-
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
-                JOptionPane.showMessageDialog(this, "반품할 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+                JLabel label = new JLabel("반품할 내역을 선택해주세요.");
+                label.setFont(btnFont);
+                JOptionPane.showMessageDialog(this, label, "경고", JOptionPane.WARNING_MESSAGE);
             }
         }
     }

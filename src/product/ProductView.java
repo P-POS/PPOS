@@ -15,6 +15,9 @@ public class ProductView extends JFrame implements ActionListener {
     JTable table;
     JScrollPane scrollPane;
 
+    DefaultTableCellRenderer item_renderer = new DefaultTableCellRenderer();
+    DefaultTableCellRenderer header_renderer;
+
     // 검색어 입력창
     JTextField searchInput = new JTextField("상품번호, 상품명");
 
@@ -45,6 +48,14 @@ public class ProductView extends JFrame implements ActionListener {
         table = new JTable(model);
         scrollPane = new JScrollPane(table);
         JTableHeader header = table.getTableHeader();
+
+        header_renderer = (DefaultTableCellRenderer) table.getTableHeader()
+                .getDefaultRenderer();
+        header_renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        item_renderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < 5; i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(item_renderer);
+        }
 
         // 상품 불러오기
         loadProductData();
@@ -189,7 +200,9 @@ public class ProductView extends JFrame implements ActionListener {
                 registerDialog.setVisible(true);
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
-                JOptionPane.showMessageDialog(this, "수정할 상품을 선택해주세요.", "경고",
+                JLabel label = new JLabel("수정할 상품을 선택해주세요.");
+                label.setFont(btnFont);
+                JOptionPane.showMessageDialog(this, label, "경고",
                         JOptionPane.WARNING_MESSAGE);
             }
         } else if (e.getSource() == btn_delete) {
@@ -202,7 +215,9 @@ public class ProductView extends JFrame implements ActionListener {
                 loadProductData();
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
-                JOptionPane.showMessageDialog(this, "삭제할 상품을 선택해주세요.", "경고",
+                JLabel label = new JLabel("삭제할 상품을 선택해주세요.");
+                label.setFont(btnFont);
+                JOptionPane.showMessageDialog(this, label, "경고",
                         JOptionPane.WARNING_MESSAGE);
             }
         }
@@ -301,15 +316,23 @@ class RegisterDialog extends JDialog implements ActionListener {
         // 버튼의 텍스트에 따라 등록 또는 수정 로직 분리
         if (btn_save.getText().equals("등록")) {
             if (productController.addProduct(product)) {
-                JOptionPane.showMessageDialog(this, "상품 등록이 완료되었습니다.", "등록 완료", JOptionPane.INFORMATION_MESSAGE);
+                JLabel label = new JLabel("상품 등록이 완료되었습니다.");
+                label.setFont(labelFont);
+                JOptionPane.showMessageDialog(this, label, "등록 완료", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "정확한 정보를 입력해주세요.", "등록 실패", JOptionPane.WARNING_MESSAGE);
+                JLabel label = new JLabel("정확한 정보를 입력해주세요.");
+                label.setFont(labelFont);
+                JOptionPane.showMessageDialog(this, label, "등록 실패", JOptionPane.WARNING_MESSAGE);
             }
         } else {
             if (productController.updateProduct(product)) {
-                JOptionPane.showMessageDialog(this, "상품 수정이 완료되었습니다.", "수정 완료", JOptionPane.INFORMATION_MESSAGE);
+                JLabel label = new JLabel("상품 수정이 완료되었습니다.");
+                label.setFont(labelFont);
+                JOptionPane.showMessageDialog(this, label, "수정 완료", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "정확한 정보를 입력해주세요.", "수정 실패", JOptionPane.WARNING_MESSAGE);
+                JLabel label = new JLabel("정확한 정보를 입력해주세요.");
+                label.setFont(labelFont);
+                JOptionPane.showMessageDialog(this, label, "수정 실패", JOptionPane.WARNING_MESSAGE);
             }
         }
 
