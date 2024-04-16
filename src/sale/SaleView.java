@@ -74,6 +74,8 @@ public class SaleView extends JFrame implements ActionListener {
 
 
     SaleController saleController;
+    private int pre_point;
+
     public void setRow(DefaultTableModel model, int selectedRow){
         this.model = model;
         this.selectedRow = selectedRow;
@@ -220,6 +222,7 @@ public class SaleView extends JFrame implements ActionListener {
             MemberDTO result = saleController.getMemberInfo(key);
             userName.setText("회원 이름 : " + result.getClientName());
             userPoint.setText("포인트 점수 : " + result.getPointScore());
+            this.pre_point = result.getPointScore();
 
         }else if (e.getSource() == btn_payment) {
             String result = saleController.sellSale();
@@ -228,6 +231,8 @@ public class SaleView extends JFrame implements ActionListener {
                 emptyTableModel.setColumnIdentifiers(headers);
                 table.setModel(emptyTableModel); // 테이블을 초기화합니다.
                 sumPrice.setText("총 가격 : 0"); // 총 가격을 초기화합니다.
+                userName.setText("회원 이름 : ");
+                userPoint.setText("포인트 점수 : ");
             }
         }else if (e.getSource() == btn_cancle) {
             ArrayList<ProductOrderNumDTO> result = saleController.cancleProduct(selectedRow);
@@ -264,8 +269,11 @@ public class SaleView extends JFrame implements ActionListener {
            int result = saleController.usePoint(key);
            if (result == -1){
            } else {
-               totalPriceSum = result;
-               sumPrice.setText("총 가격 : "+result);
+               totalPriceSum -= result;
+               sumPrice.setText("총 가격 : "+ totalPriceSum);
+               int point = pre_point - result;
+               pre_point = point;
+               userPoint.setText("포인트 점수 : " +(point));
            }
         }
     }
