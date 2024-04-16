@@ -95,13 +95,13 @@ public class MemberService {
         return members;
     }
 
-    public String getLatestSaleDate(int memberId) {
-
-        String latestSaleDate = memberDAO.getLatestSaleDate(memberId);
-        if (latestSaleDate != null) {
-            return latestSaleDate;
-        } else {
-            return null;
-        }
-    }
+//    public String getLatestSaleDate(int memberId) {
+//
+//        String latestSaleDate = memberDAO.getLatestSaleDate(memberId);
+//        if (latestSaleDate != null) {
+//            return latestSaleDate;
+//        } else {
+//            return null;
+//        }
+//    }
 }

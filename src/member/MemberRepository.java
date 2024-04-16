@@ -202,30 +202,30 @@ public class MemberRepository implements MemberDAO {
         return members;
     }
 
-    @Override
-    public String getLatestSaleDate(int memberId) {
-
-        dbConnector = new DBConnection();
-        String query =
-            "SELECT * FROM sales WHERE member_id=" + memberId + " ORDER BY sale_date DESC LIMIT 1";
-        try {
-            stmt = dbConnector.createStatement();
-            ResultSet resultSet = stmt.executeQuery(query);
-            if (resultSet.next()) {
-                return resultSet.getString("sale_date");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            dbConnector.closeConnection();
-        }
-        return null;
-    }
+//    @Override
+//    public String getLatestSaleDate(int memberId) {
+//
+//        dbConnector = new DBConnection();
+//        String query =
+//            "SELECT * FROM sales WHERE member_id=" + memberId + " ORDER BY sale_date DESC LIMIT 1";
+//        try {
+//            stmt = dbConnector.createStatement();
+//            ResultSet resultSet = stmt.executeQuery(query);
+//            if (resultSet.next()) {
+//                return resultSet.getString("sale_date");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (stmt != null) {
+//                    stmt.close();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//            dbConnector.closeConnection();
+//        }
+//        return null;
+//    }
 }
