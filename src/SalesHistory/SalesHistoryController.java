@@ -21,7 +21,7 @@ public class SalesHistoryController {
     SalesHistory getSalesHistory(String searchSource) {
 
         SalesHistoryResDTO salesHistoryResDTO = salesHistoryService.getSalesHistory(searchSource);
-        if(salesHistoryResDTO.getMemberName().isEmpty()){
+        if(salesHistoryResDTO.getMemberName() == null){
             salesHistoryResDTO.setMemberName("비회원");
         }
         return new SalesHistory(salesHistoryResDTO);
@@ -35,7 +35,7 @@ public class SalesHistoryController {
         ArrayList<SalesHistory> salesHistories = new ArrayList<>();
 
         for (SalesHistoryResDTO salesHistoryResDTO : salesHistoryResDTOs) {
-            if(salesHistoryResDTO.getMemberName().isEmpty()){
+            if(salesHistoryResDTO.getMemberName() == null){
                 salesHistoryResDTO.setMemberName("비회원");
             }
             salesHistories.add(new SalesHistory(salesHistoryResDTO));
