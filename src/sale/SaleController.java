@@ -1,12 +1,14 @@
 package sale;
 import java.util.ArrayList;
+import main.MainController;
 
 
 public class SaleController {
     SalesService salesService;
-    MemberDTO memberDTO;
-    public SaleController(SalesService salesService){
-        this.salesService = salesService;
+    MainController mainController;
+    public SaleController(MainController mainController){
+        this.mainController = mainController;
+        this.salesService = new SalesService();
         new SaleView(this);
     }
 
@@ -59,6 +61,16 @@ public class SaleController {
 
     public  ArrayList<ProductOrderNumDTO> updateOrderNum(int sequence,int orderNum){
         return salesService.updateOrderNum(sequence,orderNum);
+    }
+    public int usePoint(int score){
+        return salesService.usePoint(score);
+    }
+    public int getTotal(){
+        return salesService.getTotal();
+    }
+
+    public void setMemberDTONull(){
+        salesService.setMemberDTONull();
     }
 
 }

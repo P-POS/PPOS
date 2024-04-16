@@ -2,6 +2,7 @@ package product;
 
 import main.MainController;
 import java.util.ArrayList;
+import main.MainController;
 
 public class ProductController {
     private MainController mainController;
@@ -16,6 +17,7 @@ public class ProductController {
     public void openMainPage(){
         mainController.openMainPage();
     }
+
 
     public Product getProduct(int productNum) {
         return new Product(productService.getProduct(productNum));

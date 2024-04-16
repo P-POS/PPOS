@@ -12,10 +12,35 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+class TableSelectionListener implements ListSelectionListener {
+    private final JTable table;
+    private final SaleView saleView;
+
+    public TableSelectionListener(JTable table, SaleView saleView) {
+        this.table = table;
+        this.saleView = saleView;
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) { // 클릭이 완료된 경우에만 실행
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) { // 선택된 행이 있는지 확인
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                saleView.setRow(model, selectedRow); // SaleView의 setRow 메서드 호출
+            }
+        }
+    }
+}
+
 public class SaleView extends JFrame implements ActionListener {
+
+
 
     JPanel panel = new JPanel();
 
@@ -24,43 +49,23 @@ public class SaleView extends JFrame implements ActionListener {
     };
 
     String array[][] = {
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
-        {"아몬드빼빼로", "1300", "4", "6400"},
-        {"오뚜기 카레", "7800", "1", "7800"},
     };
+    DefaultTableModel model;
+    int selectedRow;
     JTextField inputBox = new JTextField();
     JTable table = new JTable(array, headers);
     JScrollPane scrollPane = new JScrollPane(table);
-    JLabel sumPrice = new JLabel("총 가격 : 1000000000");
+    int totalPriceSum;
+    JLabel sumPrice = new JLabel("총 가격 : ");
     JButton btn_addProduct = new JButton("상품 등록");
     JButton btn_getUser = new JButton("유저 조회");
     JButton btn_payment = new JButton("결제");
     JButton btn_usePoint = new JButton("포인트 사용");
-    JButton btn_trash = new JButton("쓰레기 봉투");
-    JButton btn_soju = new JButton("소주 공병");
+    JButton btn_fixAmount = new JButton("수량 수정");
+    JButton btn_refund = new JButton("반품");
     JButton btn_cancle = new JButton("취소");
     JButton btn_allCancle = new JButton("전체 취소");
+    JButton btn_home = new JButton("홈");
 
 
     String name;
@@ -74,11 +79,21 @@ public class SaleView extends JFrame implements ActionListener {
 
     SaleController saleController;
 
+    public void setRow(DefaultTableModel model, int selectedRow){
+        this.model = model;
+        this.selectedRow = selectedRow;
+    }
+
     public SaleView(SaleController saleController) {
         this.saleController = saleController;
 
         setSize(1280, 960);
         setLayout(null);
+
+        // 홈 버튼
+        btn_home.addActionListener(this);
+        btn_home.setBounds(1175, 20, 60, 50);
+        btn_home.setFont(new Font("Arial", Font.PLAIN, 18));
 
         // 상품 테이블 설정.
         scrollPane.setBounds(20, 30, 600, 650);
@@ -89,6 +104,8 @@ public class SaleView extends JFrame implements ActionListener {
         // 총가격 설정
         sumPrice.setBounds(200, 700, 200, 40);
         sumPrice.setFont(new Font("Arial", Font.PLAIN, 20)); // 글꼴, 스타일, 크기 설정
+        table.getSelectionModel().addListSelectionListener(new TableSelectionListener(table, this));
+
 
         // 유저 정보==================
         userTitle.setBounds(710, 360, 200, 40); // 유저 정보 제목
@@ -121,23 +138,22 @@ public class SaleView extends JFrame implements ActionListener {
         btn_getUser.setBounds(970, 100, 250, 100);
         btn_getUser.setFont(new Font("Arial", Font.PLAIN, 18));
         btn_getUser.addActionListener(this);
-
-        // 결제
-        btn_payment.setBounds(700, 210, 250, 100);
-        btn_payment.setFont(new Font("Arial", Font.PLAIN, 18));
-        btn_payment.addActionListener(this);
         // 포인트 사용
-        btn_usePoint.setBounds(970, 210, 250, 100);
+        btn_usePoint.setBounds(700, 210, 250, 100);
         btn_usePoint.setFont(new Font("Arial", Font.PLAIN, 18));
         btn_usePoint.addActionListener(this);
-        // 쓰레기 봉투
-        btn_trash.setBounds(700, 550, 250, 100);
-        btn_trash.setFont(new Font("Arial", Font.PLAIN, 18));
-        btn_trash.addActionListener(this);
-        //  소주 공병
-        btn_soju.setBounds(970, 550, 250, 100);
-        btn_soju.setFont(new Font("Arial", Font.PLAIN, 18));
-        btn_soju.addActionListener(this);
+        // 수량 수정
+        btn_fixAmount.setBounds(970, 210, 250, 100);
+        btn_fixAmount.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_fixAmount.addActionListener(this);
+        //  환불
+        btn_refund.setBounds(700, 550, 250, 100);
+        btn_refund.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_refund.addActionListener(this);
+        // 결제
+        btn_payment.setBounds(970, 550, 250, 100);
+        btn_payment.setFont(new Font("Arial", Font.PLAIN, 18));
+        btn_payment.addActionListener(this);
         // 취소
         btn_cancle.setBounds(700, 660, 250, 100);
         btn_cancle.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -155,8 +171,8 @@ public class SaleView extends JFrame implements ActionListener {
         add(btn_payment);
         add(btn_usePoint);
 
-        add(btn_trash);
-        add(btn_soju);
+        add(btn_fixAmount);
+        add(btn_refund);
         add(btn_cancle);
         add(btn_allCancle);
 
@@ -169,28 +185,88 @@ public class SaleView extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    public void updateTable(ArrayList<ProductOrderNumDTO> result){
+        // DefaultTableModel 객체 생성
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(headers); // 테이블의 헤더 설정
+        totalPriceSum =0;
+
+        // result의 내용을 모델에 추가
+        for (ProductOrderNumDTO productOrder : result) {
+            Object[] row = {
+                productOrder.productDTO.getProductName(),
+                productOrder.productDTO.getProductPrice(),
+                productOrder.getProductOrderNum(),
+                (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum())
+            };
+            model.addRow(row);
+            totalPriceSum += (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum());
+        }
+        // 테이블에 모델 설정
+        table.setModel(model);
+        sumPrice.setText("총 가격 : "+totalPriceSum);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         int key = Integer.parseInt(inputBox.getText());
 
-        if (e.getSource() == btn_addProduct) {
+        if (e.getSource() == btn_addProduct) {  //완료
             ArrayList<ProductOrderNumDTO> result = saleController.getProductInfo(key);
 
-        }else if (e.getSource() == btn_getUser){
-            MemberDTO result = saleController.getMemberInfo(key);
+            // DefaultTableModel 객체 생성
+            DefaultTableModel model = new DefaultTableModel();
+            model.setColumnIdentifiers(headers); // 테이블의 헤더 설정
+            updateTable(result);
 
+        }else if (e.getSource() == btn_getUser){    // 완료
+            MemberDTO result = saleController.getMemberInfo(key);
             userName.setText("회원 이름 : " + result.getClientName());
             userPoint.setText("포인트 점수 : " + result.getPointScore());
 
-        } else if (e.getSource() == btn_payment) {
-
-        } else if (e.getSource() == btn_cancle) {
-            ArrayList<ProductOrderNumDTO> result = saleController.cancleProduct(key);
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-
-        } else if (e.getSource() == btn_allCancle) {
+        }else if (e.getSource() == btn_payment) {
+            String result = saleController.sellSale();
+            if (result.equals("success")){
+                DefaultTableModel emptyTableModel = new DefaultTableModel();
+                emptyTableModel.setColumnIdentifiers(headers);
+                table.setModel(emptyTableModel); // 테이블을 초기화합니다.
+                sumPrice.setText("총 가격 : 0"); // 총 가격을 초기화합니다.
+            }
+        }else if (e.getSource() == btn_cancle) {
+            ArrayList<ProductOrderNumDTO> result = saleController.cancleProduct(selectedRow);
+            updateTable(result);
+        }else if (e.getSource() == btn_allCancle) {
             ArrayList<ProductOrderNumDTO> result = saleController.cancleProducts();
+            totalPriceSum = 0;
+            updateTable(result);
+        }else if (e.getSource() == btn_fixAmount){  // 완료
+            ArrayList<ProductOrderNumDTO> result = saleController.updateOrderNum(selectedRow, key);
+            // DefaultTableModel 객체 생성
+            DefaultTableModel model = new DefaultTableModel();
+            model.setColumnIdentifiers(headers); // 테이블의 헤더 설정
+            totalPriceSum = 0;
+            for (ProductOrderNumDTO productOrder : result) {
+                Object[] row = {
+                    productOrder.productDTO.getProductName(),
+                    productOrder.productDTO.getProductPrice(),
+                    productOrder.getProductOrderNum(),
+                    (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum())
+                };
+                model.addRow(row);
+                totalPriceSum += (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum());
+            }
+            // 테이블에 모델 설정
+            table.setModel(model);
+            sumPrice.setText("총 가격 : "+totalPriceSum);
+        }else if (e.getSource() == btn_refund){
+            ArrayList<ProductOrderNumDTO> result = saleController.returnProducts(selectedRow);
+            updateTable(result);
         }
-
+        else if (e.getSource() == btn_usePoint) {
+            // 이따 추가
+           //int result = saleController.sellSaleUsePoint(key);
+           //if (result == -1){
+           //}
+        }
     }
 }

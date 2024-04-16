@@ -21,7 +21,7 @@ public class MainController {
         new ProductController(this);
     }
     public void openSalePage(){
-        //new SaleController(this);
+        new SaleController(this);
     }
     public void openSalesHistoryPage(){
         new SalesHistoryController(this);
