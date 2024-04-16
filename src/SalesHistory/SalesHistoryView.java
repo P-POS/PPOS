@@ -10,9 +10,8 @@ import javax.swing.table.JTableHeader;
 import main.MainController;
 import main.MainView;
 
-public class SalesHistoryView extends JFrame implements ActionListener, MouseListener {
-    SalesHistoryController salesHistoryController = new SalesHistoryController();
-    MainController mainController;
+public class SalesHistoryView extends JFrame implements ActionListener {
+    private final SalesHistoryController salesHistoryController;
 
     DefaultTableModel model;
     JTable table;
@@ -32,7 +31,8 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
     Font subFont = new Font("맑은 고딕", Font.PLAIN, 16);
     Font btnFont = new Font("맑은 고딕", Font.PLAIN, 14);
 
-    public SalesHistoryView() {
+    public SalesHistoryView(SalesHistoryController salesHistoryController) {
+        this.salesHistoryController = salesHistoryController;
         // 프레임 크기 설정 및 화면에 표시
         setSize(1280, 960);
         setLayout(null);
@@ -52,7 +52,6 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
         btn_search.addActionListener(this);
         btn_all.addActionListener(this);
         btn_return.addActionListener(this);
-        table.addMouseListener(this);
 
         label.setBounds(20, 20, 1280, 50);
         scrollPane.setBounds(20, 150, 1220, 740);
@@ -122,7 +121,7 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_home) {
             this.setVisible(false);
-            new MainView(mainController);
+            salesHistoryController.openMainPage();
         } else if (e.getSource() == btn_search) {
             boolean isNumeric = searchInput.getText().matches("-?\\d+(\\.\\d+)?"); // 숫자인지 확인
             // 검색 버튼을 클릭했을 때
@@ -156,32 +155,17 @@ public class SalesHistoryView extends JFrame implements ActionListener, MouseLis
                 // 선택된 행의 데이터 가져오기
                 int transactionID = (int) table.getValueAt(selectedRow, 0);
 
-                salesHistoryController.refundSalesHistory(transactionID);
-                loadSalesHistories();
+                if (salesHistoryController.refundSalesHistory(transactionID)) {
+                    JOptionPane.showMessageDialog(this, "반품되었습니다.", "반품 완료", JOptionPane.INFORMATION_MESSAGE);
+                    loadSalesHistories();
+                } else {
+                    JOptionPane.showMessageDialog(this, "반품할 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+                }
+
             } else {
                 // 행이 선택되지 않았을 경우 경고 메시지 표시
                 JOptionPane.showMessageDialog(this, "반품할 내역을 선택해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
             }
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
     }
 }
