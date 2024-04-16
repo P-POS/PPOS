@@ -9,13 +9,24 @@ public class SalesService {
     SaleRepository saleRepository;
     ArrayList<ProductOrderNumDTO> productOrderNumDTOS;
     MemberDTO memberDTO;
+    int totalCal;
+    int usePoint;
     public SalesService(){
         this.memberRepository = new MemberRepository();
         this.saleRepository = new SaleRepository();
         this.productRepository = new ProductRepository();
-        productOrderNumDTOS = new ArrayList<ProductOrderNumDTO>();
+        productOrderNumDTOS = new ArrayList<>();
+        this.usePoint = 0;
+        this.totalCal = 0;
     }
+    public int getTotal(){
+        this.totalCal = 0;
+        for(ProductOrderNumDTO productOrderNumDTO :productOrderNumDTOS){
+            totalCal+=productOrderNumDTO.getProductOrderNum()*productOrderNumDTO.getProductDTO().getProductPrice();
 
+        }
+        return totalCal-usePoint;
+    }
     public String sellSale(){
         int totalSale = 0;
         for(ProductOrderNumDTO tempProduct : productOrderNumDTOS){
@@ -50,6 +61,16 @@ public class SalesService {
         return memberDTO;
     }
 
+    public int usePoint(int score){
+        if(memberDTO.getPointScore()>score){
+            this.usePoint = score;
+            return score;
+        }
+        else{
+            return -1;
+        }
+    }
+
     public String sellSaleUsePoint(int score){
         if(memberDTO.getPointScore()<score){
             return "pointFail";
@@ -75,6 +96,9 @@ public class SalesService {
 
     public ArrayList<ProductOrderNumDTO> cancleProducts(){
         productOrderNumDTOS.clear();
+        totalCal = 0;
+        usePoint = 0;
+        this.memberDTO = null;
         return productOrderNumDTOS;
     }
     public ArrayList<ProductOrderNumDTO> returnProduct(int sequence){
