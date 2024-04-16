@@ -2,17 +2,18 @@ package sale;
 
 import java.util.ArrayList;
 import java.util.Date;
+import member.MemberRepository;
 
 public class SalesService {
-    MemberRepository memberRepository;
+    member.MemberRepository memberRepository;
     ProductRepository productRepository;
     SaleRepository saleRepository;
     ArrayList<ProductOrderNumDTO> productOrderNumDTOS;
-    MemberDTO memberDTO;
+    member.MemberDTO memberDTO;
     int totalCal;
     int usePoint;
     public SalesService(){
-        this.memberRepository = new MemberRepository();
+        this.memberRepository = new member.MemberRepository();
         this.saleRepository = new SaleRepository();
         this.productRepository = new ProductRepository();
         productOrderNumDTOS = new ArrayList<>();
@@ -43,7 +44,7 @@ public class SalesService {
         if(memberDTO != null){
             System.out.println((int)Math.floor((totalCal-usePoint)*0.01));
             System.out.println(totalCal);
-            memberRepository.stackPoint(memberDTO.getClientId(),(int)Math.floor((totalCal-usePoint)*0.01));
+            memberRepository.stackPoint(memberDTO.getMemberId(),(int)Math.floor((totalCal-usePoint)*0.01));
             memberRepository.usePoint(memberDTO,this.usePoint);
             saleRepository.sellSale(new SaleDTO(new Date(),totalCal, memberDTO.getClientId()));
         }

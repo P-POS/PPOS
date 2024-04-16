@@ -226,4 +226,77 @@ public class MemberRepository implements MemberDAO {
         }
         return null;
     }
+
+    @Override
+    public MemberDTO getMemberInfo(int memberId) {
+        dbConnector = new DBConnection();
+        try {
+            stmt = dbConnector.createStatement();
+            String query = String.format("SELECT * FROM members where member_id = %d;",memberId);
+            ResultSet resultSet = stmt.executeQuery(query);
+            resultSet.next();
+
+            int memeberId = resultSet.getInt(1);
+            String memberName = resultSet.getString(2);
+            int memberScore = resultSet.getInt(3);
+
+            return new MemberDTO( memberId,memberName, memberScore);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
+        }
+
+        return null;
+    }
+
+    @Override
+    public void stackPoint(int memberId, int score) {
+        dbConnector = new DBConnection();
+        try {
+            stmt = dbConnector.createStatement();
+            String query = String.format("update members set member_score = member_score + %d where member_id = %d;",score,memberId);
+            ResultSet resultSet = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
+        }
+
+    }
+
+    @Override
+    public void usePoint(MemberDTO memberDTO, int score) {
+        dbConnector = new DBConnection();
+        try {
+            stmt = dbConnector.createStatement();
+            String query = String.format("update members set member_score = member_score - %d where member_id = %d;",score,memberDTO.getMemberId());
+            ResultSet resultSet = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            dbConnector.closeConnection();
+        }
+    }
 }
