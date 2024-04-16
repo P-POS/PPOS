@@ -42,6 +42,7 @@ public class MemberView extends JFrame implements ActionListener {
     JTextField tf_member = new JTextField();
     JButton btn_search = new JButton("검색");
     JButton btn_register = new JButton("등록");
+    JButton btn_searchAll = new JButton("전체조회");
     JButton btn_home = new JButton("홈");
 
     JTableHeader header;
@@ -66,20 +67,23 @@ public class MemberView extends JFrame implements ActionListener {
         p_search.setBounds(0, 0, 1280, 150);
 
         // 검색 패널에 들어갈 컴포넌트 사이즈 설정
-        tf_member.setBounds(110, 30, 890, 60);
-        btn_search.setBounds(1025, 30, 60, 60);
-        btn_register.setBounds(1090, 30, 60, 60);
-        btn_home.setBounds(1200, 10, 50, 50); // 좌표 및 크기 설정
+        tf_member.setBounds(50, 70, 900, 50);
+        btn_search.setBounds(960, 70, 80, 50);
+        btn_searchAll.setBounds(1055,70,80,50);
+        btn_register.setBounds(1150, 70, 80, 50);
+        btn_home.setBounds(1205, 10, 50, 50); // 좌표 및 크기 설정
 
         // 버튼 액션 리스너
         btn_home.addActionListener(this); // 액션 리스너 추가
         btn_search.addActionListener(this);
         btn_register.addActionListener(this);
+        btn_searchAll.addActionListener(this);
 
         // panel에 텍스트 필드, 조회 버튼, 검색 버튼 추가
         p_search.add(tf_member);
         p_search.add(btn_search);
         p_search.add(btn_register);
+        p_search.add(btn_searchAll);
         p_search.add(btn_home); // 패널에 버튼 추가
 
         // 테이블 구성
@@ -140,7 +144,6 @@ public class MemberView extends JFrame implements ActionListener {
             button.setContentAreaFilled(false);
             button.setFont(new Font("Arial", Font.BOLD, 14));
             button.setBounds(0, 0, 60, 30);
-            //setText((value == null) ? "" : value.toString());
             return button;
         }
     }
@@ -202,6 +205,10 @@ public class MemberView extends JFrame implements ActionListener {
             // 새 회원 등록 다이얼로그 띄우기
             new NewMemberDialog(this);
         }
+        else if(e.getSource() == btn_searchAll){
+            tf_member.setText("");
+            prepareList();
+        }
     }
 
     public void prepareList() {
@@ -237,6 +244,80 @@ public class MemberView extends JFrame implements ActionListener {
                 list[2] = String.valueOf(memberModels.get(i).getMemberScore());
                 list[3] = memberController.getLatestSaleDate(memberModels.get(i).getMemberId());
                 model_member.addRow(list);
+            }
+        }
+    }
+}
+class NewMemberDialog extends JDialog implements ActionListener {
+    private JTextField tfName = new JTextField();;
+    private JTextField tfNumber = new JTextField();;
+    private JButton btnRegister = new JButton("등록");
+
+    private MemberView parentView; // 부모 창에 대한 참조
+
+    JPanel panel = new JPanel();
+    JLabel lblName = new JLabel("이름:");
+    JLabel lblNumber = new JLabel("번호:");
+    JLabel lblError = new JLabel("이미 등록된 번호입니다");
+
+
+    public NewMemberDialog(MemberView parent) {
+        this.parentView = parent;
+
+        setTitle("새 회원 등록");
+        setSize(400, 250);
+        setResizable(false);
+        setLocationRelativeTo(parent);
+        setModal(true); // 모달 다이얼로그 설정
+        panel.setLayout(null);
+
+        // 이름 라벨과 텍스트 필드
+        lblName.setFont(new Font("Arial", Font.BOLD, 14));
+        lblName.setBounds(50, 20, 60, 50); // 위치와 크기 지정
+        panel.add(lblName);
+
+        tfName.setBounds(120, 20, 150, 50); // 위치와 크기 지정
+        panel.add(tfName);
+
+        // 번호 라벨과 텍스트 필드
+        lblNumber.setFont(new Font("Arial", Font.BOLD, 14));
+        lblNumber.setBounds(50, 100, 60, 50); // 위치와 크기 지정
+        panel.add(lblNumber);
+
+        tfNumber.setBounds(120, 100, 150, 50); // 위치와 크기 지정
+        panel.add(tfNumber);
+
+        btnRegister.setBounds(250, 180, 100, 30); // 위치와 크기 지정
+        panel.add(btnRegister);
+        btnRegister.addActionListener(this);
+
+        lblError.setBounds(20,180,130,30);
+        lblError.setFont(new Font("Arial", Font.PLAIN, 12));
+        lblError.setForeground(Color.RED);
+        lblError.setVisible(false); // 처음엔 안보이게
+        panel.add(lblError);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnRegister) {
+            // 이름과 번호를 가져와서 회원 등록 메서드 호출
+            String name = tfName.getText();
+            Integer number = Integer.parseInt(tfNumber.getText());
+
+            // 회원 등록 메서드 호출 (이 부분은 MemberController에 구현된 메서드를 호출하도록 변경해야 합니다)
+            boolean check_create = parentView.memberController.createMember(number,name,null);
+            if (check_create){
+                // 다이얼로그 닫기
+                lblError.setVisible(true);
+                dispose();
+                parentView.prepareList();
+            }
+            else{
+                lblError.setVisible(true);
             }
         }
     }
