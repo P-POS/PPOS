@@ -312,6 +312,7 @@ class NewMemberDialog extends JDialog implements ActionListener {
                 // 다이얼로그 닫기
                 lblError.setVisible(true);
                 dispose();
+                parentView.tf_member.setText("");
                 parentView.prepareList();
             }
             else{
