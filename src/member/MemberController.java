@@ -15,9 +15,10 @@ public class MemberController {
         new MemberView(this);
     }
 
-    public void openMainPage(){
+    public void openMainPage() {
         mainController.openMainPage();
     }
+
     public MemberController(MemberService memberService) {
 
         this.memberService = memberService;
@@ -62,6 +63,11 @@ public class MemberController {
     public ArrayList getMember(int memberId) {
 
         return memberService.getMember(memberId);
+    }
+
+    public ArrayList getMemberUseId(int memberId) {
+
+        return memberService.getMemberUseId(memberId);
     }
 
     public ArrayList getMemberUseName(String memberName) {

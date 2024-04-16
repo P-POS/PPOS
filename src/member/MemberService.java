@@ -62,6 +62,17 @@ public class MemberService {
         return members;
     }
 
+    public ArrayList<MemberModel> getMemberUseId(int memberId) {
+
+        ArrayList<MemberDTO> memberDTOs = memberDAO.getMemberUseId(memberId);
+        ArrayList<MemberModel> members = new ArrayList<>();
+        for (MemberDTO memberDTO : memberDTOs) {
+            members.add(new MemberModel(memberDTO.getMemberId(), memberDTO.getMemberName(),
+                memberDTO.getMemberScore()));
+        }
+        return members;
+    }
+
     public ArrayList<MemberModel> getMemberUseName(String memberName) {
 
         ArrayList<MemberDTO> memberDTOs = memberDAO.getMemberUseName(memberName);

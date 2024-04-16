@@ -22,7 +22,6 @@ public class MemberRepository implements MemberDAO {
         try {
             stmt = dbConnector.createStatement();
             stmt.executeUpdate(query);
-            System.out.println("Member created successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -45,7 +44,6 @@ public class MemberRepository implements MemberDAO {
         try {
             stmt = dbConnector.createStatement();
             stmt.executeUpdate(query);
-            System.out.println("Member deleted successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -70,7 +68,6 @@ public class MemberRepository implements MemberDAO {
         try {
             stmt = dbConnector.createStatement();
             stmt.executeUpdate(query);
-            System.out.println("Member updated successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
