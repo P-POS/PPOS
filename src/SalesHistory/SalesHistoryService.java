@@ -17,8 +17,8 @@ public class SalesHistoryService {
     ArrayList<SalesHistoryResDTO> getSalesHistories(){
         return salesHistoryDBRepository.getSalesHistories();
     };
-    boolean refundSalesHistory(int transactionID){
-        return salesHistoryDBRepository.refundSalesHistory(transactionID);
+    void refundSalesHistory(int transactionID){
+        salesHistoryDBRepository.refundSalesHistory(transactionID);
     };
 
     public boolean isNumberic(String str) {

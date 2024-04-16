@@ -1,17 +1,23 @@
 package member;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MemberService {
 
     private MemberDAO memberDAO;
 
+    public MemberService() {
+
+        this.memberDAO = new MemberRepository();
+    }
+
     public MemberService(MemberDAO memberDAO) {
+
         this.memberDAO = memberDAO;
     }
 
     public void createMember(MemberModel member) {
+
         int memberId = member.getMemberId();
         ArrayList<MemberDTO> existingMember = memberDAO.getMember(memberId);
 
@@ -24,6 +30,7 @@ public class MemberService {
     }
 
     public void deleteMember(int memberId) {
+
         ArrayList<MemberDTO> existingMember = memberDAO.getMember(memberId);
         if (existingMember.size() != 0) {
             memberDAO.deleteMember(memberId);
@@ -33,6 +40,7 @@ public class MemberService {
     }
 
     public void updateMember(MemberModel member) {
+
         int memberId = member.getMemberId();
         MemberDTO existingMember = memberDAO.getMember(memberId).get(0);
         if (existingMember != null) {
@@ -44,6 +52,7 @@ public class MemberService {
     }
 
     public ArrayList<MemberModel> getMember(int memberId) {
+
         ArrayList<MemberDTO> memberDTOs = memberDAO.getMember(memberId);
         ArrayList<MemberModel> members = new ArrayList<>();
         for (MemberDTO memberDTO : memberDTOs) {
@@ -54,6 +63,7 @@ public class MemberService {
     }
 
     public ArrayList<MemberModel> getMemberUseName(String memberName) {
+
         ArrayList<MemberDTO> memberDTOs = memberDAO.getMemberUseName(memberName);
         ArrayList<MemberModel> members = new ArrayList<>();
         for (MemberDTO memberDTO : memberDTOs) {
@@ -64,6 +74,7 @@ public class MemberService {
     }
 
     public ArrayList<MemberModel> getAllMembers() {
+
         ArrayList<MemberDTO> memberDTOs = memberDAO.getAllMembers();
         ArrayList<MemberModel> members = new ArrayList<>();
         for (MemberDTO memberDTO : memberDTOs) {
@@ -74,6 +85,7 @@ public class MemberService {
     }
 
     public String getLatestSaleDate(int memberId) {
+
         String latestSaleDate = memberDAO.getLatestSaleDate(memberId);
         if (latestSaleDate != null) {
             return latestSaleDate;

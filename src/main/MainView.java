@@ -63,15 +63,15 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_member) { // 이벤트 발생한게 회원버튼
             this.setVisible(false);
-            new MemberController(new MemberService(new MemberRepository()));
+            mainController.openMemberPage();
         } else if (e.getSource() == btn_sale) { // 이벤트 발생한게 판매버튼
-
+            mainController.openSalePage();
         } else if (e.getSource() == btn_product) { // 이벤트 발생한게 상품버튼
             this.setVisible(false);
-            new ProductView();
+            mainController.openProductPage();
         } else if (e.getSource() == btn_salesHistory) { // 이벤트 발생한게 판매내역버튼
             this.setVisible(false);
-            new SalesHistoryView();
+            mainController.openSalesHistoryPage();
         }
     }
 }
