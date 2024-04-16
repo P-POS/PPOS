@@ -261,6 +261,7 @@ public class SaleView extends JFrame implements ActionListener {
                     totalPriceSum = 0;
                     userName.setText("회원 이름 : ");
                     userPoint.setText("포인트 점수 : ");
+                    inputBox.setText("");
                     updateTable(result);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "서버 오류. 개발자에게 문의하세요.", "경고", JOptionPane.ERROR_MESSAGE);
