@@ -3,6 +3,7 @@ package product;
 import main.MainController;
 
 import java.util.ArrayList;
+
 import main.MainController;
 
 public class ProductController {
@@ -11,18 +12,15 @@ public class ProductController {
     private ProductService productService;
     private MainController mainController;
 
-    ProductController(){
+    ProductController() {
         mainController = new MainController();
         productView = new ProductView();
         productService = new ProductService();
     }
 
-    private MainController mainController;
-    ProductService productService = new ProductService();
-
 
     public Product getProduct(int productNum) {
-       return new Product(productService.getProduct(productNum));
+        return new Product(productService.getProduct(productNum));
     }
 
     public ArrayList<Product> getProducts() {

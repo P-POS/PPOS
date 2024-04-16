@@ -1,9 +1,5 @@
 package member;
 
-import main.MainController;
-import main.MainView;
-
-import javax.management.StringValueExp;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -44,7 +40,7 @@ public class MemberView extends JFrame implements ActionListener {
     JTextField tf_member = new JTextField();
     JButton btn_search = new JButton("검색");
     JButton btn_register = new JButton("등록");
-    JButton btn_back = new JButton("Back");
+    JButton btn_home = new JButton("홈");
 
     JTableHeader header;
     Dimension headerSize;
@@ -71,10 +67,10 @@ public class MemberView extends JFrame implements ActionListener {
         tf_member.setBounds(110,30,890,60);
         btn_search.setBounds(1025,30,60,60);
         btn_register.setBounds(1090,30,60,60);
-        btn_back.setBounds(1200,10 , 50, 50); // 좌표 및 크기 설정
+        btn_home.setBounds(1200,10 , 50, 50); // 좌표 및 크기 설정
 
         // 버튼 액션 리스너
-        btn_back.addActionListener(this); // 액션 리스너 추가
+        btn_home.addActionListener(this); // 액션 리스너 추가
         btn_search.addActionListener(this);
         btn_register.addActionListener(this);
 
@@ -82,7 +78,7 @@ public class MemberView extends JFrame implements ActionListener {
         p_search.add(tf_member);
         p_search.add(btn_search);
         p_search.add(btn_register);
-        p_search.add(btn_back); // 패널에 버튼 추가
+        p_search.add(btn_home); // 패널에 버튼 추가
 
         // 테이블 구성
         header_renderer = (DefaultTableCellRenderer) tb_member.getTableHeader().getDefaultRenderer();
@@ -181,15 +177,17 @@ public class MemberView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btn_back) { // 이벤트 발생한게 뒤로가기
+        if (e.getSource() == btn_home) { // 이벤트 발생한게 뒤로가기
             this.dispose(); // 현재 창 닫기
             memberController.openMainPage();
         } else if (e.getSource() == btn_search) { // 이벤트 발생한게 검색버튼
-            if(tf_member.getText().length()==0){
+            String searchInput = tf_member.getText(); // 텍스트 필드 값
+            if(searchInput.length()==0){ // 아무것도 검색 안하면 전체 리스트
                 prepareList();
             }
             else{
-                prepareList(tf_member.getText());
+                boolean isNumeric = searchInput.matches("-?\\d+(\\.\\d+)?"); // 숫자인지 확
+                prepareList(searchInput,isNumeric); // 검색창에 있는 내용으로 검색
             }
         } else if (e.getSource() == btn_register) { // 이벤트 발생한게 등록버튼
             // 새 회원 등록 다이얼로그 띄우기
@@ -210,13 +208,20 @@ public class MemberView extends JFrame implements ActionListener {
             model_member.addRow(list);
         }
     }
-    public void prepareList(String value){
+    public void prepareList(String value, boolean isNumber){
         model_member.getDataVector().removeAllElements();
+        ArrayList<MemberModel> memberModels;
         String[] list = new String[4];
-        ArrayList<MemberModel> memberModels = memberController.getMemberUseName(value);
+        if(isNumber){
+            memberModels = memberController.getMember(Integer.parseInt(value));
+            System.out.println(memberModels.get(0).getMemberName());
+        }
+        else{
+            memberModels = memberController.getMemberUseName(value);
+        }
 
         if(memberModels.size()==0){
-            model_member.getDataVector().removeAllElements();
+            this.repaint();
         }
         else{
             for(int i=0;i<memberModels.size();i++){
