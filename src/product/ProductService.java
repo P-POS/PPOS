@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 public class ProductService {
 
-    ProductDBRepository productDBRepository = new ProductDBRepository();
+    private ProductDBRepository productDBRepository;
+
+    ProductService(){
+        productDBRepository = new ProductDBRepository();
+    }
 
     public ProductResDTO getProduct(int productNum){
         return new ProductResDTO(productDBRepository.selectProductByID(productNum));

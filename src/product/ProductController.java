@@ -7,20 +7,20 @@ import main.MainController;
 
 public class ProductController {
     private MainController mainController;
+    private ProductService productService;
 
     public ProductController(MainController mainController) {
         this.mainController = mainController;
         new ProductView(this);
+        this.productService = new ProductService();
     }
 
     public void openMainPage(){
         mainController.openMainPage();
     }
 
-    ProductService productService = new ProductService();
-
     public Product getProduct(int productNum) {
-       return new Product(productService.getProduct(productNum));
+        return new Product(productService.getProduct(productNum));
     }
 
     public ArrayList<Product> getProducts() {
