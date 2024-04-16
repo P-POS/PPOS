@@ -1,6 +1,7 @@
 package SalesHistory;
 
 public class SalesHistoryResDTO {
+
     private int transactionID;
     private int memberNum;
     private String memberName;
@@ -8,6 +9,7 @@ public class SalesHistoryResDTO {
     private String date;
 
     public SalesHistoryResDTO(SalesHistory salesHistory) {
+
         this.transactionID = salesHistory.getTransactionID();
         this.memberNum = salesHistory.getMemberNum();
         this.memberName = salesHistory.getMemberName();

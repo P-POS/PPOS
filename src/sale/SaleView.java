@@ -21,6 +21,7 @@ import javax.swing.table.JTableHeader;
 import product.ProductController;
 
 class TableSelectionListener implements ListSelectionListener {
+
     private final JTable table;
     private final SaleView saleView;
 
@@ -31,6 +32,7 @@ class TableSelectionListener implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+
         if (!e.getValueIsAdjusting()) { // 클릭이 완료된 경우에만 실행
             int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) { // 선택된 행이 있는지 확인
@@ -43,11 +45,10 @@ class TableSelectionListener implements ListSelectionListener {
 
 public class SaleView extends JFrame implements ActionListener {
 
-
     JPanel panel = new JPanel();
 
     String headers[] = {
-            "상품이름", "가격", "수량", "총 가격"
+        "상품이름", "가격", "수량", "총 가격"
     };
 
     String array[][] = {
@@ -103,12 +104,10 @@ public class SaleView extends JFrame implements ActionListener {
         sumPrice.setFont(new Font("Arial", Font.PLAIN, 20)); // 글꼴, 스타일, 크기 설정
         table.getSelectionModel().addListSelectionListener(new TableSelectionListener(table, this));
 
-
         // 유저 정보==================
         userTitle.setBounds(710, 360, 200, 40); // 유저 정보 제목
         userName.setBounds(710, 400, 200, 40);
         userPoint.setBounds(710, 440, 200, 40);
-
 
         userTitle.setFont(new Font("Arial", Font.PLAIN, 28));
         userName.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -192,10 +191,10 @@ public class SaleView extends JFrame implements ActionListener {
         // result의 내용을 모델에 추가
         for (ProductOrderNumDTO productOrder : result) {
             Object[] row = {
-                    productOrder.productDTO.getProductName(),
-                    productOrder.productDTO.getProductPrice(),
-                    productOrder.getProductOrderNum(),
-                    (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum())
+                productOrder.productDTO.getProductName(),
+                productOrder.productDTO.getProductPrice(),
+                productOrder.getProductOrderNum(),
+                (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum())
             };
             model.addRow(row);
         }
@@ -207,6 +206,7 @@ public class SaleView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == btn_home) {
             this.setVisible(false);
             saleController.openMainPage();
@@ -222,7 +222,8 @@ public class SaleView extends JFrame implements ActionListener {
                     model.setColumnIdentifiers(headers); // 테이블의 헤더 설정
                     updateTable(result);
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "상품 번호를 확인해주세요.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "상품 번호를 확인해주세요.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
 
             } else if (e.getSource() == btn_getUser) {    // 완료
@@ -232,7 +233,8 @@ public class SaleView extends JFrame implements ActionListener {
                     userPoint.setText("포인트 점수 : " + result.getPointScore());
                     this.pre_point = result.getPointScore();
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "회원 등록 되지 않은 유저입니다.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "회원 등록 되지 않은 유저입니다.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
             } else if (e.getSource() == btn_payment) {
                 try {
@@ -246,14 +248,17 @@ public class SaleView extends JFrame implements ActionListener {
                         userPoint.setText("포인트 점수 : ");
                     }
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "결제 정보를 확인해보세요.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "결제 정보를 확인해보세요.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
             } else if (e.getSource() == btn_cancle) {
                 try {
-                    ArrayList<ProductOrderNumDTO> result = saleController.cancleProduct(selectedRow);
+                    ArrayList<ProductOrderNumDTO> result = saleController.cancleProduct(
+                        selectedRow);
                     updateTable(result);
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "취소 항목을 선택하세요.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "취소 항목을 선택하세요.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
             } else if (e.getSource() == btn_allCancle) {
                 try {
@@ -261,24 +266,28 @@ public class SaleView extends JFrame implements ActionListener {
                     totalPriceSum = 0;
                     userName.setText("회원 이름 : ");
                     userPoint.setText("포인트 점수 : ");
+                    inputBox.setText("");
                     updateTable(result);
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "서버 오류. 개발자에게 문의하세요.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "서버 오류. 개발자에게 문의하세요.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
 
             } else if (e.getSource() == btn_fixAmount) {  // 완료
                 try {
-                    ArrayList<ProductOrderNumDTO> result = saleController.updateOrderNum(selectedRow, key);
+                    ArrayList<ProductOrderNumDTO> result = saleController.updateOrderNum(
+                        selectedRow, key);
                     // DefaultTableModel 객체 생성
                     DefaultTableModel model = new DefaultTableModel();
                     model.setColumnIdentifiers(headers); // 테이블의 헤더 설정
                     totalPriceSum = 0;
                     for (ProductOrderNumDTO productOrder : result) {
                         Object[] row = {
-                                productOrder.productDTO.getProductName(),
-                                productOrder.productDTO.getProductPrice(),
-                                productOrder.getProductOrderNum(),
-                                (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum())
+                            productOrder.productDTO.getProductName(),
+                            productOrder.productDTO.getProductPrice(),
+                            productOrder.getProductOrderNum(),
+                            (productOrder.productDTO.getProductPrice()
+                                * productOrder.getProductOrderNum())
                         };
                         model.addRow(row);
                     }
@@ -287,15 +296,18 @@ public class SaleView extends JFrame implements ActionListener {
                     totalPriceSum = saleController.getTotal();
                     sumPrice.setText("총 가격 : " + totalPriceSum);
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "상품의 재고가 부족합니다.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "상품의 재고가 부족합니다.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
 
             } else if (e.getSource() == btn_refund) {
                 try {
-                    ArrayList<ProductOrderNumDTO> result = saleController.returnProducts(selectedRow);
+                    ArrayList<ProductOrderNumDTO> result = saleController.returnProducts(
+                        selectedRow);
                     updateTable(result);
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "환불할 항목을 선택해주세요.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "환불할 항목을 선택해주세요.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
 
             } else if (e.getSource() == btn_usePoint) {
@@ -303,7 +315,8 @@ public class SaleView extends JFrame implements ActionListener {
                     // 이따 추가
                     int result = saleController.usePoint(key);
                     if (result == -1) {
-                        JOptionPane.showMessageDialog(this, "포인트가 부족합니다!", "경고", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "포인트가 부족합니다!", "경고",
+                            JOptionPane.ERROR_MESSAGE);
                     } else {
                         totalPriceSum = saleController.getTotal();
                         sumPrice.setText("총 가격 : " + totalPriceSum);
@@ -311,11 +324,10 @@ public class SaleView extends JFrame implements ActionListener {
                         userPoint.setText("포인트 점수 : " + (point));
                     }
                 } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "회원 조회후에 이용해주세요.", "경고", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "회원 조회후에 이용해주세요.", "경고",
+                        JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         }
-
     }
 }

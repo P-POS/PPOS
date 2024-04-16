@@ -175,6 +175,7 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public ArrayList<MemberDTO> getAllMembers() {
+
         dbConnector = new DBConnection();
         ArrayList<MemberDTO> members = new ArrayList<>();
         try {

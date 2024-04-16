@@ -7,6 +7,7 @@ public class MemberDTO {
     int pointScore;
 
     public MemberDTO(String clientName, int clientId, int pointScore) {
+
         this.clientName = clientName;
         this.clientId = clientId;
         this.pointScore = pointScore;

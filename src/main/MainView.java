@@ -33,8 +33,8 @@ public class MainView extends JFrame implements ActionListener {
         setLayout(null); // 디폴트로 지정되있는거 해제
 
         // 컴포넌트 위치
-        l_title.setBounds(250, 250 ,800,200);
-        l_title.setFont(new Font("Serif",Font.BOLD,80));
+        l_title.setBounds(250, 250, 800, 200);
+        l_title.setFont(new Font("Serif", Font.BOLD, 80));
         l_title.setHorizontalAlignment(JLabel.CENTER); // 수평 가운데 정렬
 
         btn_member.setBounds(150, 600, 200, 100);
