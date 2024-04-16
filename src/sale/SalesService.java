@@ -38,7 +38,7 @@ public class SalesService {
                 return String.format("%s의 재고가 부족합니다.",tempProduct.productDTO.getProductName());
             }
         }
-
+        memberRepository.usePoint(memberDTO,this.usePoint);
         memberRepository.stackPoint(memberDTO.getClientId() ,(int)Math.floor(totalSale*0.01));
 
         saleRepository.sellSale(new SaleDTO(new Date(),totalSale, memberDTO.getClientId()));
@@ -114,4 +114,9 @@ public class SalesService {
         productOrderNumDTOS.set(sequence,productOrderNumDTO);
         return productOrderNumDTOS;
     }
+
+    public void setMemberDTONull() {
+        this.memberDTO = null;
+    }
+
 }

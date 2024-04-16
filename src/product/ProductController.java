@@ -11,8 +11,8 @@ public class ProductController {
     private ProductService productService;
     private MainController mainController;
 
-    ProductController(){
-        mainController = new MainController();
+    ProductController(MainController mainController){
+        this.mainController = mainController;
         productView = new ProductView();
         productService = new ProductService();
     }
