@@ -23,20 +23,17 @@ public class SaleRepository implements SaleDAO{
     @Override
     public void sellSale(SaleDTO saleDTO) {
     try{
-        if(saleDTO.getMemberId() != -1) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String formatDate = formatter.format(saleDTO.getDate());
-            String query = String.format(
-                "insert into sales(sale_date,sale_total,member_id) values (\"%s\", %d,%d)"
-                , formatDate, saleDTO.getTotalSale(), saleDTO.getMemberId());
-            ResultSet resultSet = statement.executeQuery(query);
-        }
+        if(saleDTO.getMemberId()!=-1)
+        {SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String formatDate = formatter.format(saleDTO.getDate());
+        String query = String.format("insert into sales(sale_date,sale_total,member_id) values (\"%s\", %d,%d)"
+            ,formatDate,saleDTO.getTotalSale(),saleDTO.getMemberId());
+        ResultSet resultSet = statement.executeQuery(query);}
         else{
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             String formatDate = formatter.format(saleDTO.getDate());
-            String query = String.format(
-                "insert into sales(sale_date,sale_total) values (\"%s\", %d)"
-                , formatDate, saleDTO.getTotalSale(), saleDTO.getMemberId());
+            String query = String.format("insert into sales(sale_date,sale_total) values (\"%s\", %d)"
+                ,formatDate,saleDTO.getTotalSale());
             ResultSet resultSet = statement.executeQuery(query);
         }
     }

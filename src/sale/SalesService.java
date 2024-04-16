@@ -18,6 +18,7 @@ public class SalesService {
         productOrderNumDTOS = new ArrayList<>();
         this.usePoint = 0;
         this.totalCal = 0;
+        memberDTO = null;
     }
     public int getTotal(){
         this.totalCal = 0;
@@ -47,7 +48,6 @@ public class SalesService {
         else{
             saleRepository.sellSale(new SaleDTO(new Date(),totalCal));
         }
-
         productRepository.sellProduct(productOrderNumDTOS);
         productOrderNumDTOS.clear();
         this.memberDTO = null;
