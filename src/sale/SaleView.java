@@ -225,7 +225,6 @@ public class SaleView extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "상품 번호를 확인해주세요.", "경고", JOptionPane.ERROR_MESSAGE);
                 }
 
-
             } else if (e.getSource() == btn_getUser) {    // 완료
                 try {
                     MemberDTO result = saleController.getMemberInfo(key);
@@ -309,7 +308,6 @@ public class SaleView extends JFrame implements ActionListener {
                         totalPriceSum = saleController.getTotal();
                         sumPrice.setText("총 가격 : " + totalPriceSum);
                         int point = pre_point - result;
-                        pre_point = point;
                         userPoint.setText("포인트 점수 : " + (point));
                     }
                 } catch (Exception e1) {
