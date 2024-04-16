@@ -183,7 +183,7 @@ public class MemberView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_back) { // 이벤트 발생한게 뒤로가기
             this.dispose(); // 현재 창 닫기
-            new MainController();
+            memberController.openMainPage();
         } else if (e.getSource() == btn_search) { // 이벤트 발생한게 검색버튼
             if(tf_member.getText().length()==0){
                 prepareList();

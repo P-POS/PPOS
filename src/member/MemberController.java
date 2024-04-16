@@ -1,17 +1,24 @@
 package member;
 
+import com.sun.tools.javac.Main;
+import main.MainController;
+
 import java.util.ArrayList;
 
 public class MemberController {
 
+    private MainController mainController;
     private MemberService memberService;
 
-    public MemberController() {
-
+    public MemberController(MainController mainController) {
         memberService = new MemberService();
+        this.mainController = mainController;
         new MemberView(this);
     }
 
+    public void openMainPage(){
+        mainController.openMainPage();
+    }
     public MemberController(MemberService memberService) {
 
         this.memberService = memberService;
