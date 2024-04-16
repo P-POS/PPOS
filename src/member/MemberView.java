@@ -15,13 +15,7 @@ public class MemberView extends JFrame implements ActionListener {
     MemberController memberController;
 
     String classRow[] = {"고객번호", "고객이름", "포인트점수", "최근거래일자", "삭제"};
-    //    String classThings[][];
-    String classThings[][] = {
-//            {"1", "홍길동", "100","2024-03-30"},
-//            {"2", "이순신", "200","2024-04-03"},
-//            {"3", "강감찬", "150","2024-02-08"}
-        // 이하 추가 데이터 필요
-    };
+    String classThings[][] = {};
     DefaultTableCellRenderer item_renderer = new DefaultTableCellRenderer();
     DefaultTableCellRenderer header_renderer;
     DefaultTableModel model_member = new DefaultTableModel(classThings, classRow) {
@@ -34,6 +28,7 @@ public class MemberView extends JFrame implements ActionListener {
         }
     };
 
+    JLabel lb_title = new JLabel("고객정보");
     JTable tb_member = new JTable(model_member);
     JScrollPane sp_member = new JScrollPane(tb_member);
     JPanel p_search = new JPanel();
@@ -67,11 +62,13 @@ public class MemberView extends JFrame implements ActionListener {
         p_search.setBounds(0, 0, 1280, 150);
 
         // 검색 패널에 들어갈 컴포넌트 사이즈 설정
-        tf_member.setBounds(50, 70, 900, 50);
-        btn_search.setBounds(960, 70, 80, 50);
-        btn_searchAll.setBounds(1055,70,80,50);
-        btn_register.setBounds(1150, 70, 80, 50);
-        btn_home.setBounds(1205, 10, 50, 50); // 좌표 및 크기 설정
+        lb_title.setFont(new Font("맑은고딕",Font.BOLD,25));
+        lb_title.setBounds(45,15,500,50);
+        tf_member.setBounds(40, 75, 810, 50);
+        btn_search.setBounds(870, 75, 120, 50);
+        btn_searchAll.setBounds(995,75,120,50);
+        btn_register.setBounds(1120, 75, 120, 50);
+        btn_home.setBounds(1180, 15, 60, 50); // 좌표 및 크기 설정
 
         // 버튼 액션 리스너
         btn_home.addActionListener(this); // 액션 리스너 추가
@@ -80,6 +77,7 @@ public class MemberView extends JFrame implements ActionListener {
         btn_searchAll.addActionListener(this);
 
         // panel에 텍스트 필드, 조회 버튼, 검색 버튼 추가
+        p_search.add(lb_title);
         p_search.add(tf_member);
         p_search.add(btn_search);
         p_search.add(btn_register);
@@ -119,7 +117,7 @@ public class MemberView extends JFrame implements ActionListener {
 
         // 리스트를 스크롤 가능하게 만듭니다.
         sp_member.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        sp_member.setBounds(40, 150, 1200, 750);
+        sp_member.setBounds(40, 150, 1200, 740);
 
         // 큰 패널에 작은 패널들 넣기
         p_all.add(p_search); // 검색 패널을 BorderLayout의 NORTH에 추가
