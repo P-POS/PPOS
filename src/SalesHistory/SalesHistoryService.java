@@ -3,8 +3,10 @@ package SalesHistory;
 import java.util.ArrayList;
 
 public class SalesHistoryService {
-
-    SalesHistoryDBRepository salesHistoryDBRepository = new SalesHistoryDBRepository();
+    private SalesHistoryDBRepository salesHistoryDBRepository;
+    SalesHistoryService() {
+        salesHistoryDBRepository = new SalesHistoryDBRepository();
+    }
 
     SalesHistoryResDTO getSalesHistory(String searchSource) {
         if(isNumberic(searchSource)){
