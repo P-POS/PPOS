@@ -29,16 +29,16 @@ public class ProductController {
         return products;
     }
 
-    public void addProduct(Product product) {
-        productService.addProduct(new ProductReqDTO(product));
+    public boolean addProduct(Product product) {
+        return productService.addProduct(new ProductReqDTO(product));
     }
 
-    public void updateProduct(Product product) {
-        productService.updateProduct(new ProductReqDTO(product));
+    public boolean updateProduct(Product product) {
+        return productService.updateProduct(new ProductReqDTO(product));
     }
 
-    public void deleteProduct(int productNum) {
-        productService.deleteProduct(productNum);
+    public boolean deleteProduct(int productNum) {
+        return productService.deleteProduct(productNum);
     }
 
 }

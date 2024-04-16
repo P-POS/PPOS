@@ -1,8 +1,6 @@
 package member;
 
-import com.sun.tools.javac.Main;
 import main.MainController;
-
 import java.util.ArrayList;
 
 public class MemberController {

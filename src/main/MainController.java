@@ -6,6 +6,7 @@ import product.ProductController;
 import sale.SaleController;
 
 public class MainController {
+
     public MainController(){
         new MainView(this);
     }
