@@ -34,4 +34,8 @@ public class SalesHistoryResDTO {
     public String getDate() {
         return date;
     }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
 }
