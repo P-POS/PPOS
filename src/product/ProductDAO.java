@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public interface ProductDAO {
 
-    boolean insertProduct(ProductReqDTO productReqDTO);
+    boolean insertProduct(ProductDTO productDTO);
 
-    boolean updateProduct(ProductReqDTO productReqDTO);
+    boolean updateProduct(ProductDTO productDTO);
 
     boolean deleteProduct(int productNum);
 
     ArrayList<ProductResDTO> selectProductList();
 
-    Product selectProductByID(int productNum);
+    ProductDTO selectProductByID(int productNum);
+
+    void sellProduct(ArrayList<ProductOrderNumDTO> productS);
 }

@@ -1,6 +1,6 @@
 package main;
 
-import SalesHistory.SalesHistoryController;
+import salesHistory.SalesHistoryController;
 import member.MemberController;
 import product.ProductController;
 import sale.SaleController;

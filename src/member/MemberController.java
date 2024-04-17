@@ -12,9 +12,10 @@ public class MemberController {
 
     public MemberController(MainController mainController) {
         memberService = new MemberService();
+        this.saleController = new SaleController(mainController);
         this.mainController = mainController;
         new MemberView(this);
-//        this.saleController = new SaleController(mainController);
+
     }
 
     public void openMainPage() {

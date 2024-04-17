@@ -17,8 +17,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
-import product.ProductController;
+import member.MemberDTO;
+import product.ProductOrderNumDTO;
 
 class TableSelectionListener implements ListSelectionListener {
 
@@ -191,10 +191,10 @@ public class SaleView extends JFrame implements ActionListener {
         // result의 내용을 모델에 추가
         for (ProductOrderNumDTO productOrder : result) {
             Object[] row = {
-                productOrder.productDTO.getProductName(),
-                productOrder.productDTO.getProductPrice(),
+                productOrder.getGetProductDTO().getProductName(),
+                productOrder.getGetProductDTO().getProductPrice(),
                 productOrder.getProductOrderNum(),
-                (productOrder.productDTO.getProductPrice() * productOrder.getProductOrderNum())
+                (productOrder.getGetProductDTO().getProductPrice() * productOrder.getProductOrderNum())
             };
             model.addRow(row);
         }
@@ -216,7 +216,6 @@ public class SaleView extends JFrame implements ActionListener {
             if (e.getSource() == btn_addProduct) {  //완료
                 try {
                     ArrayList<ProductOrderNumDTO> result = saleController.getProductInfo(key);
-
                     // DefaultTableModel 객체 생성
                     DefaultTableModel model = new DefaultTableModel();
                     model.setColumnIdentifiers(headers); // 테이블의 헤더 설정
@@ -229,9 +228,9 @@ public class SaleView extends JFrame implements ActionListener {
             } else if (e.getSource() == btn_getUser) {    // 완료
                 try {
                     MemberDTO result = saleController.getMemberInfo(key);
-                    userName.setText("회원 이름 : " + result.getClientName());
-                    userPoint.setText("포인트 점수 : " + result.getPointScore());
-                    this.pre_point = result.getPointScore();
+                    userName.setText("회원 이름 : " + result.getMemberName());
+                    userPoint.setText("포인트 점수 : " + result.getMemberScore());
+                    this.pre_point = result.getMemberScore();
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "회원 등록 되지 않은 유저입니다.", "경고",
                         JOptionPane.ERROR_MESSAGE);
@@ -283,10 +282,10 @@ public class SaleView extends JFrame implements ActionListener {
                     totalPriceSum = 0;
                     for (ProductOrderNumDTO productOrder : result) {
                         Object[] row = {
-                            productOrder.productDTO.getProductName(),
-                            productOrder.productDTO.getProductPrice(),
+                            productOrder.getGetProductDTO().getProductName(),
+                            productOrder.getGetProductDTO().getProductPrice(),
                             productOrder.getProductOrderNum(),
-                            (productOrder.productDTO.getProductPrice()
+                            (productOrder.getGetProductDTO().getProductPrice()
                                 * productOrder.getProductOrderNum())
                         };
                         model.addRow(row);

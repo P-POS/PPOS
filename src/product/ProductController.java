@@ -2,7 +2,6 @@ package product;
 
 import main.MainController;
 import java.util.ArrayList;
-import main.MainController;
 
 public class ProductController {
 
@@ -22,9 +21,9 @@ public class ProductController {
     }
 
 
-    public Product getProduct(int productNum) {
+    public ProductDTO getProduct(int productNum) {
 
-        return new Product(productService.getProduct(productNum));
+        return productService.getProduct(productNum);
     }
 
     public ArrayList<Product> getProducts() {
@@ -41,12 +40,12 @@ public class ProductController {
 
     public boolean addProduct(Product product) {
 
-        return productService.addProduct(new ProductReqDTO(product));
+        return productService.addProduct(new ProductDTO(product));
     }
 
     public boolean updateProduct(Product product) {
 
-        return productService.updateProduct(new ProductReqDTO(product));
+        return productService.updateProduct(new ProductDTO(product));
     }
 
     public boolean deleteProduct(int productNum) {

@@ -11,9 +11,9 @@ public class ProductService {
         productDBRepository = new ProductDBRepository();
     }
 
-    public ProductResDTO getProduct(int productNum) {
+    public ProductDTO getProduct(int productNum) {
 
-        return new ProductResDTO(productDBRepository.selectProductByID(productNum));
+        return productDBRepository.selectProductByID(productNum);
     }
 
     public ArrayList<ProductResDTO> getProductList() {
@@ -21,14 +21,14 @@ public class ProductService {
         return productDBRepository.selectProductList();
     }
 
-    public boolean addProduct(ProductReqDTO productReqDTO) {
+    public boolean addProduct(ProductDTO productDTO) {
 
-        return productDBRepository.insertProduct(productReqDTO);
+        return productDBRepository.insertProduct(productDTO);
     }
 
-    public boolean updateProduct(ProductReqDTO productReqDTO) {
+    public boolean updateProduct(ProductDTO productDTO) {
 
-        return productDBRepository.updateProduct(productReqDTO);
+        return productDBRepository.updateProduct(productDTO);
     }
 
     public boolean deleteProduct(int productNum) {

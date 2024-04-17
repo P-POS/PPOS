@@ -1,13 +1,16 @@
 package sale;
 
+import salesHistory.SalesHistoryDTO;
 import java.util.ArrayList;
 import java.util.Date;
-import member.MemberRepository;
-
+import member.MemberDTO;
+import product.ProductOrderNumDTO;
+import product.ProductDTO;
+import product.ProductDBRepository;
 public class SalesService {
     member.MemberRepository memberRepository;
 
-    ProductRepository productRepository;
+    ProductDBRepository productRepository;
     SaleRepository saleRepository;
     ArrayList<ProductOrderNumDTO> productOrderNumDTOS;
     member.MemberDTO memberDTO;
@@ -17,7 +20,7 @@ public class SalesService {
         this.memberRepository = new member.MemberRepository();
 
         this.saleRepository = new SaleRepository();
-        this.productRepository = new ProductRepository();
+        this.productRepository = new product.ProductDBRepository();
         productOrderNumDTOS = new ArrayList<>();
         this.usePoint = 0;
         this.totalCal = 0;
@@ -28,7 +31,7 @@ public class SalesService {
 
         this.totalCal = 0;
         for (ProductOrderNumDTO productOrderNumDTO : productOrderNumDTOS) {
-            totalCal += productOrderNumDTO.getProductOrderNum() * productOrderNumDTO.getProductDTO()
+            totalCal += productOrderNumDTO.getProductOrderNum() * productOrderNumDTO.getGetProductDTO()
                 .getProductPrice();
 
         }
@@ -38,11 +41,11 @@ public class SalesService {
     public String sellSale() {
 
         for (ProductOrderNumDTO tempProduct : productOrderNumDTOS) {
-            int tempProductStock = tempProduct.productDTO.getProductStock();
-            int tempProductNum = tempProduct.productOrderNum;
-            int tempProductPrice = tempProduct.productDTO.getProductPrice();
+            int tempProductStock = tempProduct.getGetProductDTO().getProductQuantity();
+            int tempProductNum = tempProduct.getProductOrderNum();
+            int tempProductPrice = tempProduct.getGetProductDTO().getProductPrice();
             if (tempProductStock < tempProductNum && tempProductPrice > 0) {
-                return String.format("%s의 재고가 부족합니다.", tempProduct.productDTO.getProductName());
+                return String.format("%s의 재고가 부족합니다.", tempProduct.getGetProductDTO().getProductName());
             }
 
         }
@@ -52,7 +55,7 @@ public class SalesService {
             System.out.println(totalCal);
             memberRepository.stackPoint(memberDTO.getMemberId(),(int)Math.floor((totalCal-usePoint)*0.01));
             memberRepository.usePoint(memberDTO,this.usePoint);
-            saleRepository.sellSale(new SaleDTO(new Date(),totalCal, memberDTO.getClientId()));
+            saleRepository.sellSale(new SaleDTO(new Date(),totalCal, memberDTO.getMemberId()));
         }
         else{
             saleRepository.sellSale(new SaleDTO(new Date(),totalCal));
@@ -66,7 +69,7 @@ public class SalesService {
 
     public ArrayList<ProductOrderNumDTO> getProductInfo(int productId) {
 
-        ProductDTO productDTO = productRepository.getProductInfo(productId);
+        ProductDTO productDTO = productRepository.selectProductByID(productId);
         ProductOrderNumDTO productOrderNumDTO = new ProductOrderNumDTO(productDTO, 1);
         productOrderNumDTOS.add(productOrderNumDTO);
         return productOrderNumDTOS;
@@ -80,7 +83,7 @@ public class SalesService {
 
     public int usePoint(int score) {
 
-        if (memberDTO.getPointScore() > score) {
+        if (memberDTO.getMemberScore() > score) {
             this.usePoint = score;
             return score;
         } else {
@@ -90,12 +93,12 @@ public class SalesService {
 
     public String sellSaleUsePoint(int score) {
 
-        if (memberDTO.getPointScore() < score) {
+        if (memberDTO.getMemberScore() < score) {
             return "pointFail";
         } else {
             memberRepository.usePoint(memberDTO, score);
             String key = sellSale();
-            if (key != "success") {
+            if (key.equals("success")) {
                 memberRepository.usePoint(memberDTO, -score);
                 return key;
             } else {
@@ -150,4 +153,35 @@ public class SalesService {
             return null;
         }
     }
+
+    public boolean isNumberic(String str) {
+
+        try {
+            Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    salesHistory.SalesHistoryDTO getSalesHistory(String searchSource) {
+
+        if (isNumberic(searchSource)) {
+            return saleRepository.getSalesHistoryByID(Integer.parseInt(searchSource));
+        } else {
+            return saleRepository.getSalesHistoryByMemberName(searchSource);
+        }
+    }
+
+    ArrayList<SalesHistoryDTO> getSalesHistories() {
+
+        return saleRepository.getSalesHistories();
+    }
+
+    boolean refundSalesHistory(int transactionID) {
+
+        return sale Repository.refundSalesHistory(transactionID);
+    }
+
+
 }

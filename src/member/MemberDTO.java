@@ -24,4 +24,5 @@ public class MemberDTO {
     public int getMemberScore() {
         return memberScore;
     }
+
 }

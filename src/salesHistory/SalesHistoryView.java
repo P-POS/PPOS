@@ -1,4 +1,4 @@
-package SalesHistory;
+package salesHistory;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,8 +8,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import main.MainController;
-import main.MainView;
 
 public class SalesHistoryView extends JFrame implements ActionListener {
 

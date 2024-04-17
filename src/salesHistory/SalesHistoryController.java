@@ -1,4 +1,4 @@
-package SalesHistory;
+package salesHistory;
 
 import java.util.ArrayList;
 import main.MainController;
@@ -23,11 +23,11 @@ public class SalesHistoryController {
 
     SalesHistory getSalesHistory(String searchSource) {
 
-        SalesHistoryResDTO salesHistoryResDTO = salesHistoryService.getSalesHistory(searchSource);
-        if (salesHistoryResDTO.getMemberName() == null) {
-            salesHistoryResDTO.setMemberName("비회원");
+        SalesHistoryDTO salesHistoryDTO = salesHistoryService.getSalesHistory(searchSource);
+        if (salesHistoryDTO.getMemberName() == null) {
+            salesHistoryDTO.setMemberName("비회원");
         }
-        return new SalesHistory(salesHistoryResDTO);
+        return new SalesHistory(salesHistoryDTO);
     }
 
     ;
@@ -36,15 +36,15 @@ public class SalesHistoryController {
 
         salesHistoryService.getSalesHistories();
 
-        ArrayList<SalesHistoryResDTO> salesHistoryResDTOs = salesHistoryService.getSalesHistories();
+        ArrayList<SalesHistoryDTO> salesHistoryDTOS = salesHistoryService.getSalesHistories();
 
         ArrayList<SalesHistory> salesHistories = new ArrayList<>();
 
-        for (SalesHistoryResDTO salesHistoryResDTO : salesHistoryResDTOs) {
-            if (salesHistoryResDTO.getMemberName() == null) {
-                salesHistoryResDTO.setMemberName("비회원");
+        for (SalesHistoryDTO salesHistoryDTO : salesHistoryDTOS) {
+            if (salesHistoryDTO.getMemberName() == null) {
+                salesHistoryDTO.setMemberName("비회원");
             }
-            salesHistories.add(new SalesHistory(salesHistoryResDTO));
+            salesHistories.add(new SalesHistory(salesHistoryDTO));
         }
         return salesHistories;
     }

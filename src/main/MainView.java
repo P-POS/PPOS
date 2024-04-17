@@ -1,18 +1,9 @@
 package main;
 
-import SalesHistory.SalesHistoryController;
-import SalesHistory.SalesHistoryDBRepository;
-import SalesHistory.SalesHistoryView;
-import member.MemberController;
-import member.MemberRepository;
-import member.MemberService;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import product.ProductController;
-import product.ProductView;
 
 
 public class MainView extends JFrame implements ActionListener {

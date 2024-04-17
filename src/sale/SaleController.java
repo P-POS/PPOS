@@ -3,7 +3,8 @@ package sale;
 import java.util.ArrayList;
 import main.MainController;
 
-
+import product.ProductOrderNumDTO;
+import product.ProductDTO;
 public class SaleController {
 
     SalesService salesService;
@@ -33,8 +34,7 @@ public class SaleController {
         }
     }
 
-    public MemberDTO getMemberInfo(int memberId) {
-
+    public member.MemberDTO getMemberInfo(int memberId) {
         return salesService.getMemberInfo(memberId);
     }
 
@@ -59,7 +59,6 @@ public class SaleController {
     }
 
     public ArrayList<ProductOrderNumDTO> cancleProduct(int sequence) {
-
         return salesService.cancleProduct(sequence);
     }
 
