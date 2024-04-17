@@ -7,7 +7,7 @@ public class SalesHistoryService {
 
     private SaleRepository saleRepository;
 
-    private SalesHistoryService() {
+    public SalesHistoryService() {
         saleRepository = new SaleRepository();
     }
 
