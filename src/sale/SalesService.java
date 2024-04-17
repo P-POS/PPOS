@@ -38,8 +38,7 @@ public class SalesService {
         return totalCal - usePoint;
     }
 
-    public String sellSale() {
-
+    protected String checkStock(){
         for (ProductOrderNumDTO tempProduct : productOrderNumDTOS) {
             int tempProductStock = tempProduct.getGetProductDTO().getProductQuantity();
             int tempProductNum = tempProduct.getProductOrderNum();
@@ -49,23 +48,41 @@ public class SalesService {
             }
 
         }
+        return "success";
+    }
 
-        if (memberDTO != null) {
-            System.out.println((int) Math.floor((totalCal - usePoint) * 0.01));
-            System.out.println(totalCal);
-            memberRepository.stackPoint(memberDTO.getMemberId(),(int)Math.floor((totalCal-usePoint)*0.01));
-            memberRepository.usePoint(memberDTO,this.usePoint);
-            saleRepository.sellSale(new SaleDTO(new Date(),totalCal, memberDTO.getMemberId()));
-        }
-        else{
-            saleRepository.sellSale(new SaleDTO(new Date(),totalCal));
+    protected void sellSaleMember(){
+        memberRepository.stackPoint(memberDTO.getMemberId(),(int)Math.floor((totalCal-usePoint)*0.01));
+        memberRepository.usePoint(memberDTO,this.usePoint);
+        saleRepository.sellSale(new SaleDTO(new Date(),totalCal, memberDTO.getMemberId()));
+    }
 
-        }
+    protected void sellSaleNoMember(){
+        saleRepository.sellSale(new SaleDTO(new Date(),totalCal));
+    }
+
+    protected void resetProductOrder(){
         productRepository.sellProduct(productOrderNumDTOS);
         productOrderNumDTOS.clear();
         this.memberDTO = null;
-        return "success";
     }
+        public String sellSale() {
+            String checkKey = checkStock();
+            if(checkKey.equals("success"))
+            {
+                if (memberDTO != null) {
+                    sellSaleMember();
+                }
+                else{
+                    sellSaleNoMember();
+                }
+                resetProductOrder();
+                return "success";
+            }
+            else{
+                return checkKey;
+            }
+        }
 
     public ArrayList<ProductOrderNumDTO> getProductInfo(int productId) {
 
