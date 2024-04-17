@@ -16,7 +16,43 @@
 |                 [@jkl0124](https://github.com/jkl0124)                  |               [@Tomk2d](https://github.com/Tomk2d)                |               [@yjp8842](https://github.com/yjp8842)                |                [@NOEL-code](https://github.com/NOEL-code)                 |                [@NOEL-code](https://github.com/eehanseul)                 |                [@NOEL-code](https://github.com/ye-s-rin)                 |
 
 
+### 김현수
 
+`Backend` `판매`
+
+> 판매 백엔드 구현
+
+### 신의진
+
+`View` `판매`
+
+> 판매 프론트 구현
+
+
+### 박유빈
+
+`View` `매출내역` `상품`
+
+> 매출내역, 상품, 프론트 구현
+
+### 정우성
+
+`Backend` `매출내역` `상품`
+
+> 매출내역, 상품, 백엔드 구현
+
+### 이한슬
+
+`View` `메인` `회원`
+
+> 메인화면, 회원, 프론트 구현
+
+ ### 박예린
+
+`Backend` `메인` `회원`
+
+> 메인화면, 회원, 백엔드 구현
+ 
 
 ## 프로젝트 MVC 구조 설명
 
