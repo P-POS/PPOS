@@ -1,13 +1,13 @@
 package product;
 
-public class ProductDTO {
+public class ProductResDTO {
 
     private String productName;
     private int productPrice;
     private int productQuantity;
     private int productNum;
 
-    public ProductDTO(Product product) {
+    public ProductResDTO(Product product) {
 
         this.productName = product.getProductName();
         this.productPrice = product.getProductPrice();
@@ -16,7 +16,6 @@ public class ProductDTO {
     }
 
     public String getProductName() {
-
         return productName;
     }
 
@@ -31,11 +30,5 @@ public class ProductDTO {
     public int getProductNum() {
         return productNum;
     }
-    public void setRefundProduct() {
-        productPrice = -productPrice;
-    }
 
-    public void setProductStock(int orderNum) {
-        productQuantity = orderNum;
-    }
 }

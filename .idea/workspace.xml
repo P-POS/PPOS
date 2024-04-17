@@ -4,70 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="021085ad-f642-4e1f-b47e-9d73a3468ef2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductInventory/InventoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/productInventory/InventoryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductInventory/InventoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/productInventory/InventoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProductInventory/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/productInventory/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SalesHistory/SalesHistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/salesHistory/SalesHistoryService.java" afterDir="false" />
-    </list>
+    <list default="true" id="047cecd2-5acc-4783-a076-fba0af25fe01" name="Changes" comment="docs: README.md" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;NOEL-code&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/P-POS/PPOS.git&quot;,
-    &quot;accountId&quot;: &quot;2b3ee356-ba47-4065-aa05-736d85645e19&quot;
-  }
-}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="OptimizeOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2ewaHrwxM9pYYcGyBk6vHqRbTpp" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2fCzqp4sYzb6fZ48pdHCFxhraOt" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/프로디지털S007/back-mini-project/PPOS&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.MartAPP.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature__DAO",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/프로디지털S007/back-mini-project/last/PPOS"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration name="MartAPP" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MartAPP" />
+      <module name="PPOS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MartAPP" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -78,16 +58,60 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="021085ad-f642-4e1f-b47e-9d73a3468ef2" name="Changes" comment="" />
-      <created>1712818009473</created>
+      <changelist id="047cecd2-5acc-4783-a076-fba0af25fe01" name="Changes" comment="" />
+      <created>1713320040407</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1712818009473</updated>
-      <workItem from="1712818010578" duration="91000" />
+      <updated>1713320040407</updated>
     </task>
+    <task id="LOCAL-00001" summary="style: 컨벤션 적용">
+      <option name="closed" value="true" />
+      <created>1713325640997</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1713325640997</updated>
+    </task>
+    <task id="LOCAL-00002" summary="refactor: 필드 private화">
+      <option name="closed" value="true" />
+      <created>1713325794136</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713325794136</updated>
+    </task>
+    <task id="LOCAL-00003" summary="refactor: 필드 private화, 메소드 public화">
+      <option name="closed" value="true" />
+      <created>1713326523376</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1713326523376</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactor: 필드 private화, 메소드 public화">
+      <option name="closed" value="true" />
+      <created>1713326597589</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713326597589</updated>
+    </task>
+    <task id="LOCAL-00005" summary="docs: README.md">
+      <option name="closed" value="true" />
+      <created>1713327754734</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1713327754734</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="style: 컨벤션 적용" />
+    <MESSAGE value="refactor: 필드 private화" />
+    <MESSAGE value="refactor: 필드 private화, 메소드 public화" />
+    <MESSAGE value="docs: README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: README.md" />
   </component>
 </project>

@@ -1,12 +1,12 @@
 package member;
 
-public class MemberDTO {
+public class MemberModel {
 
     private int memberId;
     private String memberName;
     private int memberScore;
 
-    public MemberDTO(int memberId, String memberName, int memberScore) {
+    public MemberModel(int memberId, String memberName, int memberScore) {
 
         this.memberId = memberId;
         this.memberName = memberName;
@@ -24,5 +24,4 @@ public class MemberDTO {
     public int getMemberScore() {
         return memberScore;
     }
-
 }
