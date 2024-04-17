@@ -203,37 +203,12 @@ public class MemberRepository implements MemberDAO {
     }
 
     @Override
-    public String getLatestSaleDate(int memberId) {
-        dbConnector = new DBConnection();
-        String query =
-            "SELECT * FROM sales WHERE member_id=" + memberId + " ORDER BY sale_date DESC LIMIT 1";
-        try {
-            stmt = dbConnector.createStatement();
-            ResultSet resultSet = stmt.executeQuery(query);
-            if (resultSet.next()) {
-                return resultSet.getString("sale_date");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            dbConnector.closeConnection();
-        }
-        return null;
-    }
-
-    @Override
     public MemberDTO getMemberInfo(int memberId) {
+
         dbConnector = new DBConnection();
         try {
             stmt = dbConnector.createStatement();
-            String query = String.format("SELECT * FROM members where member_id = %d;",memberId);
+            String query = String.format("SELECT * FROM members where member_id = %d;", memberId);
             ResultSet resultSet = stmt.executeQuery(query);
             resultSet.next();
 
@@ -241,7 +216,7 @@ public class MemberRepository implements MemberDAO {
             String memberName = resultSet.getString(2);
             int memberScore = resultSet.getInt(3);
 
-            return new MemberDTO( memberId,memberName, memberScore);
+            return new MemberDTO(memberId, memberName, memberScore);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -260,10 +235,13 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void stackPoint(int memberId, int score) {
+
         dbConnector = new DBConnection();
         try {
             stmt = dbConnector.createStatement();
-            String query = String.format("update members set member_score = member_score + %d where member_id = %d;",score,memberId);
+            String query = String.format(
+                "update members set member_score = member_score + %d where member_id = %d;", score,
+                memberId);
             ResultSet resultSet = stmt.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -282,10 +260,13 @@ public class MemberRepository implements MemberDAO {
 
     @Override
     public void usePoint(MemberDTO memberDTO, int score) {
+
         dbConnector = new DBConnection();
         try {
             stmt = dbConnector.createStatement();
-            String query = String.format("update members set member_score = member_score - %d where member_id = %d;",score,memberDTO.getMemberId());
+            String query = String.format(
+                "update members set member_score = member_score - %d where member_id = %d;", score,
+                memberDTO.getMemberId());
             ResultSet resultSet = stmt.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();

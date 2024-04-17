@@ -5,7 +5,6 @@ import sale.SaleRepository;
 
 public class SalesHistoryService {
 
-
     private SaleRepository saleRepository;
 
     SalesHistoryService() {

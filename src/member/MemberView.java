@@ -21,7 +21,9 @@ public class MemberView extends JFrame implements ActionListener {
     DefaultTableCellRenderer item_renderer = new DefaultTableCellRenderer();
     DefaultTableCellRenderer header_renderer;
     DefaultTableModel model_member = new DefaultTableModel(classThings, classRow) {
+
         public boolean isCellEditable(int i, int c) { // 최근 거래일자 까지는 수정안되게
+
             if (c == 4) {
                 return true;
             } else {
@@ -50,6 +52,7 @@ public class MemberView extends JFrame implements ActionListener {
     Font subFont = new Font("맑은 고딕", Font.PLAIN, 14);
 
     public MemberView(MemberController memberController) {
+
         this.memberController = memberController;
 
         prepareList();
@@ -168,6 +171,7 @@ public class MemberView extends JFrame implements ActionListener {
 
         public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
+
             button = new JButton("삭제");
             button.setContentAreaFilled(false);
             button.setFont(subFont);
@@ -188,6 +192,7 @@ public class MemberView extends JFrame implements ActionListener {
             button = new JButton();
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+
                     if (e.getSource() == button) {
                         buttonSID = (String) tb_member.getValueAt(row, 0);
                         memberController.deleteMember(Integer.parseInt(buttonSID));
@@ -200,6 +205,7 @@ public class MemberView extends JFrame implements ActionListener {
 
         public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
+
             this.row = row;
             this.column = column;
             isPushed = true;
@@ -219,6 +225,7 @@ public class MemberView extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == btn_home) { // 이벤트 발생한게 뒤로가기
             this.dispose(); // 현재 창 닫기
             memberController.openMainPage();
@@ -240,6 +247,7 @@ public class MemberView extends JFrame implements ActionListener {
     }
 
     public void prepareList() {
+
         model_member.getDataVector().removeAllElements();
         String[] list = new String[4];
         ArrayList<MemberModel> memberModels = memberController.getAllMembers();
@@ -254,6 +262,7 @@ public class MemberView extends JFrame implements ActionListener {
     }
 
     public void prepareList(String value) {
+
         boolean isNumeric = value.matches("-?\\d+(\\.\\d+)?"); // 숫자인지 확인
         model_member.getDataVector().removeAllElements();
         ArrayList<MemberModel> memberModels;
@@ -296,6 +305,7 @@ class NewMemberDialog extends JDialog implements ActionListener {
 
 
     public NewMemberDialog(MemberView parent) {
+
         this.parentView = parent;
 
         setTitle("새 회원 등록");
@@ -342,6 +352,7 @@ class NewMemberDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == btnRegister) {
             // 이름과 번호를 가져와서 회원 등록 메서드 호출
             if (tfName.getText().isEmpty() || tfNumber.getText().isEmpty()) { // 둘 중 하나라도 빈칸이면

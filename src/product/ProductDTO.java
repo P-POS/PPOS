@@ -7,7 +7,7 @@ public class ProductDTO {
     private int productQuantity;
     private int productNum;
 
-    ProductDTO(Product product) {
+    public ProductDTO(Product product) {
 
         this.productName = product.getProductName();
         this.productPrice = product.getProductPrice();

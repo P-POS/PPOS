@@ -3,7 +3,6 @@ package salesHistory;
 import java.util.ArrayList;
 import main.MainController;
 
-
 public class SalesHistoryController {
 
     private MainController mainController;
@@ -30,8 +29,6 @@ public class SalesHistoryController {
         return new SalesHistory(salesHistoryDTO);
     }
 
-    ;
-
     ArrayList<SalesHistory> getSalesHistories() {
 
         salesHistoryService.getSalesHistories();
@@ -53,6 +50,4 @@ public class SalesHistoryController {
 
         return salesHistoryService.refundSalesHistory(transactionID);
     }
-
-    ;
 }

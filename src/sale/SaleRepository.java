@@ -95,6 +95,7 @@ public class SaleRepository implements SaleDAO {
 
     @Override
     public SalesHistoryDTO getSalesHistoryByMemberName(String memberName) {
+
         SalesHistoryDTO salesHistoryDTO = null;
         try {
             String query =
@@ -120,6 +121,7 @@ public class SaleRepository implements SaleDAO {
 
     @Override
     public ArrayList<SalesHistoryDTO> getSalesHistories() {
+
         ArrayList<SalesHistory> salesHistories = new ArrayList<>();
         ArrayList<SalesHistoryDTO> salesHistoriesResDTO = new ArrayList<>();
         try {
@@ -144,6 +146,7 @@ public class SaleRepository implements SaleDAO {
 
     @Override
     public SalesHistoryDTO getSalesHistoryByID(int transactionID) {
+
         SalesHistoryDTO salesHistoryDTO = null;
         try {
             String query =

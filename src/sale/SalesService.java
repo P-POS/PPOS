@@ -7,7 +7,9 @@ import member.MemberDTO;
 import product.ProductOrderNumDTO;
 import product.ProductDTO;
 import product.ProductDBRepository;
+
 public class SalesService {
+
     member.MemberRepository memberRepository;
 
     ProductDBRepository productRepository;
@@ -16,7 +18,9 @@ public class SalesService {
     member.MemberDTO memberDTO;
     int totalCal;
     int usePoint;
-    public SalesService(){
+
+    public SalesService() {
+
         this.memberRepository = new member.MemberRepository();
 
         this.saleRepository = new SaleRepository();
@@ -31,58 +35,63 @@ public class SalesService {
 
         this.totalCal = 0;
         for (ProductOrderNumDTO productOrderNumDTO : productOrderNumDTOS) {
-            totalCal += productOrderNumDTO.getProductOrderNum() * productOrderNumDTO.getGetProductDTO()
-                .getProductPrice();
+            totalCal +=
+                productOrderNumDTO.getProductOrderNum() * productOrderNumDTO.getGetProductDTO()
+                    .getProductPrice();
 
         }
         return totalCal - usePoint;
     }
 
-    protected String checkStock(){
+    protected String checkStock() {
+
         for (ProductOrderNumDTO tempProduct : productOrderNumDTOS) {
             int tempProductStock = tempProduct.getGetProductDTO().getProductQuantity();
             int tempProductNum = tempProduct.getProductOrderNum();
             int tempProductPrice = tempProduct.getGetProductDTO().getProductPrice();
             if (tempProductStock < tempProductNum && tempProductPrice > 0) {
-                return String.format("%s의 재고가 부족합니다.", tempProduct.getGetProductDTO().getProductName());
+                return String.format("%s의 재고가 부족합니다.",
+                    tempProduct.getGetProductDTO().getProductName());
             }
 
         }
         return "success";
     }
 
-    protected void sellSaleMember(){
-        memberRepository.stackPoint(memberDTO.getMemberId(),(int)Math.floor((totalCal-usePoint)*0.01));
-        memberRepository.usePoint(memberDTO,this.usePoint);
-        saleRepository.sellSale(new SaleDTO(new Date(),totalCal, memberDTO.getMemberId()));
+    protected void sellSaleMember() {
+
+        memberRepository.stackPoint(memberDTO.getMemberId(),
+            (int) Math.floor((totalCal - usePoint) * 0.01));
+        memberRepository.usePoint(memberDTO, this.usePoint);
+        saleRepository.sellSale(new SaleDTO(new Date(), totalCal, memberDTO.getMemberId()));
     }
 
-    protected void sellSaleNoMember(){
-        saleRepository.sellSale(new SaleDTO(new Date(),totalCal));
+    protected void sellSaleNoMember() {
+        saleRepository.sellSale(new SaleDTO(new Date(), totalCal));
     }
 
-    protected void resetProductOrder(){
+    protected void resetProductOrder() {
+
         productRepository.sellProduct(productOrderNumDTOS);
         productOrderNumDTOS.clear();
         this.memberDTO = null;
     }
-        public String sellSale() {
-            String checkKey = checkStock();
-            if(checkKey.equals("success"))
-            {
-                if (memberDTO != null) {
-                    sellSaleMember();
-                }
-                else{
-                    sellSaleNoMember();
-                }
-                resetProductOrder();
-                return "success";
+
+    public String sellSale() {
+
+        String checkKey = checkStock();
+        if (checkKey.equals("success")) {
+            if (memberDTO != null) {
+                sellSaleMember();
+            } else {
+                sellSaleNoMember();
             }
-            else{
-                return checkKey;
-            }
+            resetProductOrder();
+            return "success";
+        } else {
+            return checkKey;
         }
+    }
 
     public ArrayList<ProductOrderNumDTO> getProductInfo(int productId) {
 
@@ -199,6 +208,4 @@ public class SalesService {
 
         return saleRepository.refundSalesHistory(transactionID);
     }
-
-
 }

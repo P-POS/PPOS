@@ -6,7 +6,7 @@ public class ProductService {
 
     private ProductDBRepository productDBRepository;
 
-    ProductService() {
+    public ProductService() {
 
         productDBRepository = new ProductDBRepository();
     }
@@ -35,6 +35,4 @@ public class ProductService {
 
         return productDBRepository.deleteProduct(productNum);
     }
-
-
 }

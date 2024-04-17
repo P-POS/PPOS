@@ -7,6 +7,7 @@ public class MemberModel {
     private int memberScore;
 
     public MemberModel(int memberId, String memberName, int memberScore) {
+
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberScore = memberScore;

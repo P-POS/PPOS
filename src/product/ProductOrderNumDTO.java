@@ -2,8 +2,8 @@ package product;
 
 public class ProductOrderNumDTO {
 
-    ProductDTO getProductDTO;
-    int productOrderNum;
+    private ProductDTO getProductDTO;
+    private int productOrderNum;
 
     public ProductOrderNumDTO(ProductDTO getProductDTO, int productOrderNum) {
 

@@ -125,9 +125,9 @@ public class ProductDBRepository implements ProductDAO {
         return null;
     }
 
-
     @Override
     public void sellProduct(ArrayList<ProductOrderNumDTO> products) {
+
         try {
             for (int i = 0; i < products.size(); i++) {
                 ProductDTO productDTO = products.get(i).getGetProductDTO();

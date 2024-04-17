@@ -26,6 +26,7 @@ class TableSelectionListener implements ListSelectionListener {
     private final SaleView saleView;
 
     public TableSelectionListener(JTable table, SaleView saleView) {
+
         this.table = table;
         this.saleView = saleView;
     }
@@ -74,16 +75,17 @@ public class SaleView extends JFrame implements ActionListener {
     JLabel userName = new JLabel("회원 이름 : ");
     JLabel userPoint = new JLabel("포인트 점수 : 0 점");
 
-
     SaleController saleController;
     private int pre_point;
 
     public void setRow(DefaultTableModel model, int selectedRow) {
+
         this.model = model;
         this.selectedRow = selectedRow;
     }
 
     public SaleView(SaleController saleController) {
+
         this.saleController = saleController;
         setSize(1280, 960);
         setLayout(null);
@@ -194,7 +196,8 @@ public class SaleView extends JFrame implements ActionListener {
                 productOrder.getGetProductDTO().getProductName(),
                 productOrder.getGetProductDTO().getProductPrice(),
                 productOrder.getProductOrderNum(),
-                (productOrder.getGetProductDTO().getProductPrice() * productOrder.getProductOrderNum())
+                (productOrder.getGetProductDTO().getProductPrice()
+                    * productOrder.getProductOrderNum())
             };
             model.addRow(row);
         }
