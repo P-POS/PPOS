@@ -10,13 +10,15 @@
 
 ## R&R
 
-|                                 김현수                                  |                                   신의진                                    |                                   박유빈                                    |                                  정우성                                   |                                  이한슬                                   |                                  박예린                                   |
+|                                 김현수                                  |                                   신의진                                    |                                   박유진진                                    |                                  정우성                                   |                                  이한슬                                   |                                  박예린                                   |
 | :---------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-----------------------------------------------------------------------: | :-----------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
 | <img src = "https://avatars.githubusercontent.com/jkl0124" width=150px> | <img src = "https://avatars.githubusercontent.com/Tomk2d" width=150px> | <img src = "https://avatars.githubusercontent.com/yjp8842" width=150px> | <img src = "https://avatars.githubusercontent.com/NOEL-code" width=150px> | <img src = "https://avatars.githubusercontent.com/eehanseul" width=150px> | <img src = "https://avatars.githubusercontent.com/ye-s-rin" width=150px> |
 |                 [@jkl0124](https://github.com/jkl0124)                  |               [@Tomk2d](https://github.com/Tomk2d)                |               [@yjp8842](https://github.com/yjp8842)                |                [@NOEL-code](https://github.com/NOEL-code)                 |                [@NOEL-code](https://github.com/eehanseul)                 |                [@NOEL-code](https://github.com/ye-s-rin)                 |
 
 
 ### 김현수
+
+PM
 
 `Backend` `판매`
 
@@ -29,7 +31,7 @@
 > 판매 프론트 구현
 
 
-### 박유빈
+### 박유진
 
 `View` `매출내역` `상품`
 
@@ -37,17 +39,23 @@
 
 ### 정우성
 
+BE Leader
+
 `Backend` `매출내역` `상품`
 
 > 매출내역, 상품, 백엔드 구현
 
 ### 이한슬
 
+FE Leader
+
 `View` `메인` `회원`
 
 > 메인화면, 회원, 프론트 구현
 
  ### 박예린
+
+ PL
 
 `Backend` `메인` `회원`
 
