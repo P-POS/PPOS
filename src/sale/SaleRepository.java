@@ -41,7 +41,7 @@ public class SaleRepository implements SaleDAO {
                 String query = String.format(
                     "insert into sales(sale_date,sale_total) values (\"%s\", %d)"
                     , formatDate, saleDTO.getTotalSale());
-                ResultSet resultSet = statement.executeQuery(query);
+                statement.executeQuery(query);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -8,6 +8,7 @@ import product.ProductOrderNumDTO;
 import product.ProductDTO;
 import product.ProductDBRepository;
 public class SalesService {
+
     member.MemberRepository memberRepository;
 
     ProductDBRepository productRepository;
@@ -16,6 +17,7 @@ public class SalesService {
     member.MemberDTO memberDTO;
     int totalCal;
     int usePoint;
+
     public SalesService(){
         this.memberRepository = new member.MemberRepository();
 
@@ -33,7 +35,6 @@ public class SalesService {
         for (ProductOrderNumDTO productOrderNumDTO : productOrderNumDTOS) {
             totalCal += productOrderNumDTO.getProductOrderNum() * productOrderNumDTO.getGetProductDTO()
                 .getProductPrice();
-
         }
         return totalCal - usePoint;
     }
@@ -43,10 +44,10 @@ public class SalesService {
             int tempProductStock = tempProduct.getGetProductDTO().getProductQuantity();
             int tempProductNum = tempProduct.getProductOrderNum();
             int tempProductPrice = tempProduct.getGetProductDTO().getProductPrice();
+
             if (tempProductStock < tempProductNum && tempProductPrice > 0) {
                 return String.format("%s의 재고가 부족합니다.", tempProduct.getGetProductDTO().getProductName());
             }
-
         }
         return "success";
     }
