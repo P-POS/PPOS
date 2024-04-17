@@ -180,7 +180,7 @@ public class SalesService {
 
     boolean refundSalesHistory(int transactionID) {
 
-        return sale Repository.refundSalesHistory(transactionID);
+        return saleRepository.refundSalesHistory(transactionID);
     }
 
 
