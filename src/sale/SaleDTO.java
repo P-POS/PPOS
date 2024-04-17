@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class SaleDTO {
 
-    Date date;
-    int saleId;
-    int totalSale;
-    int memberId;
+    private Date date;
+    private int saleId;
+    private int totalSale;
+    private int memberId;
 
     public SaleDTO(Date date, int saleId, int totalSale, int memberId) {
 

@@ -7,8 +7,8 @@ import product.ProductOrderNumDTO;
 
 public class SaleController {
 
-    SalesService salesService;
-    MainController mainController;
+    private SalesService salesService;
+    private MainController mainController;
 
     public SaleController(MainController mainController) {
 

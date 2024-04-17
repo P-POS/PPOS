@@ -10,14 +10,14 @@ import product.ProductDBRepository;
 
 public class SalesService {
 
-    member.MemberRepository memberRepository;
+    private member.MemberRepository memberRepository;
 
-    ProductDBRepository productRepository;
-    SaleRepository saleRepository;
-    ArrayList<ProductOrderNumDTO> productOrderNumDTOS;
-    member.MemberDTO memberDTO;
-    int totalCal;
-    int usePoint;
+    private ProductDBRepository productRepository;
+    private SaleRepository saleRepository;
+    private ArrayList<ProductOrderNumDTO> productOrderNumDTOS;
+    private member.MemberDTO memberDTO;
+    private int totalCal;
+    private int usePoint;
 
     public SalesService() {
 
@@ -190,7 +190,7 @@ public class SalesService {
         return true;
     }
 
-    salesHistory.SalesHistoryDTO getSalesHistory(String searchSource) {
+    public salesHistory.SalesHistoryDTO getSalesHistory(String searchSource) {
 
         if (isNumberic(searchSource)) {
             return saleRepository.getSalesHistoryByID(Integer.parseInt(searchSource));
@@ -199,12 +199,12 @@ public class SalesService {
         }
     }
 
-    ArrayList<SalesHistoryDTO> getSalesHistories() {
+    public ArrayList<SalesHistoryDTO> getSalesHistories() {
 
         return saleRepository.getSalesHistories();
     }
 
-    boolean refundSalesHistory(int transactionID) {
+    public boolean refundSalesHistory(int transactionID) {
 
         return saleRepository.refundSalesHistory(transactionID);
     }

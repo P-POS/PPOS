@@ -20,7 +20,7 @@ public class SalesHistoryController {
         mainController.openMainPage();
     }
 
-    SalesHistory getSalesHistory(String searchSource) {
+    public SalesHistory getSalesHistory(String searchSource) {
 
         SalesHistoryDTO salesHistoryDTO = salesHistoryService.getSalesHistory(searchSource);
         if (salesHistoryDTO.getMemberName() == null) {
@@ -29,7 +29,7 @@ public class SalesHistoryController {
         return new SalesHistory(salesHistoryDTO);
     }
 
-    ArrayList<SalesHistory> getSalesHistories() {
+    public ArrayList<SalesHistory> getSalesHistories() {
 
         salesHistoryService.getSalesHistories();
 
@@ -46,7 +46,7 @@ public class SalesHistoryController {
         return salesHistories;
     }
 
-    boolean refundSalesHistory(int transactionID) {
+    public boolean refundSalesHistory(int transactionID) {
 
         return salesHistoryService.refundSalesHistory(transactionID);
     }

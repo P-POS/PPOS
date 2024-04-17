@@ -12,8 +12,8 @@ import salesHistory.SalesHistoryDTO;
 
 public class SaleRepository implements SaleDAO {
 
-    DBConnection dbConnection;
-    Statement statement;
+    private DBConnection dbConnection;
+    private Statement statement;
 
     public SaleRepository() {
         this.dbConnection = new DBConnection();

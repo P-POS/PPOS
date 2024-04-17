@@ -7,11 +7,11 @@ public class SalesHistoryService {
 
     private SaleRepository saleRepository;
 
-    SalesHistoryService() {
+    private SalesHistoryService() {
         saleRepository = new SaleRepository();
     }
 
-    SalesHistoryDTO getSalesHistory(String searchSource) {
+    public SalesHistoryDTO getSalesHistory(String searchSource) {
 
         if (isNumberic(searchSource)) {
             return saleRepository.getSalesHistoryByID(Integer.parseInt(searchSource));
@@ -20,12 +20,12 @@ public class SalesHistoryService {
         }
     }
 
-    ArrayList<SalesHistoryDTO> getSalesHistories() {
+    public ArrayList<SalesHistoryDTO> getSalesHistories() {
 
         return saleRepository.getSalesHistories();
     }
 
-    boolean refundSalesHistory(int transactionID) {
+    public boolean refundSalesHistory(int transactionID) {
 
         return saleRepository.refundSalesHistory(transactionID);
     }
