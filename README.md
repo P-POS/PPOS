@@ -1,6 +1,24 @@
 # PPOS
 
-## Member
+신한투자증권 JAVA 과정 미니 프로젝트
+
+## 주제
+마트 포스기 제작
+
+## 기간
+4일
+
+## R&R
+
+|                                 김현수                                  |                                   신의진                                    |                                   박유빈                                    |                                  정우성                                   |
+| :---------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
+| <img src = "https://avatars.githubusercontent.com/jkl0124" width=150px> | <img src = "https://avatars.githubusercontent.com/Tomk2d" width=150px> | <img src = "https://avatars.githubusercontent.com/yjp8842" width=150px> | <img src = "https://avatars.githubusercontent.com/NOEL-code" width=150px> |
+|                 [@jkl0124](https://github.com/jkl0124)                  |               [@Tomk2d](https://github.com/Tomk2d)                |               [@yjp8842](https://github.com/yjp8842)                |                [@NOEL-code](https://github.com/NOEL-code)                 |
+
+
+
+
+## 프로젝트 MVC 구조 설명
 
 #### MemberController
 MemberView와 MemberService를 조작합니다. 클라이언트의 요청을 받고 적절한 서비스를 호출하여 비즈니스 로직을 수행한 후, 그 결과를 MemberView에 전달합니다. 
