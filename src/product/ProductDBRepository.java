@@ -8,8 +8,8 @@ import dbConnection.DBConnection;
 
 public class ProductDBRepository implements ProductDAO {
 
-    DBConnection dbConnection;
-    Statement statement;
+    private DBConnection dbConnection;
+    private Statement statement;
 
     public ProductDBRepository() {
 
