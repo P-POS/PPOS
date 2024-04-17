@@ -2,10 +2,17 @@ package product;
 
 import java.util.ArrayList;
 
-public interface ProductDAO   {
-    boolean insertProduct(ProductReqDTO productReqDTO);
-    boolean updateProduct(ProductReqDTO productReqDTO);
+public interface ProductDAO {
+
+    boolean insertProduct(ProductDTO productDTO);
+
+    boolean updateProduct(ProductDTO productDTO);
+
     boolean deleteProduct(int productNum);
+
     ArrayList<ProductResDTO> selectProductList();
-    Product selectProductByID(int productNum);
+
+    ProductDTO selectProductByID(int productNum);
+
+    void sellProduct(ArrayList<ProductOrderNumDTO> productS);
 }

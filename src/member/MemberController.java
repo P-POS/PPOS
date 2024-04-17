@@ -2,16 +2,20 @@ package member;
 
 import main.MainController;
 import java.util.ArrayList;
+import sale.SaleController;
 
 public class MemberController {
 
     private MainController mainController;
     private MemberService memberService;
+    private SaleController saleController;
 
     public MemberController(MainController mainController) {
         memberService = new MemberService();
+        this.saleController = new SaleController(mainController);
         this.mainController = mainController;
         new MemberView(this);
+
     }
 
     public void openMainPage() {
@@ -86,11 +90,6 @@ public class MemberController {
 
     String getLatestSaleDate(int memberId) {
 
-        String latestSaleDate = memberService.getLatestSaleDate(memberId);
-        if (latestSaleDate != null) {
-            return latestSaleDate;
-        } else {
-            return null;
-        }
+        return saleController.getLatestSaleDate(memberId);
     }
 }

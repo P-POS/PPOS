@@ -1,13 +1,15 @@
-package SalesHistory;
+package salesHistory;
 
-public class SalesHistoryResDTO {
+public class SalesHistoryDTO {
+
     private int transactionID;
     private int memberNum;
     private String memberName;
     private int totalAmount;
     private String date;
 
-    public SalesHistoryResDTO(SalesHistory salesHistory) {
+    public SalesHistoryDTO(SalesHistory salesHistory) {
+
         this.transactionID = salesHistory.getTransactionID();
         this.memberNum = salesHistory.getMemberNum();
         this.memberName = salesHistory.getMemberName();

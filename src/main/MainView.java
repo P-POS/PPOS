@@ -1,18 +1,9 @@
 package main;
 
-import SalesHistory.SalesHistoryController;
-import SalesHistory.SalesHistoryDBRepository;
-import SalesHistory.SalesHistoryView;
-import member.MemberController;
-import member.MemberRepository;
-import member.MemberService;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import product.ProductController;
-import product.ProductView;
 
 
 public class MainView extends JFrame implements ActionListener {
@@ -33,8 +24,8 @@ public class MainView extends JFrame implements ActionListener {
         setLayout(null); // 디폴트로 지정되있는거 해제
 
         // 컴포넌트 위치
-        l_title.setBounds(250, 250 ,800,200);
-        l_title.setFont(new Font("Serif",Font.BOLD,80));
+        l_title.setBounds(250, 250, 800, 200);
+        l_title.setFont(new Font("Serif", Font.BOLD, 80));
         l_title.setHorizontalAlignment(JLabel.CENTER); // 수평 가운데 정렬
 
         btn_member.setBounds(150, 600, 200, 100);

@@ -1,4 +1,4 @@
-package SalesHistory;
+package salesHistory;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,10 +8,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import main.MainController;
-import main.MainView;
 
 public class SalesHistoryView extends JFrame implements ActionListener {
+
     private final SalesHistoryController salesHistoryController;
 
     DefaultTableModel model;
@@ -29,13 +28,14 @@ public class SalesHistoryView extends JFrame implements ActionListener {
     JButton btn_search = new JButton("검색");
     JButton btn_all = new JButton("전체 조회");
     JButton btn_return = new JButton("반품");
-    
+
     JLabel label = new JLabel("거래내역");
     Font mainFont = new Font("맑은 고딕", Font.BOLD, 25);
     Font subFont = new Font("맑은 고딕", Font.PLAIN, 16);
     Font btnFont = new Font("맑은 고딕", Font.PLAIN, 14);
 
     public SalesHistoryView(SalesHistoryController salesHistoryController) {
+
         this.salesHistoryController = salesHistoryController;
         // 프레임 크기 설정 및 화면에 표시
         setSize(1280, 960);
@@ -49,7 +49,7 @@ public class SalesHistoryView extends JFrame implements ActionListener {
         JTableHeader header = table.getTableHeader();
 
         header_renderer = (DefaultTableCellRenderer) table.getTableHeader()
-                .getDefaultRenderer();
+            .getDefaultRenderer();
         header_renderer.setHorizontalAlignment(SwingConstants.CENTER);
         item_renderer.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i = 0; i < 5; i++) {
@@ -94,7 +94,7 @@ public class SalesHistoryView extends JFrame implements ActionListener {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        
+
         // placeholder 효과를 주기 위한 코드
         searchInput.addFocusListener(new FocusListener() {
             @Override
@@ -105,6 +105,7 @@ public class SalesHistoryView extends JFrame implements ActionListener {
                     searchInput.setForeground(Color.BLACK);
                 }
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 // 포커스를 잃었을 때, 텍스트 필드가 비어있다면 placeholder 효과 주기
@@ -125,12 +126,15 @@ public class SalesHistoryView extends JFrame implements ActionListener {
 
         // 거래 목록을 JTable 모델에 추가
         for (SalesHistory salesHistory : salesHistories) {
-            model.addRow(new Object[]{salesHistory.getTransactionID(), salesHistory.getMemberName(), salesHistory.getMemberNum(), salesHistory.getTotalAmount(), salesHistory.getDate()});
+            model.addRow(new Object[]{salesHistory.getTransactionID(), salesHistory.getMemberName(),
+                salesHistory.getMemberNum(), salesHistory.getTotalAmount(),
+                salesHistory.getDate()});
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == btn_home) {
             this.setVisible(false);
             salesHistoryController.openMainPage();
@@ -146,12 +150,16 @@ public class SalesHistoryView extends JFrame implements ActionListener {
                     // searchText가 숫자일 경우, getMemberNum과 비교
                     int searchNum = Integer.parseInt(searchText);
                     if (salesHistory.getMemberNum() == searchNum) {
-                        model.addRow(new Object[]{salesHistory.getTransactionID(), salesHistory.getMemberName(), salesHistory.getMemberNum(), salesHistory.getTotalAmount(), salesHistory.getDate()});
+                        model.addRow(new Object[]{salesHistory.getTransactionID(),
+                            salesHistory.getMemberName(), salesHistory.getMemberNum(),
+                            salesHistory.getTotalAmount(), salesHistory.getDate()});
                     }
                 } else {
                     // searchText가 문자열일 경우, getMemberName 비교
                     if (salesHistory.getMemberName().contains(searchText)) {
-                        model.addRow(new Object[]{salesHistory.getTransactionID(), salesHistory.getMemberName(), salesHistory.getMemberNum(), salesHistory.getTotalAmount(), salesHistory.getDate()});
+                        model.addRow(new Object[]{salesHistory.getTransactionID(),
+                            salesHistory.getMemberName(), salesHistory.getMemberNum(),
+                            salesHistory.getTotalAmount(), salesHistory.getDate()});
                     }
                 }
             }
@@ -170,7 +178,8 @@ public class SalesHistoryView extends JFrame implements ActionListener {
                 if (salesHistoryController.refundSalesHistory(transactionID)) {
                     JLabel label = new JLabel("반품되었습니다.");
                     label.setFont(btnFont);
-                    JOptionPane.showMessageDialog(this, label, "반품 완료", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, label, "반품 완료",
+                        JOptionPane.INFORMATION_MESSAGE);
                     loadSalesHistories();
                     searchInput.setForeground(Color.GRAY);
                     searchInput.setText("고객번호, 고객이름");

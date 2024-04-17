@@ -6,30 +6,35 @@ public class ProductService {
 
     private ProductDBRepository productDBRepository;
 
-    ProductService(){
+    ProductService() {
+
         productDBRepository = new ProductDBRepository();
     }
 
-    public ProductResDTO getProduct(int productNum){
-        return new ProductResDTO(productDBRepository.selectProductByID(productNum));
+    public ProductDTO getProduct(int productNum) {
+
+        return productDBRepository.selectProductByID(productNum);
     }
 
-    public ArrayList<ProductResDTO> getProductList(){
+    public ArrayList<ProductResDTO> getProductList() {
+
         return productDBRepository.selectProductList();
     }
 
-    public boolean addProduct(ProductReqDTO productReqDTO){
-        return productDBRepository.insertProduct(productReqDTO);
+    public boolean addProduct(ProductDTO productDTO) {
+
+        return productDBRepository.insertProduct(productDTO);
     }
 
-    public boolean updateProduct(ProductReqDTO productReqDTO){
-        return productDBRepository.updateProduct(productReqDTO);
+    public boolean updateProduct(ProductDTO productDTO) {
+
+        return productDBRepository.updateProduct(productDTO);
     }
 
-    public boolean deleteProduct(int productNum){
+    public boolean deleteProduct(int productNum) {
+
         return productDBRepository.deleteProduct(productNum);
     }
-
 
 
 }

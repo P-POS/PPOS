@@ -94,7 +94,7 @@ public class MemberView extends JFrame implements ActionListener {
 
         // 테이블 구성
         header_renderer = (DefaultTableCellRenderer) tb_member.getTableHeader()
-                .getDefaultRenderer();
+            .getDefaultRenderer();
         header_renderer.setHorizontalAlignment(SwingConstants.CENTER);
         item_renderer.setHorizontalAlignment(SwingConstants.CENTER);
         tb_member.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -144,6 +144,7 @@ public class MemberView extends JFrame implements ActionListener {
                     tf_member.setForeground(Color.BLACK);
                 }
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 // 포커스를 잃었을 때, 텍스트 필드가 비어있다면 placeholder 효과 주기
@@ -166,7 +167,7 @@ public class MemberView extends JFrame implements ActionListener {
         }
 
         public Component getTableCellRendererComponent(JTable table, Object value,
-                                                       boolean isSelected, boolean hasFocus, int row, int column) {
+            boolean isSelected, boolean hasFocus, int row, int column) {
             button = new JButton("삭제");
             button.setContentAreaFilled(false);
             button.setFont(subFont);
@@ -198,7 +199,7 @@ public class MemberView extends JFrame implements ActionListener {
         }
 
         public Component getTableCellEditorComponent(JTable table, Object value,
-                                                     boolean isSelected, int row, int column) {
+            boolean isSelected, int row, int column) {
             this.row = row;
             this.column = column;
             isPushed = true;
@@ -214,7 +215,6 @@ public class MemberView extends JFrame implements ActionListener {
             return super.stopCellEditing();
         }
     }
-
 
 
     @Override
@@ -279,6 +279,7 @@ public class MemberView extends JFrame implements ActionListener {
 }
 
 class NewMemberDialog extends JDialog implements ActionListener {
+
     private JTextField tfName = new JTextField();
     ;
     private JTextField tfNumber = new JTextField();
