@@ -5,7 +5,6 @@ import java.util.Date;
 public class SaleDTO {
 
     Date date;
-    int saleId;
     int totalSale;
     int memberId;
 
